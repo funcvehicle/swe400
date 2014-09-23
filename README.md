@@ -1,11 +1,11 @@
 swe400
 ======
 
-SWE400 Fitness Site Project
+SWE400 Fitness Site Project <br>
 
-Language: Java
+Language: Java <br>
 
-Responsibilities:
+Responsibilities: <br>
 DB Flexmannn - Connor <br>
 Gateways - Myles <br>
 Data Mapper - Hayden <br>
