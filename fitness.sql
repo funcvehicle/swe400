@@ -55,8 +55,10 @@ DROP TABLE IF EXISTS `friends`;
 CREATE TABLE `friends` (
   `personId` bigint(20) NOT NULL DEFAULT '0',
   `friendId` bigint(20) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`personId`,`friendId`),
+  `id` bigint(20) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
   KEY `friendId` (`friendId`),
+  KEY `personId` (`personId`),
   CONSTRAINT `friends_ibfk_1` FOREIGN KEY (`personId`) REFERENCES `people` (`id`),
   CONSTRAINT `friends_ibfk_2` FOREIGN KEY (`friendId`) REFERENCES `people` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -109,8 +111,10 @@ DROP TABLE IF EXISTS `pendingfriends`;
 CREATE TABLE `pendingfriends` (
   `inquirerId` bigint(20) NOT NULL DEFAULT '0',
   `recipientId` bigint(20) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`inquirerId`,`recipientId`),
+  `id` bigint(20) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
   KEY `recipientId` (`recipientId`),
+  KEY `inquirerId` (`inquirerId`),
   CONSTRAINT `pendingfriends_ibfk_1` FOREIGN KEY (`inquirerId`) REFERENCES `people` (`id`),
   CONSTRAINT `pendingfriends_ibfk_2` FOREIGN KEY (`recipientId`) REFERENCES `people` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -158,4 +162,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-09-29 23:28:47
+-- Dump completed on 2014-09-29 23:54:13
