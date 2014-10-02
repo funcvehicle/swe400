@@ -1,6 +1,6 @@
 package domainModel;
 
-public class Person
+public class Person extends DomainObject
 {
 	long id;
 	String userName;

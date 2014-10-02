@@ -1,6 +1,7 @@
 package mapper;
 
 import gateway.PersonGateway;
+import domainModel.DomainObject;
 import domainModel.Person;
 
 /**
@@ -8,7 +9,7 @@ import domainModel.Person;
  * @author Connor Fox
  *
  */
-public class PersonMapper
+public class PersonMapper implements Mapper
 {
 	PersonGateway gate;
 	
@@ -27,8 +28,10 @@ public class PersonMapper
 		return result;
 	}
 	
-	public void update(Person p)
+	@Override
+	public void update(DomainObject o)
 	{
+		Person p = (Person) o;
 		String userName = p.getUserName();
 		String displayName = p.getDisplayName();
 		long id = p.getId();
@@ -36,8 +39,10 @@ public class PersonMapper
 		gate.update(id, userName, displayName);
 	}
 	
-	public void create(Person p)
+	@Override
+	public void insert(DomainObject o)
 	{
+		Person p = (Person) o;
 		String userName = p.getUserName();
 		String displayName = p.getDisplayName();
 		long id = p.getId();
