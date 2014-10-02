@@ -5,28 +5,32 @@ public class Person extends DomainObject
 	long id;
 	String userName;
 	String displayName;
+	String password;
 	
-	public Person(String userName, String displayName)
+	public Person(String userName, String displayName, String password)
 	{
 		this.userName = userName;
 		this.displayName = displayName;
+		this.password = password;
 	}
 
 	public String getUserName()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return userName;
 	}
 
 	public String getDisplayName()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return displayName;
 	}
 
 	public long getId()
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		return id;
+	}
+	
+	public String getPassword()
+	{
+		return password;
 	}
 }

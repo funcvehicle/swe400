@@ -2,6 +2,14 @@ package mapper;
 
 import domainModel.DomainObject;
 
+/**
+ * 
+ * @author Connor Fox
+ *
+ * Database:
+ * lsagroup4.cbzhjl6tpflt.us-east-1.rds.amazonaws.com:3306
+ *
+ */
 public class MapperRegistry
 {
 	static PersonMapper pm;
@@ -17,7 +25,7 @@ public class MapperRegistry
 			m = pm;
 		}
 		
-		else if (c.getName().equals("FriendList"))
+		else if (c.getName().equals("Friend"))
 		{
 			m = fm;
 		}

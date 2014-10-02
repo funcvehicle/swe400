@@ -17,4 +17,11 @@ public class FriendMapper implements Mapper
 		
 	}
 
+	@Override
+	public void delete(DomainObject o)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
 }

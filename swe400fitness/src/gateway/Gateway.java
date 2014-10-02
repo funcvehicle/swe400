@@ -1,6 +1,6 @@
 package gateway;
 
-import mapper.RecordSet;
+import recordSet.RecordSet;
 
 public class Gateway
 {

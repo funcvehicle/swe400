@@ -1,6 +1,6 @@
 package gateway;
 
-import mapper.RecordSet;
+import recordSet.RecordSet;
 
 public class PersonGateway
 {
@@ -18,6 +18,11 @@ public class PersonGateway
 	public void update(long id, String userName, String displayName)
 	{
 		// TODO Auto-generated method stub
+		
+	}
+	
+	public void delete(long id)
+	{
 		
 	}
 }

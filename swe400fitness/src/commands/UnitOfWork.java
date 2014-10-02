@@ -81,6 +81,10 @@ public class UnitOfWork
 		return success;
 	}
 	
+	/**
+	 * TODO: Person insert before friends
+	 * @return
+	 */
 	public boolean insertNew()
 	{
 		boolean success = true;
@@ -98,12 +102,24 @@ public class UnitOfWork
 	{
 		boolean success = true;
 		
+		for (DomainObject o : dirtyObjects)
+		{
+			Mapper mpr = MapperRegistry.getMapper(o.getClass());
+			mpr.update(o);
+		}
+		
 		return success;
 	}
 	
 	public boolean removeDeleted()
 	{
 		boolean success = true;
+		
+		for (DomainObject o : deletedObjects)
+		{
+			Mapper mpr = MapperRegistry.getMapper(o.getClass());
+			mpr.delete(o);
+		}
 		
 		return success;
 	}

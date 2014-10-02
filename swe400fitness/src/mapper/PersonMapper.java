@@ -1,5 +1,6 @@
 package mapper;
 
+import recordSet.RecordSet;
 import gateway.PersonGateway;
 import domainModel.DomainObject;
 import domainModel.Person;
@@ -24,7 +25,8 @@ public class PersonMapper implements Mapper
 	{
 		String userName = rs.getString("username");
 		String displayName = rs.getString("display_name");
-		Person result = new Person(userName, displayName);
+		String password = rs.getString("password");
+		Person result = new Person(userName, displayName, password);
 		return result;
 	}
 	
@@ -48,5 +50,13 @@ public class PersonMapper implements Mapper
 		long id = p.getId();
 		
 		gate.insert(id, userName, displayName);
+	}
+	
+	@Override
+	public void delete(DomainObject o)
+	{
+		Person p = (Person) o;
+		long id = p.getId();
+		gate.delete(id);
 	}
 }
