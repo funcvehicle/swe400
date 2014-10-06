@@ -1,6 +1,6 @@
 package domainModel;
 
-import commands.UnitOfWork;
+import unitOfWork.UnitOfWork;
 
 /**
  * 

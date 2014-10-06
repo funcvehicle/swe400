@@ -1,4 +1,4 @@
-package commands;
+package unitOfWork;
 
 import java.util.ArrayList;
 
@@ -6,6 +6,7 @@ import mapper.Mapper;
 import mapper.MapperRegistry;
 
 import domainModel.DomainObject;
+import domainModel.Person;
 
 /**
  * 
@@ -46,7 +47,7 @@ public class UnitOfWork
 	}
 	
 	public void registerNew(DomainObject object)
-	{
+	{		
 		newObjects.add(object);
 	}
 	
@@ -82,16 +83,27 @@ public class UnitOfWork
 	}
 	
 	/**
-	 * TODO: Person insert before friends
 	 * @return
 	 */
 	public boolean insertNew()
 	{
 		boolean success = true;
+		Mapper mpr;
+		
+		//insert people first
+		for (DomainObject o : newObjects)
+		{
+			if (o.getClass() == Person.class)
+			{
+				mpr = MapperRegistry.getMapper(o.getClass());
+				mpr.insert(o);
+				newObjects.remove(o);
+			}
+		}
 		
 		for (DomainObject o : newObjects)
 		{
-			Mapper mpr = MapperRegistry.getMapper(o.getClass());
+			mpr = MapperRegistry.getMapper(o.getClass());
 			mpr.insert(o);
 		}
 		
@@ -114,10 +126,22 @@ public class UnitOfWork
 	public boolean removeDeleted()
 	{
 		boolean success = true;
+		Mapper mpr;
+		
+		//delete friend records first (foreign key on person)
+		for (DomainObject o : deletedObjects)
+		{
+			if (o.getClass() != Person.class)
+			{
+				mpr = MapperRegistry.getMapper(o.getClass());
+				mpr.delete(o);
+				deletedObjects.remove(o);
+			}
+		}
 		
 		for (DomainObject o : deletedObjects)
 		{
-			Mapper mpr = MapperRegistry.getMapper(o.getClass());
+			mpr = MapperRegistry.getMapper(o.getClass());
 			mpr.delete(o);
 		}
 		

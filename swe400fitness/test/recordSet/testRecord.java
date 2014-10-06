@@ -1,4 +1,4 @@
-package testRecordSet;
+package recordSet;
 
 import static org.junit.Assert.*;
 

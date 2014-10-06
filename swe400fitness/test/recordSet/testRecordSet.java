@@ -1,4 +1,4 @@
-package testRecordSet;
+package recordSet;
 
 
 import org.junit.Test;

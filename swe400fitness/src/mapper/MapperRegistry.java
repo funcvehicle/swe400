@@ -1,6 +1,8 @@
 package mapper;
 
 import domainModel.DomainObject;
+import domainModel.Friend;
+import domainModel.Person;
 
 /**
  * 
@@ -12,27 +14,22 @@ import domainModel.DomainObject;
  */
 public class MapperRegistry
 {
+	//TODO: make registry thread local
 	static PersonMapper pm;
 	static FriendMapper fm;
-	static PendingFriendMapper pfm;
 	
 	public static Mapper getMapper(Class<? extends DomainObject> c)
 	{
 		Mapper m = null;
 		
-		if (c.getName().equals("Person"))
+		if (c == Person.class)
 		{
 			m = pm;
 		}
 		
-		else if (c.getName().equals("Friend"))
+		else if (c == Friend.class)
 		{
 			m = fm;
-		}
-		
-		else if (c.getName().equals("PendingFriendList"))
-		{
-			m = pfm;
 		}
 		
 		return m;

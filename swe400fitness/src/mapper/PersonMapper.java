@@ -1,6 +1,7 @@
 package mapper;
 
 import recordSet.RecordSet;
+import gateway.KeyGateway;
 import gateway.PersonGateway;
 import domainModel.DomainObject;
 import domainModel.Person;
@@ -13,11 +14,13 @@ import domainModel.Person;
 public class PersonMapper implements Mapper
 {
 	PersonGateway gate;
+	KeyGateway keyGen;
 	
 	public Person find(long id)
 	{
 		RecordSet rs = gate.find(id);
 		rs.next();
+		
 		return load(rs);
 	}
 	
@@ -25,8 +28,9 @@ public class PersonMapper implements Mapper
 	{
 		String userName = rs.getString("username");
 		String displayName = rs.getString("display_name");
-		String password = rs.getString("password");
-		Person result = new Person(userName, displayName, password);
+		//String password = rs.getString("password");
+		Person result = new Person(userName, displayName);
+		
 		return result;
 	}
 	
@@ -47,7 +51,8 @@ public class PersonMapper implements Mapper
 		Person p = (Person) o;
 		String userName = p.getUserName();
 		String displayName = p.getDisplayName();
-		long id = p.getId();
+		
+		long id = keyGen.generateKey();
 		
 		gate.insert(id, userName, displayName);
 	}
