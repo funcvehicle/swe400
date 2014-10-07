@@ -11,7 +11,7 @@ public class FriendList extends DomainObject
 {
 	private ArrayList<Friend> listOfFriends;
 	
-	public FriendList(Person person)
+	public FriendList()
 	{
 		listOfFriends = new ArrayList<Friend>();
 	}
@@ -26,7 +26,7 @@ public class FriendList extends DomainObject
 		listOfFriends.remove(friend);
 	}
 
-	public ArrayList<Friend> getFriendsList()
+	public ArrayList<Friend> getListOfFriends()
 	{
 		return listOfFriends;
 	}

@@ -20,6 +20,7 @@ public class Person extends DomainObject
 		this.displayName = displayName;
 		outgoingRequests = new OutgoingRequestsList();
 		incomingRequests = new IncomingRequestsList();
+		myFriends = new FriendList();
 	}
 
 	public void setPassword(String password)
@@ -57,9 +58,9 @@ public class Person extends DomainObject
 		return outgoingRequests;
 	}
 	
-	public void getFriendsList()
+	public FriendList getFriendList()
 	{
-		myFriends.getFriendsList();
+		return myFriends;
 	}
 	
 	public void changePassword(String newPassword)
@@ -89,13 +90,25 @@ public class Person extends DomainObject
 	}
 	
 	/**
+	 * Accept an incoming friend request.
+	 * @param friendAccepted
+	 */
+	public void acceptRequest(Person friendAccepted)
+	{
+		myFriends.addFriend(friendAccepted.asFriend());
+		incomingRequests.removeRequest(friendAccepted.asFriend());
+		
+		friendAccepted.myFriends.addFriend(this.asFriend());
+		friendAccepted.incomingRequests.removeRequest(this.asFriend());
+	}
+	
+	/**
 	 * Create an instance of myself as a friend
 	 * @return
 	 */
 	public Friend asFriend()
 	{
 		return new Friend(this);
-	}
-	
+	}	
 
 }
