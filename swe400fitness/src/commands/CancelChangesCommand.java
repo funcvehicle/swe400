@@ -1,5 +1,7 @@
 package commands;
 
+import unitOfWork.UnitOfWork;
+
 /**
  * Tells the system to cancel any pending changes
  * 
@@ -16,8 +18,8 @@ public class CancelChangesCommand implements Command
 	@Override
 	public void execute()
 	{
-		// TODO Auto-generated method stub
-
+		UnitOfWork work = UnitOfWork.getCurrent();
+		work.clearAll();
 	}
 
 	/**
@@ -29,7 +31,6 @@ public class CancelChangesCommand implements Command
 	@Override
 	public Object getResult()
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 

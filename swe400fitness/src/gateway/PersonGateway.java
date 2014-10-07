@@ -8,6 +8,11 @@ public class PersonGateway
 	{
 		return null;
 	}
+	
+	public RecordSet find(String username)
+	{
+		return null;
+	}
 
 	public void insert(long id, String userName, String displayName)
 	{

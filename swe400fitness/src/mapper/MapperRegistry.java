@@ -14,11 +14,28 @@ import domainModel.Person;
  */
 public class MapperRegistry
 {
-	//TODO: make registry thread local
-	static PersonMapper pm;
-	static FriendMapper fm;
+	public static ThreadLocal<MapperRegistry> current;
 	
-	public static Mapper getMapper(Class<? extends DomainObject> c)
+	//TODO: make registry thread local
+	private PersonMapper pm;
+	private FriendMapper fm;
+	
+	public static MapperRegistry getCurrent()
+	{
+		return current.get();
+	}
+	
+	public static void newCurrent()
+	{
+		setCurrent(new MapperRegistry());
+	}
+	
+	public static void setCurrent(MapperRegistry mr)
+	{
+		current.set(mr);
+	}
+	
+	public Mapper getMapper(Class<? extends DomainObject> c)
 	{
 		Mapper m = null;
 		

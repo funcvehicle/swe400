@@ -31,7 +31,6 @@ public class PersistChangesCommand implements Command
 	@Override
 	public Object getResult()
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 

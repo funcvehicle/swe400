@@ -24,6 +24,14 @@ public class PersonMapper implements Mapper
 		return load(rs);
 	}
 	
+	public Person find(String username)
+	{
+		RecordSet rs = gate.find(username);
+		rs.next();
+		
+		return load(rs);
+	}
+	
 	private Person load(RecordSet rs)
 	{
 		String userName = rs.getString("username");
