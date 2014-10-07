@@ -37,7 +37,6 @@ public class CreateUserCommand implements Command
 	@Override
 	public void execute()
 	{
-		
 		UnitOfWork work = UnitOfWork.getCurrent();
 		MapperRegistry mr = MapperRegistry.getCurrent();
 		Person user = new Person(userName, displayName);

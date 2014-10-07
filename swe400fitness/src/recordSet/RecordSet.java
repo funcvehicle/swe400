@@ -15,13 +15,11 @@ public class RecordSet
 	public RecordSet()
 	{
 		records = new LinkedList<Record>();
-		current = records.iterator().next();
 	}
 	
 	public RecordSet(LinkedList<Record> l)
 	{
 		records = l;
-		current = records.iterator().next();
 	}
 	
 	public void addRecord(Record r)
