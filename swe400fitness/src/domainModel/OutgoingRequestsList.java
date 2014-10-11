@@ -30,6 +30,14 @@ public class OutgoingRequestsList extends DomainObject
 
 	public boolean removeRequest(Friend friend)
 	{
-		return (outgoingRequestsList.remove(friend));
+		for (int i = 0; i < outgoingRequestsList.size(); i++)
+		{
+			if (outgoingRequestsList.get(i).getId() == (friend.getId()))
+			{
+				outgoingRequestsList.remove(i);
+				return true;
+			}
+		}
+		return false;
 	}
 }

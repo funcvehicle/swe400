@@ -96,12 +96,15 @@ public class Person extends DomainObject
 	public boolean acceptRequest(Person friendAccepted)
 	{
 		myFriends.addFriend(friendAccepted.asFriend());
-		incomingRequests.removeRequest(friendAccepted.asFriend());
-		
+		boolean mySuccess = incomingRequests.removeRequest(friendAccepted.asFriend());
+				
 		friendAccepted.myFriends.addFriend(this.asFriend());
-		boolean mySuccess = friendAccepted.outgoingRequests.removeRequest(this.asFriend());
-		
-		return mySuccess;
+		boolean theirSuccess = friendAccepted.outgoingRequests.removeRequest(this.asFriend());
+		if (mySuccess == true && theirSuccess == true)
+		{
+			return true;
+		}
+		return false;
 	}
 	
 	/**
@@ -111,11 +114,14 @@ public class Person extends DomainObject
 	 */
 	public boolean rejectRequest(Person requestor)
 	{
-		boolean mySuccess = incomingRequests.removeRequest(requestor.asFriend());
+		boolean mySuccess = incomingRequests.removeRequest(requestor.asFriend());	
+		boolean theirSuccess = requestor.outgoingRequests.removeRequest(this.asFriend());
 		
-		requestor.outgoingRequests.removeRequest(this.asFriend());
-		
-		return mySuccess;
+		if (mySuccess == true && theirSuccess == true)
+		{
+			return true;
+		}
+		return false;
 	}
 	
 	/**

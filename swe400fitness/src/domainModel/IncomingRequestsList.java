@@ -29,6 +29,14 @@ public class IncomingRequestsList extends DomainObject
 	
 	public boolean removeRequest(Friend friend)
 	{
-		return(incomingRequestsList.remove(friend));
+		for (int i = 0; i < incomingRequestsList.size(); i++)
+		{
+			if (incomingRequestsList.get(i).getId() == (friend.getId()))
+			{
+				incomingRequestsList.remove(i);
+				return true;
+			}
+		}
+		return false;
 	}
 }

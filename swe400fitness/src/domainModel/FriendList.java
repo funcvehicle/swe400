@@ -23,8 +23,15 @@ public class FriendList extends DomainObject
 	
 	public boolean unFriend(Friend friend)
 	{
-//		listOfFriends.remove(friend);
-		return listOfFriends.remove(friend);
+		for (int i = 0; i < listOfFriends.size(); i++)
+		{
+			if (listOfFriends.get(i).getId() == (friend.getId()))
+			{
+				listOfFriends.remove(i);
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public ArrayList<Friend> getListOfFriends()
