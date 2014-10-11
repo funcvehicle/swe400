@@ -27,4 +27,9 @@ public class OutgoingRequestsList extends DomainObject
 	{
 		outgoingRequestsList.add(requestedFriend);
 	}
+
+	public boolean removeRequest(Friend friend)
+	{
+		return (outgoingRequestsList.remove(friend));
+	}
 }

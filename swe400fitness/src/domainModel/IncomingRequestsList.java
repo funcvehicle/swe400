@@ -27,8 +27,8 @@ public class IncomingRequestsList extends DomainObject
 		incomingRequestsList.add(friend);
 	}
 	
-	public void removeRequest(Friend friend)
+	public boolean removeRequest(Friend friend)
 	{
-		incomingRequestsList.remove(friend);
+		return(incomingRequestsList.remove(friend));
 	}
 }
