@@ -144,5 +144,4 @@ public class Person extends DomainObject
 	{
 		return new Friend(this);
 	}	
-	
 }

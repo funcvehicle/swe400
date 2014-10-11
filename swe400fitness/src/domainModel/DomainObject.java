@@ -9,17 +9,17 @@ import unitOfWork.UnitOfWork;
  */
 public class DomainObject
 {
-	protected void markNew()
+	public void markNew()
 	{
 		UnitOfWork.getCurrent().registerNew(this);
 	}
 	
-	protected void markDirty()
+	public void markDirty()
 	{
 		UnitOfWork.getCurrent().registerDirty(this);
 	}
 	
-	protected void markDeleted()
+	public void markDeleted()
 	{
 		UnitOfWork.getCurrent().registerDeleted(this);
 	}
