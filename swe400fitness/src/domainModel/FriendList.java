@@ -16,14 +16,15 @@ public class FriendList extends DomainObject
 		listOfFriends = new ArrayList<Friend>();
 	}
 	
-	public void addFriend(Friend friend)
+	public boolean addFriend(Friend friend)
 	{
-		listOfFriends.add(friend);
+		return listOfFriends.add(friend);
 	}
 	
-	public void unFriend(Friend friend)
+	public boolean unFriend(Friend friend)
 	{
-		listOfFriends.remove(friend);
+//		listOfFriends.remove(friend);
+		return listOfFriends.remove(friend);
 	}
 
 	public ArrayList<Friend> getListOfFriends()

@@ -93,13 +93,27 @@ public class Person extends DomainObject
 	 * Accept an incoming friend request.
 	 * @param friendAccepted
 	 */
-	public void acceptRequest(Person friendAccepted)
+	public boolean acceptRequest(Person friendAccepted)
 	{
-		myFriends.addFriend(friendAccepted.asFriend());
+		boolean mySuccess = myFriends.addFriend(friendAccepted.asFriend());
 		incomingRequests.removeRequest(friendAccepted.asFriend());
 		
 		friendAccepted.myFriends.addFriend(this.asFriend());
 		friendAccepted.incomingRequests.removeRequest(this.asFriend());
+		
+		return mySuccess;
+	}
+	
+	/**
+	 * Unfriend someone
+	 * @param friend
+	 * @return
+	 */
+	public boolean removeFriend(Person friend)
+	{
+		boolean success = myFriends.unFriend(friend.asFriend());
+		friend.myFriends.unFriend(this.asFriend());
+		return success;
 	}
 	
 	/**

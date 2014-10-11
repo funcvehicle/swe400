@@ -8,7 +8,7 @@ public class testPerson
 {
 	
 	@Test
-	public void testAddRequestAndAccept()
+	public void testRequestAFriend()
 	{
 		Person personOne = new Person("myUsername", "Me");
 		Person personTwo = new Person("hisUsername", "Him");
@@ -16,9 +16,22 @@ public class testPerson
 		assertEquals("Me", personTwo.getIncomingRequests().getIncomingRequestsList().get(0).getDisplayName());
 		assertEquals("Him", personOne.getOutgoingRequests().getOutgoingRequestsList().get(0).getDisplayName());
 		
-		personTwo.acceptRequest(personOne);
+
+	}
+	
+	@Test
+	public void testAcceptingAFriend()
+	{
+		Person personOne = new Person("myUsername", "Me");
+		Person personTwo = new Person("hisUsername", "Him");
+		personOne.requestFriend(personTwo);
+
+		assertTrue(personTwo.acceptRequest(personOne));
 		assertEquals("Me", personTwo.getFriendList().getListOfFriends().get(0).getDisplayName());
 		assertEquals("Him", personOne.getFriendList().getListOfFriends().get(0).getDisplayName());
+		
+		assertEquals(null, personOne.getOutgoingRequests().getOutgoingRequestsList().get(0).getDisplayName());
+		assertEquals(null, personTwo.getIncomingRequests().getIncomingRequestsList().get(0).getDisplayName());
 	}
 	
 //	@Test
@@ -29,6 +42,8 @@ public class testPerson
 //		personOne.requestFriend(personTwo);
 //		personTwo.acceptRequest(personOne);
 //		
-//		personOne.removeFriend(personTwo);
+//		assertTrue(personOne.removeFriend(personTwo));
+//		assertNull(personOne.getFriendList().getListOfFriends().get(0).getDisplayName());
+//		assertNull(personTwo.getFriendList().getListOfFriends().get(0).getDisplayName());
 //	}
 }
