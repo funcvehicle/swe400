@@ -51,8 +51,6 @@ public class CreateUserCommand implements Command
 		{
 			System.err.println("ERROR: Cannot create user because username already exists!");
 		}
-		
-		UnitOfWork.getCurrent().commit();
 	}
 
 	/**

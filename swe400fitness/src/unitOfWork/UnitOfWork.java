@@ -17,9 +17,9 @@ public class UnitOfWork
 {
 	public static ThreadLocal<UnitOfWork> current = new ThreadLocal<UnitOfWork>();
 	
-	ArrayList<DomainObject> newObjects;
-	ArrayList<DomainObject> dirtyObjects;
-	ArrayList<DomainObject> deletedObjects;
+	protected ArrayList<DomainObject> newObjects;
+	protected ArrayList<DomainObject> dirtyObjects;
+	protected ArrayList<DomainObject> deletedObjects;
 	
 	public UnitOfWork()
 	{
@@ -53,11 +53,19 @@ public class UnitOfWork
 		current.set(u);
 	}
 	
+	/**
+	 * Add a new uncommitted in-memory object to the new objects array
+	 * @param object
+	 */
 	public void registerNew(DomainObject object)
 	{		
 		newObjects.add(object);
 	}
 	
+	/**
+	 * If the object is not new, and is not already in dirty, add the object to the dirty list
+	 * @param object
+	 */
 	public void registerDirty(DomainObject object)
 	{
 		if (!dirtyObjects.contains(object) && !newObjects.contains(object))
@@ -66,6 +74,10 @@ public class UnitOfWork
 		}
 	}
 	
+	/**
+	 * if the object is new or dirty, remove it - else add to delete list.
+	 * @param object
+	 */
 	public void registerDeleted(DomainObject object)
 	{
 		if (!newObjects.remove(object))
