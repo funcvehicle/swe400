@@ -25,6 +25,7 @@ public class Person extends DomainObject
 
 	public void setPassword(String password)
 	{
+		markDirty();
 		this.password = password;
 	}
 	
@@ -65,6 +66,7 @@ public class Person extends DomainObject
 	
 	public void changePassword(String newPassword)
 	{
+		markDirty();
 		password = newPassword;
 	}
 
