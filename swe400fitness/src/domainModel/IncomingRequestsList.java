@@ -16,14 +16,29 @@ public class IncomingRequestsList extends DomainObject
 	{
 		incomingRequestsList = new ArrayList<Friend>();
 	}
-
-	public void addIncomingRequest(Friend friend)
-	{
-		incomingRequestsList.add(friend);
-	}
 	
 	public ArrayList<Friend> getIncomingRequestsList()
 	{
 		return incomingRequestsList;
+	}
+
+	public void addIncomingRequest(Friend friend)
+	{
+		markDirty();
+		incomingRequestsList.add(friend);
+	}
+	
+	public boolean removeRequest(Friend friend)
+	{
+		markDirty();
+		for (int i = 0; i < incomingRequestsList.size(); i++)
+		{
+			if (incomingRequestsList.get(i).getId() == (friend.getId()))
+			{
+				incomingRequestsList.remove(i);
+				return true;
+			}
+		}
+		return false;
 	}
 }

@@ -16,7 +16,6 @@ public class MapperRegistry
 {
 	public static ThreadLocal<MapperRegistry> current;
 	
-	//TODO: make registry thread local
 	private PersonMapper pm;
 	private FriendMapper fm;
 	

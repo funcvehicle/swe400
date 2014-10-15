@@ -25,6 +25,21 @@ public class OutgoingRequestsList extends DomainObject
 
 	public void addPerson(Friend requestedFriend)
 	{
+		markDirty();
 		outgoingRequestsList.add(requestedFriend);
+	}
+
+	public boolean removeRequest(Friend friend)
+	{
+		markDirty();
+		for (int i = 0; i < outgoingRequestsList.size(); i++)
+		{
+			if (outgoingRequestsList.get(i).getId() == (friend.getId()))
+			{
+				outgoingRequestsList.remove(i);
+				return true;
+			}
+		}
+		return false;
 	}
 }

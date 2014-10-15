@@ -1,5 +1,8 @@
 package commands;
 
+import mapper.MapperRegistry;
+import mapper.PersonMapper;
+import unitOfWork.UnitOfWork;
 import domainModel.Person;
 
 /**
@@ -31,7 +34,30 @@ public class SelectUserCommand implements Command
 	@Override
 	public void execute()
 	{
-		// TODO Auto-generated method stub
+		UnitOfWork work = UnitOfWork.getCurrent();
+		MapperRegistry mr = MapperRegistry.getCurrent();
+		PersonMapper pm = (PersonMapper) mr.getMapper(Person.class);
+		Person user = pm.find(userName);
+		
+		//Check user exists
+		if (user != null)
+		{
+			//Check password
+			if (user.getPassword().equals(password))
+			{
+				//identity map.currentUser = user;
+			}
+			
+			else
+			{
+				System.err.println("Invalid password.");
+			}
+		}
+		
+		else
+		{
+			System.err.println("Invalid username.");
+		}
 	}
 
 	/**

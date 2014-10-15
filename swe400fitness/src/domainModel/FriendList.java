@@ -11,22 +11,32 @@ public class FriendList extends DomainObject
 {
 	private ArrayList<Friend> listOfFriends;
 	
-	public FriendList(Person person)
+	public FriendList()
 	{
 		listOfFriends = new ArrayList<Friend>();
 	}
 	
-	public void addFriend(Friend friend)
+	public boolean addFriend(Friend friend)
 	{
-		listOfFriends.add(friend);
+		markDirty();
+		return listOfFriends.add(friend);
 	}
 	
-	public void unFriend(Friend friend)
+	public boolean unFriend(Friend friend)
 	{
-		listOfFriends.remove(friend);
+		markDirty();
+		for (int i = 0; i < listOfFriends.size(); i++)
+		{
+			if (listOfFriends.get(i).getId() == (friend.getId()))
+			{
+				listOfFriends.remove(i);
+				return true;
+			}
+		}
+		return false;
 	}
 
-	public ArrayList<Friend> getFriendsList()
+	public ArrayList<Friend> getListOfFriends()
 	{
 		return listOfFriends;
 	}

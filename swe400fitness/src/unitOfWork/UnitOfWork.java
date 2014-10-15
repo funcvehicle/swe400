@@ -21,11 +21,18 @@ public class UnitOfWork
 	ArrayList<DomainObject> dirtyObjects;
 	ArrayList<DomainObject> deletedObjects;
 	
+	public UnitOfWork()
+	{
+		newObjects = new ArrayList<DomainObject>();
+		dirtyObjects = new ArrayList<DomainObject>();
+		deletedObjects = new ArrayList<DomainObject>();
+	}
+	
 	/**
 	 * @return The UnitOfWork object for the current thread.
 	 */
 	public static UnitOfWork getCurrent()
-	{
+	{		
 		return current.get();
 	}
 	

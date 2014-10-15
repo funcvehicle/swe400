@@ -6,7 +6,6 @@ package domainModel;
  */
 public class Person extends DomainObject
 {
-	private long id;
 	private String userName;
 	private String displayName;
 	private String password;
@@ -20,10 +19,12 @@ public class Person extends DomainObject
 		this.displayName = displayName;
 		outgoingRequests = new OutgoingRequestsList();
 		incomingRequests = new IncomingRequestsList();
+		myFriends = new FriendList();
 	}
 
 	public void setPassword(String password)
 	{
+		markDirty();
 		this.password = password;
 	}
 	
@@ -35,11 +36,6 @@ public class Person extends DomainObject
 	public String getDisplayName()
 	{
 		return displayName;
-	}
-
-	public long getId()
-	{
-		return id;
 	}
 	
 	public String getPassword()
@@ -57,13 +53,14 @@ public class Person extends DomainObject
 		return outgoingRequests;
 	}
 	
-	public void getFriendsList()
+	public FriendList getFriendList()
 	{
-		myFriends.getFriendsList();
+		return myFriends;
 	}
 	
 	public void changePassword(String newPassword)
 	{
+		markDirty();
 		password = newPassword;
 	}
 
@@ -89,13 +86,58 @@ public class Person extends DomainObject
 	}
 	
 	/**
+	 * Accept an incoming friend request.
+	 * @param friendAccepted
+	 */
+	public boolean acceptRequest(Person friendAccepted)
+	{
+		myFriends.addFriend(friendAccepted.asFriend());
+		boolean mySuccess = incomingRequests.removeRequest(friendAccepted.asFriend());
+				
+		friendAccepted.myFriends.addFriend(this.asFriend());
+		boolean theirSuccess = friendAccepted.outgoingRequests.removeRequest(this.asFriend());
+		if (mySuccess == true && theirSuccess == true)
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Reject an incoming friend request
+	 * @param requestor
+	 * @return
+	 */
+	public boolean rejectRequest(Person requestor)
+	{
+		boolean mySuccess = incomingRequests.removeRequest(requestor.asFriend());	
+		boolean theirSuccess = requestor.outgoingRequests.removeRequest(this.asFriend());
+		
+		if (mySuccess == true && theirSuccess == true)
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Unfriend someone
+	 * @param friend
+	 * @return
+	 */
+	public boolean removeFriend(Person friend)
+	{
+		boolean success = myFriends.unFriend(friend.asFriend());
+		friend.myFriends.unFriend(this.asFriend());
+		return success;
+	}
+	
+	/**
 	 * Create an instance of myself as a friend
 	 * @return
 	 */
 	public Friend asFriend()
 	{
 		return new Friend(this);
-	}
-	
-
+	}	
 }
