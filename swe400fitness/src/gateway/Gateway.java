@@ -65,17 +65,16 @@ public abstract class Gateway
 				return checkPeople(set, params);
 			case "pendingFriends":
 				return checkPendingFriends(set, params);
+			default:
+				return SQLEnum.FAILED_BAD_PARAMS;
 			}
 
 		} 
 		catch (SQLException e)
 		{
 			System.err.println("Error: " + e.getMessage());
-			return SQLEnum.EXISTS;
+			return SQLEnum.FAILED_SQL_ERROR;
 		}
-		
-		
-		return SQLEnum.DOES_NOT_EXIST;
 	}
 	private SQLEnum checkPendingFriends(ResultSet set, String[] params) throws SQLException {
 		while(set.next())

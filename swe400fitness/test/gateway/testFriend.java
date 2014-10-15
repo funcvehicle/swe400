@@ -20,13 +20,13 @@ public class testFriend {
 	public void testCreateFindExistsAndDelete() {
 		
 		assertFalse(friendGateway.create("ecksfuckindee", "mydik") == SQLEnum.FAILED_SQL_ERROR);
-		assertTrue(friendGateway.find("ecksfuckindee").isEmpty());
+		assertFalse(friendGateway.find("ecksfuckindee") instanceof NullSet);
 		assertFalse(friendGateway.delete("ecksfuckindee", "mydik") == SQLEnum.FAILED_SQL_ERROR);
 	}
 	@Test
 	public void testFindDoesNotExist()
 	{
-		assertTrue(friendGateway.find("inval!d").isEmpty());
+		assertTrue(friendGateway.find("inval!d") instanceof NullSet);
 	}
 	@Test
 	public void createAlreadyExists()

@@ -55,26 +55,26 @@ public class FriendGateway extends Gateway
 	 * @param userName
 	 * @return RecordSet of all friendships (pending or established) for a a given username
 	 */
-	public RecordSet find(String userName)
+	public ResultSet find(String userName)
 	{
 		establishConnection();
 		connection = getConnection();
 		try{
 			Statement select = (Statement) connection.createStatement();
 			ResultSet results = select.executeQuery(friendTableQuery+userName);
-			RecordSet returnSet = new RecordSet();
+			/*RecordSet returnSet = new RecordSet();
 			while(results.next())
 			{
 				Record temp = new Record();
 				temp.put("friendShip", results);
 				returnSet.addRecord(temp);
 				
-			}
+			}*/
 			closeConnection();
-			return returnSet;
+			return results;
 		} catch (SQLException e){
 			closeConnection();
-			return new RecordSet();
+			return new NullSet();
 		}
 		
 		
@@ -88,6 +88,7 @@ public class FriendGateway extends Gateway
 	public SQLEnum delete(String userName, String friendName) {
 		
 		establishConnection();
+		//Add id resolutions here
 		Connection connection = getConnection();
 		try {
 			Statement delete = (Statement) connection.createStatement();
@@ -117,6 +118,7 @@ public class FriendGateway extends Gateway
 	public SQLEnum confirmFriendship(String userName, String friendName){
 		establishConnection();
 		Connection connection = getConnection();
+		//Add id resolutions here
 		try{
 			Statement pendingStatement = (Statement) connection.createStatement();
 			Statement friendStatement = (Statement) connection.createStatement();
