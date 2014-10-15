@@ -2,14 +2,23 @@ package domainModel;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
+
+import unitOfWork.UnitOfWork;
 
 public class testPerson
 {
+	@Before
+	public void init()
+	{
+		UnitOfWork.newCurrent();
+	}
 	
 	@Test
 	public void testRequestAFriend()
 	{
+		
 		Person personOne = new Person("myUsername", "Me");
 		Person personTwo = new Person("hisUsername", "Him");
 		personOne.requestFriend(personTwo);

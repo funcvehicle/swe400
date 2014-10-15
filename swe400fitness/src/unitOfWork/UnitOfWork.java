@@ -32,7 +32,7 @@ public class UnitOfWork
 	 * @return The UnitOfWork object for the current thread.
 	 */
 	public static UnitOfWork getCurrent()
-	{
+	{		
 		return current.get();
 	}
 	

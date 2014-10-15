@@ -6,7 +6,6 @@ package domainModel;
  */
 public class Person extends DomainObject
 {
-	private long id;
 	private String userName;
 	private String displayName;
 	private String password;
@@ -37,11 +36,6 @@ public class Person extends DomainObject
 	public String getDisplayName()
 	{
 		return displayName;
-	}
-
-	public long getId()
-	{
-		return id;
 	}
 	
 	public String getPassword()
