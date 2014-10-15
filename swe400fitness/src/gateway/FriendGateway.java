@@ -5,9 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.mysql.jdbc.*;
-
-import recordSet.Record;
-import recordSet.RecordSet;
 /**
  * 
  * @author mb8542

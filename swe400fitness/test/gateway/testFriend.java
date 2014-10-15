@@ -5,12 +5,10 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import recordSet.RecordSet;
 
 public class testFriend {
 
 	FriendGateway friendGateway;
-	RecordSet dummySet;
 	@Before
 	public void setUp()
 	{

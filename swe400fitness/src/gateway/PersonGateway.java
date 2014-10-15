@@ -1,15 +1,16 @@
 package gateway;
 
-import recordSet.RecordSet;
+import java.sql.ResultSet;
+
 
 public class PersonGateway
 {
-	public RecordSet find(long id)
+	public ResultSet find(long id)
 	{
 		return null;
 	}
 	
-	public RecordSet find(String username)
+	public ResultSet find(String username)
 	{
 		return null;
 	}
