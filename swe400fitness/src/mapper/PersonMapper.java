@@ -18,11 +18,6 @@ public class PersonMapper implements Mapper
 	PersonGateway gate;
 	KeyGateway keyGen;
 	
-	public PersonMapper(PersonGateway gate)
-	{
-		gate = new PersonGateway();
-	}
-	
 	public Person find(long id)
 	{
 		ResultSet rs = gate.find(id);
@@ -83,12 +78,11 @@ public class PersonMapper implements Mapper
 	{
 		Person p = (Person) o;
 		String userName = p.getUserName();
-		String password = p.getPassword();
 		String displayName = p.getDisplayName();
 		
 		long id = keyGen.generateKey();
 		
-		gate.insert(id, userName, displayName, password);
+		gate.insert(id, userName, displayName);
 	}
 	
 	@Override
