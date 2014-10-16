@@ -1,5 +1,7 @@
 package mapper;
 
+import gateway.FriendGateway;
+import gateway.PersonGateway;
 import domainModel.DomainObject;
 import domainModel.Friend;
 import domainModel.Person;
@@ -14,10 +16,16 @@ import domainModel.Person;
  */
 public class MapperRegistry
 {
-	public static ThreadLocal<MapperRegistry> current;
+	public static ThreadLocal<MapperRegistry> current = new ThreadLocal<MapperRegistry>();
 	
-	private PersonMapper pm;
-	private FriendMapper fm;
+	protected PersonMapper pm;
+	protected FriendMapper fm;
+	
+	public MapperRegistry()
+	{
+		pm = new PersonMapper(new PersonGateway());
+		fm = new FriendMapper(new FriendGateway());
+	}
 	
 	public static MapperRegistry getCurrent()
 	{

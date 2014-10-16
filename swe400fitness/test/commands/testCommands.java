@@ -3,6 +3,7 @@ package commands;
 import static org.junit.Assert.*;
 
 import mapper.MapperRegistry;
+import mockClasses.MockMapperRegistry;
 import mockClasses.MockUnitOfWork;
 
 import org.junit.Before;
@@ -16,7 +17,7 @@ public class testCommands
 	public void init()
 	{
 		MockUnitOfWork.newCurrent();
-		MapperRegistry.newCurrent();
+		MapperRegistry.setCurrent(new MockMapperRegistry());
 	}
 	
 	@Test
