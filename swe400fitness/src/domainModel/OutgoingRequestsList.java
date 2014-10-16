@@ -18,6 +18,17 @@ public class OutgoingRequestsList extends DomainObject
 		outgoingRequestsList = new ArrayList<Friend>();
 	}
 	
+	public String toString()
+	{
+		String list = "";
+		for (Friend f : outgoingRequestsList)
+		{
+			list += f.toString() + " ";
+		}
+		
+		return list;
+	}
+	
 	public ArrayList<Friend> getOutgoingRequestsList()
 	{
 		return outgoingRequestsList;

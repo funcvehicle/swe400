@@ -15,8 +15,6 @@ public class testPerson
 		personOne.requestFriend(personTwo);
 		assertEquals("Me", personTwo.getIncomingRequests().getIncomingRequestsList().get(0).getDisplayName());
 		assertEquals("Him", personOne.getOutgoingRequests().getOutgoingRequestsList().get(0).getDisplayName());
-		
-
 	}
 	
 	@Test

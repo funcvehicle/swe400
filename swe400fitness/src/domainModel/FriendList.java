@@ -16,6 +16,17 @@ public class FriendList extends DomainObject
 		listOfFriends = new ArrayList<Friend>();
 	}
 	
+	public String toString()
+	{
+		String list = "";
+		for (Friend f : listOfFriends)
+		{
+			list += f.toString() + " ";
+		}
+		
+		return list;
+	}
+	
 	public boolean addFriend(Friend friend)
 	{
 		return listOfFriends.add(friend);
