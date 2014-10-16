@@ -1,30 +1,51 @@
 package mapper;
 
 import domainModel.DomainObject;
+import domainModel.Friend;
+import domainModel.Person;
 
+/**
+ * 
+ * @author Connor Fox
+ *
+ * Database:
+ * lsagroup4.cbzhjl6tpflt.us-east-1.rds.amazonaws.com:3306
+ *
+ */
 public class MapperRegistry
 {
-	static PersonMapper pm;
-	static FriendMapper fm;
-	static PendingFriendMapper pfm;
+	public static ThreadLocal<MapperRegistry> current;
 	
-	public static Mapper getMapper(Class<? extends DomainObject> c)
+	private PersonMapper pm;
+	private FriendMapper fm;
+	
+	public static MapperRegistry getCurrent()
+	{
+		return current.get();
+	}
+	
+	public static void newCurrent()
+	{
+		setCurrent(new MapperRegistry());
+	}
+	
+	public static void setCurrent(MapperRegistry mr)
+	{
+		current.set(mr);
+	}
+	
+	public Mapper getMapper(Class<? extends DomainObject> c)
 	{
 		Mapper m = null;
 		
-		if (c.getName().equals("Person"))
+		if (c == Person.class)
 		{
 			m = pm;
 		}
 		
-		else if (c.getName().equals("FriendList"))
+		else if (c == Friend.class)
 		{
 			m = fm;
-		}
-		
-		else if (c.getName().equals("PendingFriendList"))
-		{
-			m = pfm;
 		}
 		
 		return m;

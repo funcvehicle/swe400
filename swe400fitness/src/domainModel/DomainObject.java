@@ -1,6 +1,6 @@
 package domainModel;
 
-import commands.UnitOfWork;
+import unitOfWork.UnitOfWork;
 
 /**
  * 
@@ -9,18 +9,30 @@ import commands.UnitOfWork;
  */
 public class DomainObject
 {
-	protected void markNew()
+	long id;
+	
+	public void markNew()
 	{
 		UnitOfWork.getCurrent().registerNew(this);
 	}
 	
-	protected void markDirty()
+	public void markDirty()
 	{
 		UnitOfWork.getCurrent().registerDirty(this);
 	}
 	
-	protected void markDeleted()
+	public void markDeleted()
 	{
 		UnitOfWork.getCurrent().registerDeleted(this);
+	}
+	
+	public long getId()
+	{
+		return id;
+	}
+	
+	public void setId(long id)
+	{
+		this.id = id;
 	}
 }
