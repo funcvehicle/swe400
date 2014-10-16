@@ -17,6 +17,17 @@ public class IncomingRequestsList extends DomainObject
 		incomingRequestsList = new ArrayList<Friend>();
 	}
 	
+	public String toString()
+	{
+		String list = "";
+		for (Friend f : incomingRequestsList)
+		{
+			list += f.toString() + " ";
+		}
+		
+		return list;
+	}
+	
 	public ArrayList<Friend> getIncomingRequestsList()
 	{
 		return incomingRequestsList;

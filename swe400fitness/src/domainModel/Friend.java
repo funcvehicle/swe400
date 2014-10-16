@@ -14,6 +14,11 @@ public class Friend extends DomainObject
 		displayName = friend.getDisplayName();
 	}
 
+	public String toString()
+	{
+		return displayName;
+	}
+	
 	public String getDisplayName()
 	{
 		return displayName;

@@ -22,6 +22,11 @@ public class Person extends DomainObject
 		myFriends = new FriendList();
 	}
 
+	public String toString()
+	{
+		return (userName + ":" + password + ":" + displayName);
+	}
+	
 	public void setPassword(String password)
 	{
 		markDirty();
@@ -96,7 +101,7 @@ public class Person extends DomainObject
 				
 		friendAccepted.myFriends.addFriend(this.asFriend());
 		boolean theirSuccess = friendAccepted.outgoingRequests.removeRequest(this.asFriend());
-		if (mySuccess == true && theirSuccess == true)
+		if (mySuccess && theirSuccess == true)
 		{
 			return true;
 		}
@@ -113,7 +118,7 @@ public class Person extends DomainObject
 		boolean mySuccess = incomingRequests.removeRequest(requestor.asFriend());	
 		boolean theirSuccess = requestor.outgoingRequests.removeRequest(this.asFriend());
 		
-		if (mySuccess == true && theirSuccess == true)
+		if (mySuccess && theirSuccess == true)
 		{
 			return true;
 		}
@@ -127,9 +132,13 @@ public class Person extends DomainObject
 	 */
 	public boolean removeFriend(Person friend)
 	{
-		boolean success = myFriends.unFriend(friend.asFriend());
-		friend.myFriends.unFriend(this.asFriend());
-		return success;
+		boolean mySuccess = myFriends.unFriend(friend.asFriend());
+		boolean theirSuccess = friend.myFriends.unFriend(this.asFriend());
+		if (mySuccess && theirSuccess == true)
+		{
+			return true;
+		}
+		return false;
 	}
 	
 	/**
