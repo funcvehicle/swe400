@@ -1,6 +1,9 @@
 package gateway;
 
 import static org.junit.Assert.*;
+import gateway.FriendGateway;
+import gateway.NullSet;
+import gateway.SQLEnum;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,20 +20,20 @@ public class testFriend {
 	@Test
 	public void testCreateFindExistsAndDelete() {
 		
-		assertFalse(friendGateway.create("ecksfuckindee", "mydik") == SQLEnum.FAILED_SQL_ERROR);
-		assertFalse(friendGateway.find("ecksfuckindee") instanceof NullSet);
-		assertFalse(friendGateway.delete("ecksfuckindee", "mydik") == SQLEnum.FAILED_SQL_ERROR);
+		assertFalse(friendGateway.create(1, 2) == SQLEnum.FAILED_SQL_ERROR);
+		assertFalse(friendGateway.find(1) instanceof NullSet);
+		assertFalse(friendGateway.delete(1, 2) == SQLEnum.FAILED_SQL_ERROR);
 	}
 	@Test
 	public void testFindDoesNotExist()
 	{
-		assertTrue(friendGateway.find("inval!d") instanceof NullSet);
+		assertTrue(friendGateway.find(-1) instanceof NullSet);
 	}
 	@Test
 	public void createAlreadyExists()
 	{
-		friendGateway.create("ecksfuckindee", "mydik");
-		assertTrue(friendGateway.create("ecksfuckindee", "mydik") == SQLEnum.EXISTS);
+		friendGateway.create(1, 2);
+		assertTrue(friendGateway.create(1, 2) == SQLEnum.EXISTS);
 	}
 
 }
