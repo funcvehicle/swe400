@@ -14,7 +14,7 @@ public class FriendGateway extends Gateway
 {
 	
 	private Connection connection;
-	private String friendTableQuery = "SELECT * FROM friends WHERE userName=";
+	private String friendTableQuery = "SELECT * FROM friends WHERE userId=";
 	public FriendGateway()
 	{
 		
@@ -25,13 +25,13 @@ public class FriendGateway extends Gateway
 	 * @param friendID
 	 * @return SQLEnum
 	 */
-	public SQLEnum create(String personID, String friendID) {
+	public SQLEnum create(long personID, long friendID) {
 		establishConnection();
 		connection = getConnection();
 		String[] params = new String[3];
 		params[0] = "friends";
-		params[1] = personID;
-		params[2] = friendID;
+		params[1] = (new Long(personID)).toString();
+		params[2] = (new Long(friendID)).toString();
 		if(recordExists(params) == SQLEnum.DOES_NOT_EXIST)
 		{
 			try {
@@ -48,17 +48,17 @@ public class FriendGateway extends Gateway
 		return SQLEnum.SUCCESS;
 	}
 	/**
-	 * Find all friendships/pending friendships for a username
-	 * @param userName
-	 * @return RecordSet of all friendships (pending or established) for a a given username
+	 * Find all friendships/pending friendships for a userId
+	 * @param userId
+	 * @return RecordSet of all friendships (pending or established) for a a given userId
 	 */
-	public ResultSet find(String userName)
+	public ResultSet find(long id)
 	{
 		establishConnection();
 		connection = getConnection();
 		try{
 			Statement select = (Statement) connection.createStatement();
-			ResultSet results = select.executeQuery(friendTableQuery+userName);
+			ResultSet results = select.executeQuery(friendTableQuery+id);
 			/*RecordSet returnSet = new RecordSet();
 			while(results.next())
 			{
@@ -78,23 +78,23 @@ public class FriendGateway extends Gateway
 	}
 	/**
 	 * Deletes a user's friendship with another user or all of the user's friendships
-	 * @param userName the user's unique username
-	 * @param friendName if this is null all of the user's friendships will be deleted
+	 * @param userId the user's unique userId
+	 * @param friendId if this is -1 all of the user's friendships will be deleted
 	 * @return SQLEnum denoting success/failure
 	 */
-	public SQLEnum delete(String userName, String friendName) {
+	public SQLEnum delete(long userId, long friendId) {
 		
 		establishConnection();
 		//Add id resolutions here
 		Connection connection = getConnection();
 		try {
 			Statement delete = (Statement) connection.createStatement();
-			if(friendName == null)
+			if(friendId == -1)
 			{
-				delete.execute("DELETE FROM friends WHERE userName="+userName);
+				delete.execute("DELETE FROM friends WHERE userId="+userId);
 			}else
 			{
-				delete.execute("DELETE FROM friends WHERE userName="+userName+" AND friendName="+friendName);
+				delete.execute("DELETE FROM friends WHERE userId="+userId+" AND friendId="+friendId);
 			}
 		} catch (SQLException e) {
 			closeConnection();
@@ -108,19 +108,19 @@ public class FriendGateway extends Gateway
 	/**
 	 * Confirms a pending friendship by deleting it from the pendingFriends table
 	 * and adding it to the friends table
-	 * @param userName
-	 * @param friendName
+	 * @param userId
+	 * @param friendId
 	 * @return SQLEnum denoting success/failure
 	 */
-	public SQLEnum confirmFriendship(String userName, String friendName){
+	public SQLEnum confirmFriendship(long userId, long friendId){
 		establishConnection();
 		Connection connection = getConnection();
 		//Add id resolutions here
 		try{
 			Statement pendingStatement = (Statement) connection.createStatement();
 			Statement friendStatement = (Statement) connection.createStatement();
-			pendingStatement.execute("DELETE FROM pendingFriends WHERE userName="+userName+" AND friendName="+friendName);
-			friendStatement.execute("INSERT INTO friends (userName,friendName) VALUES ('"+userName+"','"+friendName+"')");
+			pendingStatement.execute("DELETE FROM pendingFriends WHERE userId="+userId+" AND friendId="+friendId);
+			friendStatement.execute("INSERT INTO friends (userId,friendId) VALUES ('"+userId+"','"+friendId+"')");
 			closeConnection();
 			return SQLEnum.SUCCESS;
 		}catch(SQLException e){

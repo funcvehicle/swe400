@@ -147,6 +147,6 @@ public class Person extends DomainObject
 	 */
 	public Friend asFriend()
 	{
-		return new Friend(this);
+		return new Friend(this,this.id);
 	}	
 }

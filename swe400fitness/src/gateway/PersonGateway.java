@@ -106,7 +106,9 @@ public class PersonGateway extends Gateway
 		connection = getConnection();
 		try {
 			Statement deleteStatement = (Statement) connection.createStatement();
-			deleteStatement.execute("DELETE FROM people WHERE id="+id);
+			if(!deleteStatement.execute("DELETE FROM people WHERE id="+id)){
+				return SQLEnum.DOES_NOT_EXIST;
+			}
 		} catch (SQLException e) {
 			closeConnection();
 			return SQLEnum.FAILED_SQL_ERROR;

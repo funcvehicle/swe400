@@ -7,9 +7,11 @@ package domainModel;
 public class Friend extends DomainObject
 {
 	String displayName;
+	long ourId;
 	
-	public Friend(Person friend)
+	public Friend(Person friend, long id)
 	{
+		this.ourId = id;
 		id = friend.getId();
 		displayName = friend.getDisplayName();
 	}
@@ -22,5 +24,9 @@ public class Friend extends DomainObject
 	public String getDisplayName()
 	{
 		return displayName;
+	}
+	public long getCurrentUserID()
+	{
+		return this.ourId;
 	}
 }
