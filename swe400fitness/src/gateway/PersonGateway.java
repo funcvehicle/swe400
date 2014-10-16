@@ -12,6 +12,11 @@ public class PersonGateway extends Gateway
 	private Connection connection;
 	private String queryStringByID = "SELECT * FROM people WHERE id=";
 	private String queryStringByUserName = "SELECT * FROM people WHERE userName=";
+	/**
+	 * Find a person by their unique ID
+	 * @param id
+	 * @return ResultSet containing one row from the people table
+	 */
 	public ResultSet find(long id)
 	{
 		establishConnection();
@@ -23,7 +28,6 @@ public class PersonGateway extends Gateway
 			closeConnection();
 			return results;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -31,7 +35,11 @@ public class PersonGateway extends Gateway
 		return new NullSet();
 		
 	}
-	
+	/**
+	 * Find a user by their unique username
+	 * @param userName
+	 * @return ResultSet containing one row from the people table
+	 */
 	public ResultSet find(String userName)
 	{
 		establishConnection();
@@ -43,15 +51,20 @@ public class PersonGateway extends Gateway
 			closeConnection();
 			return results;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		closeConnection();
 		return new NullSet();
 	}
-
-	public SQLEnum insert(long id, String userName, String displayName)
+/**
+ * Inserts one user into the people table
+ * @param id
+ * @param userName
+ * @param displayName
+ * @return
+ */
+	public SQLEnum insert(long id, String userName, String displayName, String password)
 	{
 		establishConnection();
 		connection = getConnection();
@@ -62,7 +75,7 @@ public class PersonGateway extends Gateway
 		{
 			try {
 				Statement insert = (Statement) connection.createStatement();
-				insert.executeUpdate("INSERT INTO people (id,userName,displayName) VALUES ('"+id+"','"+userName+"','"+displayName+"')");
+				insert.executeUpdate("INSERT INTO people (id,userName,displayName,password) VALUES ('"+id+"','"+userName+"','"+displayName+"','"+password+"')");
 			} catch (SQLException e) {
 				closeConnection();
 				return SQLEnum.FAILED_SQL_ERROR;

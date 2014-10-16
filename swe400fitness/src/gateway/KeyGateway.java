@@ -7,7 +7,11 @@ import java.sql.ResultSet;
 
 public class KeyGateway extends Gateway
 {
-	
+	/**
+	 * Increments the current key in the DB
+	 * @param connection used for performing the SQL ops
+	 * @param current the current key
+	 */
 	private void incrementKey(Connection connection,long current)
 	{
 		try {
@@ -18,6 +22,11 @@ public class KeyGateway extends Gateway
 			System.err.println("Couldn't get the key!");
 		}
 	}
+	/**
+	 * Gets the current unique key
+	 * @param connection
+	 * @return the current unique key
+	 */
 	private long getCurrentKey(Connection connection)
 	{
 		Statement statement;
@@ -27,13 +36,18 @@ public class KeyGateway extends Gateway
 			ResultSet results = statement.executeQuery("SELECT * FROM keytable");
 			long returnMe = results.getLong("key");
 			incrementKey(connection, returnMe);
+			closeConnection();
 			return returnMe;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			closeConnection();
 			e.printStackTrace();
 		} 
 		return -1;
 	}
+	/**
+	 * Generate a new key to be used in the next layer
+	 * @return the newest unique ID
+	 */
 	public long generateKey()
 	{
 		establishConnection();

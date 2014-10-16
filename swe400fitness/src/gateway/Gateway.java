@@ -20,7 +20,9 @@ public abstract class Gateway
 	private String userName = "cf0320";
 	private String passWord = "solidsnake456";
 	private Connection connection;
-
+	/**
+	 * Establish a connection to the DB
+	 */
 	protected void establishConnection(){
 		try
 		{
@@ -40,6 +42,9 @@ public abstract class Gateway
 			System.err.println("Failed to connect: " + e.getMessage());
 		}
 	}
+	/**
+	 * Close the current connection
+	 */
 	protected void closeConnection()
 	{
 		try {
@@ -48,6 +53,11 @@ public abstract class Gateway
 			System.err.println("Could not close connection: " + e.getMessage());
 		}
 	}
+	/**
+	 * Check to see if a record exists in the any table
+	 * @param params an array of strings, the first element params[0] is the table and params[1] is the primary key
+	 * @return SQLEnum denoting existence or non-existence
+	 */
 	protected SQLEnum recordExists(String[] params)
 	{
 		
@@ -75,6 +85,13 @@ public abstract class Gateway
 			return SQLEnum.FAILED_SQL_ERROR;
 		}
 	}
+	/**
+	 * Check the pending friends table for a record
+	 * @param set
+	 * @param params
+	 * @return
+	 * @throws SQLException
+	 */
 	private SQLEnum checkPendingFriends(ResultSet set, String[] params) throws SQLException {
 		while(set.next())
 		{
@@ -85,6 +102,13 @@ public abstract class Gateway
 		}
 		return SQLEnum.DOES_NOT_EXIST;
 	}
+	/**
+	 * Check the people table for ar ecord
+	 * @param set
+	 * @param params
+	 * @return
+	 * @throws SQLException
+	 */
 	private SQLEnum checkPeople(ResultSet set, String[] params) throws SQLException {
 		while(set.next())
 		{
@@ -96,6 +120,13 @@ public abstract class Gateway
 		return SQLEnum.DOES_NOT_EXIST;
 		
 	}
+	/**
+	 * Check the friends table for a record
+	 * @param set
+	 * @param params
+	 * @return
+	 * @throws SQLException
+	 */
 	private SQLEnum checkFriends(ResultSet set, String[] params) throws SQLException {
 		while(set.next())
 		{
@@ -107,10 +138,19 @@ public abstract class Gateway
 		return SQLEnum.DOES_NOT_EXIST;
 		
 	}
+	/**
+	 * Get a basic query string
+	 * @param params
+	 * @return
+	 */
 	private String getQueryString(String[] params)
 	{
 		return "SELECT * FROM " + params[0];
 	}
+	/**
+	 * Return the current connection
+	 * @return
+	 */
 	public Connection getConnection() {
 		return this.connection;
 	}
