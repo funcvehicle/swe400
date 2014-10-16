@@ -37,24 +37,20 @@ public class CreateUserCommand implements Command
 	@Override
 	public void execute()
 	{
-		UnitOfWork work = UnitOfWork.getCurrent();
 		MapperRegistry mr = MapperRegistry.getCurrent();
 		Person user = new Person(userName, displayName);
 		PersonMapper pm = (PersonMapper) mr.getMapper(user.getClass());
 		
 		//Check that the user does not already exist in database 
-		//Should we do this now or during commit?
 		if (pm.find(userName) == null)
 		{
-			work.registerNew(user);
+			user.markNew();
 		}
 		
 		else
 		{
 			System.err.println("ERROR: Cannot create user because username already exists!");
 		}
-		
-		//Commit after each command?
 	}
 
 	/**

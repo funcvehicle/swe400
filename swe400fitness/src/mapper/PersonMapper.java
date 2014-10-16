@@ -1,6 +1,8 @@
 package mapper;
 
-import recordSet.RecordSet;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import gateway.KeyGateway;
 import gateway.PersonGateway;
 import domainModel.DomainObject;
@@ -18,28 +20,46 @@ public class PersonMapper implements Mapper
 	
 	public Person find(long id)
 	{
-		RecordSet rs = gate.find(id);
-		rs.next();
+		ResultSet rs = gate.find(id);
+		try {
+			rs.next();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		return load(rs);
 	}
 	
 	public Person find(String username)
 	{
-		RecordSet rs = gate.find(username);
-		rs.next();
+		ResultSet rs = gate.find(username);
+		try {
+			rs.next();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		return load(rs);
 	}
 	
-	private Person load(RecordSet rs)
+	private Person load(ResultSet rs)
 	{
-		String userName = rs.getString("username");
-		String displayName = rs.getString("display_name");
+		String userName, displayName;
+		try {
+			userName = rs.getString("username");
+			displayName = rs.getString("display_name");
+			Person result = new Person(userName, displayName);
+			return result;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//String password = rs.getString("password");
-		Person result = new Person(userName, displayName);
 		
-		return result;
+		return null;
+		
 	}
 	
 	@Override

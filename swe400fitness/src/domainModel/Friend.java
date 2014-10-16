@@ -6,7 +6,6 @@ package domainModel;
  */
 public class Friend extends DomainObject
 {
-	long id;
 	String displayName;
 	
 	public Friend(Person friend)
@@ -23,10 +22,5 @@ public class Friend extends DomainObject
 	public String getDisplayName()
 	{
 		return displayName;
-	}
-
-	public long getId()
-	{
-		return id;
 	}
 }

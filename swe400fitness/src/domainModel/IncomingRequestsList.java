@@ -35,11 +35,13 @@ public class IncomingRequestsList extends DomainObject
 
 	public void addIncomingRequest(Friend friend)
 	{
+		markDirty();
 		incomingRequestsList.add(friend);
 	}
 	
 	public boolean removeRequest(Friend friend)
 	{
+		markDirty();
 		for (int i = 0; i < incomingRequestsList.size(); i++)
 		{
 			if (incomingRequestsList.get(i).getId() == (friend.getId()))

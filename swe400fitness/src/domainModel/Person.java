@@ -6,7 +6,6 @@ package domainModel;
  */
 public class Person extends DomainObject
 {
-	private long id;
 	private String userName;
 	private String displayName;
 	private String password;
@@ -30,6 +29,7 @@ public class Person extends DomainObject
 	
 	public void setPassword(String password)
 	{
+		markDirty();
 		this.password = password;
 	}
 	
@@ -41,11 +41,6 @@ public class Person extends DomainObject
 	public String getDisplayName()
 	{
 		return displayName;
-	}
-
-	public long getId()
-	{
-		return id;
 	}
 	
 	public String getPassword()
@@ -70,6 +65,7 @@ public class Person extends DomainObject
 	
 	public void changePassword(String newPassword)
 	{
+		markDirty();
 		password = newPassword;
 	}
 
@@ -153,5 +149,4 @@ public class Person extends DomainObject
 	{
 		return new Friend(this);
 	}	
-	
 }
