@@ -23,7 +23,7 @@ public class testCommands
 	@Test
 	public void testCreateUser()
 	{
-		Command createUser = new CreateUserCommand("testy", "password", "testyMctesterson");
+		Command createUser = new CommandToCreateUser("testy", "password", "testyMctesterson");
 		createUser.execute();
 		Person test = (Person) createUser.getResult();
 		
@@ -39,7 +39,7 @@ public class testCommands
 	@Test
 	public void testSelectUser()
 	{
-		Command selectUser = new SelectUserCommand("testy", "password");
+		Command selectUser = new CommandToSelectUser("testy", "password");
 		selectUser.execute();
 		Person test = (Person) selectUser.getResult();
 	}

@@ -9,7 +9,7 @@ import unitOfWork.UnitOfWork;
  * @author merlin
  *
  */
-public class ModifyUserCommand implements Command
+public class CommandToModifyUser implements Command
 {
 
 	private int userID;
@@ -20,7 +20,7 @@ public class ModifyUserCommand implements Command
 	 * @param userID the unique ID of this user
 	 * @param newDisplayName the name this user wants to be known by
 	 */
-	public ModifyUserCommand(int userID, String newDisplayName)
+	public CommandToModifyUser(int userID, String newDisplayName)
 	{
 		this.userID = userID;
 		this.newDisplayName = newDisplayName;

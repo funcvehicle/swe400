@@ -12,7 +12,7 @@ import domainModel.Friend;
  * @author merlin
  *
  */
-public class PendingOutgoingFriendList implements Command
+public class CommandToGetPendingOutgoingFriendList implements Command
 {
 
 	private int userID;
@@ -23,7 +23,7 @@ public class PendingOutgoingFriendList implements Command
 	 * @param userID
 	 *            unique
 	 */
-	public PendingOutgoingFriendList(int userID)
+	public CommandToGetPendingOutgoingFriendList(int userID)
 	{
 		this.userID = userID;
 	}

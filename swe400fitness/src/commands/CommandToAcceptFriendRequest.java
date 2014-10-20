@@ -1,11 +1,11 @@
 package commands;
 
 /**
- * Reject a friend request from one user to another
+ * Accept a friend request from one user to another
  * @author merlin
  *
  */
-public class RejectFriendRequest implements Command
+public class CommandToAcceptFriendRequest implements Command
 {
 
 	private int userIDOfRequestee;
@@ -17,7 +17,7 @@ public class RejectFriendRequest implements Command
 	 * @param userIDOfRequestee the User ID of the user accepting the request
 	 * @param userNameOfRequester the User Name of the user who initiated the friend request
 	 */
-	public RejectFriendRequest(int userIDOfRequestee, String userNameOfRequester)
+	public CommandToAcceptFriendRequest(int userIDOfRequestee, String userNameOfRequester)
 	{
 		this.userIDOfRequestee = userIDOfRequestee;
 		this.userNameOfRequester = userNameOfRequester;

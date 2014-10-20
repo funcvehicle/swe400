@@ -18,7 +18,6 @@ public class MockMapper implements Mapper
 	@Override
 	public void update(DomainObject o) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

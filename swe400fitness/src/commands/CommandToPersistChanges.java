@@ -3,12 +3,12 @@ package commands;
 import unitOfWork.UnitOfWork;
 
 /**
- * Tells the system to cancel any pending changes
+ * Tells the system to save any pending changes
  * 
  * @author merlin
  *
  */
-public class CancelChangesCommand implements Command
+public class CommandToPersistChanges implements Command
 {
 
 	/**
@@ -19,7 +19,7 @@ public class CancelChangesCommand implements Command
 	public void execute()
 	{
 		UnitOfWork work = UnitOfWork.getCurrent();
-		work.clearAll();
+		work.commit();
 	}
 
 	/**

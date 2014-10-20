@@ -1,11 +1,11 @@
 package commands;
 
 /**
- * Cancels a friend request between two users
+ * Initiates a friend request from one user to another
  * @author merlin
  *
  */
-public class UnFriendRequest implements Command
+public class CommandToMakeFriendRequest implements Command
 {
 
 	private int userIDOfRequester;
@@ -14,10 +14,10 @@ public class UnFriendRequest implements Command
 
 	/**
 	 * 
-	 * @param userIDOfRequester the User ID of the user cancel the relationship
-	 * @param userNameOfRequestee the User Name of the user being unfriended
+	 * @param userIDOfRequester the User ID of the user making the request
+	 * @param userNameOfRequestee the User Name of the user being friended
 	 */
-	public UnFriendRequest(int userIDOfRequester, String userNameOfRequestee)
+	public CommandToMakeFriendRequest(int userIDOfRequester, String userNameOfRequestee)
 	{
 		this.userIDOfRequester = userIDOfRequester;
 		this.userNameOfRequestee = userNameOfRequestee;
@@ -31,6 +31,7 @@ public class UnFriendRequest implements Command
 	@Override
 	public void execute()
 	{
+		// TODO Auto-generated method stub
 
 	}
 

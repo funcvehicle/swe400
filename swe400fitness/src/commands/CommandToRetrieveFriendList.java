@@ -11,7 +11,7 @@ import domainModel.Friend;
  * @author merlin
  *
  */
-public class RetrieveFriendList implements Command
+public class CommandToRetrieveFriendList implements Command
 {
 
 	private int userID;
@@ -20,7 +20,7 @@ public class RetrieveFriendList implements Command
 	 * The userID of the current user
 	 * @param userID unique
 	 */
-	public RetrieveFriendList(int userID)
+	public CommandToRetrieveFriendList(int userID)
 	{
 		this.userID = userID;
 	}

@@ -11,7 +11,7 @@ import domainModel.Person;
  * @author merlin
  *
  */
-public class CreateUserCommand implements Command
+public class CommandToCreateUser implements Command
 {
 	private String userName;
 	private String password;
@@ -23,7 +23,7 @@ public class CreateUserCommand implements Command
 	 * @param password that password of the user's login credentials
 	 * @param displayName the name by which the user wants to be referred
 	 */
-	public CreateUserCommand(String userName, String password, String displayName)
+	public CommandToCreateUser(String userName, String password, String displayName)
 	{
 		this.userName = userName;
 		this.password = password;
@@ -38,18 +38,19 @@ public class CreateUserCommand implements Command
 	public void execute()
 	{
 		MapperRegistry mr = MapperRegistry.getCurrent();
-		Person user = new Person(userName, displayName);
-		PersonMapper pm = (PersonMapper) mr.getMapper(user.getClass());
+		PersonMapper pm = (PersonMapper) mr.getMapper(Person.class);
 		
 		//Check that the user does not already exist in database 
 		if (pm.find(userName) == null)
 		{
-			user.markNew();
+			@SuppressWarnings("unused")
+			Person user = new Person(userName, displayName);
 		}
 		
 		else
 		{
-			System.err.println("ERROR: Cannot create user because username already exists!");
+			System.err.println("ERROR: Cannot create user " + userName + " because username already exists!");
+			System.err.println("CommandToCreateUser " + userName + " failed!");
 		}
 	}
 
