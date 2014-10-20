@@ -8,7 +8,7 @@ public class MockMapperRegistry extends MapperRegistry
 {
 	public MockMapperRegistry()
 	{
-		super.pm = new PersonMapper(new MockPersonGateway());
-		super.fm = new FriendMapper(new MockFriendGateway());
+		super.pm = new MockMapper();
+		super.fm = new MockMapper();
 	}
 }
