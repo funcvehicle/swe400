@@ -25,8 +25,28 @@ public class testPerson
 		
 		assertFalse(pg.delete(-2) == SQLEnum.FAILED_SQL_ERROR);
 		rs = pg.find(-2);
+		assertFalse(rs.next());
+		
+		pg.closeConnection();
+	}
+	
+	@Test
+	public void testUpdatePerson() throws SQLException
+	{
+		assertFalse(pg.insert(-2, "testy", "testerson", "test123") == SQLEnum.FAILED_SQL_ERROR);
+		ResultSet rs = pg.find(-2);
 		rs.next();
-		assertEquals(rs.getLong(-2), SQLEnum.FAILED_SQL_ERROR);
+		
+		assertEquals(rs.getString("userName"), "testy");
+		assertEquals(rs.getString("displayName"), "testerson");
+		assertEquals(rs.getString("password"), "test123");
+		assertEquals(rs.getLong("id"), -2);
+		
+		assertFalse(pg.delete(-2) == SQLEnum.FAILED_SQL_ERROR);
+		rs = pg.find(-2);
+		assertFalse(rs.next());
+		
+		pg.closeConnection();
 	}
 
 }
