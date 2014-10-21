@@ -2,7 +2,10 @@ package commands;
 
 import java.util.ArrayList;
 
+import mapper.MapperRegistry;
+import mapper.PersonMapper;
 import domainModel.Friend;
+import domainModel.Person;
 
 /**
  * Cause the list of pending friend requests from this user to other users to be fetched
@@ -16,6 +19,7 @@ public class CommandToGetPendingOutgoingFriendList implements Command
 {
 
 	private int userID;
+	private ArrayList<Friend> outgoingFriendsList;
 
 	/**
 	 * The userID of the current user
@@ -35,8 +39,10 @@ public class CommandToGetPendingOutgoingFriendList implements Command
 	@Override
 	public void execute()
 	{
-		// TODO Auto-generated method stub
-
+		MapperRegistry mapperRegistry = MapperRegistry.getCurrent();
+		PersonMapper mapper = (PersonMapper) mapperRegistry.getMapper(Person.class);
+		Person person = mapper.find(userID);
+		outgoingFriendsList = person.getOutgoingRequests().getOutgoingRequestsList();
 	}
 
 	/**
@@ -47,8 +53,7 @@ public class CommandToGetPendingOutgoingFriendList implements Command
 	@Override
 	public ArrayList<Friend> getResult()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return outgoingFriendsList;
 	}
 
 }
