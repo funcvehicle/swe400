@@ -1,0 +1,14 @@
+CommandToCreateUser martyman5 pw1 Marty; martyman5:pw1:Marty 
+CommandToCreateUser missdottiepie3 pw2 Dottie; missdottiepie3:pw2:Dottie
+CommandToSelectUser martyman5 pw1;
+CommandToMakeFriendRequest <userID> missdottiepie3;
+CommandToGetPendingOutgoingFriendList <userID>; missdottiepie3
+CommandToPersistChanges;
+CommandToSelectUser missdottiepie3 pw2;
+CommandToGetPendingIncomingFriendList <userID>; martyman5
+CommandToRejectFriendRequest <userID> martyman5;
+CommandToGetPendingIncomingFriendList <userID>;
+CommandToRetrieveFriendList <userID>;
+CommandToPersistChanges;
+CommandToSelectUser martyman5 pw1;
+CommandToRetrieveFriendList <userID>;
