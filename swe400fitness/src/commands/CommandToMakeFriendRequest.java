@@ -1,5 +1,10 @@
 package commands;
 
+import gateway.PersonGateway;
+import mapper.MapperRegistry;
+import mapper.PersonMapper;
+import domainModel.Person;
+
 /**
  * Initiates a friend request from one user to another
  * @author merlin
@@ -31,8 +36,11 @@ public class CommandToMakeFriendRequest implements Command
 	@Override
 	public void execute()
 	{
-		// TODO Auto-generated method stub
-
+		MapperRegistry mapperRegistry = MapperRegistry.getCurrent();
+		PersonMapper mapper = (PersonMapper) mapperRegistry.getMapper(Person.class);
+		Person requestee = mapper.find(userNameOfRequestee);
+		Person requester = mapper.find(userIDOfRequester);
+		requester.requestFriend(requestee);
 	}
 
 	/**
