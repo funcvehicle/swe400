@@ -46,7 +46,7 @@ public abstract class Gateway
 	/**
 	 * Close the current connection
 	 */
-	protected void closeConnection()
+	public void closeConnection()
 	{
 		try {
 			this.connection.close();
