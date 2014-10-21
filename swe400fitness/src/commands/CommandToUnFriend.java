@@ -1,5 +1,9 @@
 package commands;
 
+import mapper.MapperRegistry;
+import mapper.PersonMapper;
+import domainModel.Person;
+
 /**
  * Cancels a friend request between two users
  * @author merlin
@@ -21,7 +25,6 @@ public class CommandToUnFriend implements Command
 	{
 		this.userIDOfRequester = userIDOfRequester;
 		this.userNameOfRequestee = userNameOfRequestee;
-		
 	}
 	
 	/**
@@ -31,7 +34,13 @@ public class CommandToUnFriend implements Command
 	@Override
 	public void execute()
 	{
-
+		MapperRegistry mr = MapperRegistry.getCurrent();
+		PersonMapper pm = (PersonMapper) mr.getMapper(Person.class);
+		
+		Person requester = pm.find(userIDOfRequester);
+		Person requestee = pm.find(userNameOfRequestee);
+		
+		
 	}
 
 	/**

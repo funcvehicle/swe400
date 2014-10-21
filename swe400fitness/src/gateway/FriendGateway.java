@@ -25,7 +25,7 @@ public class FriendGateway extends Gateway
 	 * @param friendID
 	 * @return SQLEnum
 	 */
-	public SQLEnum create(long personID, long friendID) {
+	public SQLEnum create(long relationID, long personID, long friendID) {
 		establishConnection();
 		connection = getConnection();
 		String[] params = new String[3];
@@ -36,8 +36,9 @@ public class FriendGateway extends Gateway
 		{
 			try {
 				Statement insert = (Statement) connection.createStatement();
-				insert.executeUpdate("INSERT INTO pendingfriends VALUES (1," + personID + "," + friendID + ");");
+				insert.executeUpdate("INSERT INTO pendingfriends VALUES (" + relationID + "," + personID + "," + friendID + ");");
 			} catch (SQLException e) {
+				e.printStackTrace();
 				return SQLEnum.FAILED_SQL_ERROR;
 			}
 		}else{
@@ -52,13 +53,13 @@ public class FriendGateway extends Gateway
 	 * @param userId
 	 * @return RecordSet of all friendships (pending or established) for a a given userId
 	 */
-	public ResultSet find(long id)
+	public ResultSet find(long userId)
 	{
 		establishConnection();
 		connection = getConnection();
 		try{
 			Statement select = (Statement) connection.createStatement();
-			ResultSet results = select.executeQuery(friendTableQuery+id);
+			ResultSet results = select.executeQuery(friendTableQuery+userId);
 			/*RecordSet returnSet = new RecordSet();
 			while(results.next())
 			{
@@ -76,6 +77,7 @@ public class FriendGateway extends Gateway
 		
 		
 	}
+	
 	/**
 	 * Deletes a user's friendship with another user or all of the user's friendships
 	 * @param userId the user's unique userId
@@ -119,7 +121,7 @@ public class FriendGateway extends Gateway
 		try{
 			Statement pendingStatement = (Statement) connection.createStatement();
 			Statement friendStatement = (Statement) connection.createStatement();
-			pendingStatement.execute("DELETE FROM pendingFriends WHERE userId="+userId+" AND friendId="+friendId);
+			pendingStatement.execute("DELETE FROM pendingfriends WHERE userId="+userId+" AND friendId="+friendId);
 			friendStatement.execute("INSERT INTO friends (userId,friendId) VALUES ('"+userId+"','"+friendId+"')");
 			closeConnection();
 			return SQLEnum.SUCCESS;
