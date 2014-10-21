@@ -84,14 +84,20 @@ public class PendingFriendGateway extends Gateway
 		try
 		{
 			Statement insert = (Statement) connection.createStatement();
-			insert.executeUpdate(insertStatement + "'" + inquirerId + "','" + recipientId + "','" + id + "')");
+			if (!insert.execute(insertStatement + "'" + inquirerId + "','" + recipientId + "','" + id + "')"))
+			{
+				result = SQLEnum.FAILED_BAD_PARAMS;
+			}
+			else
+			{
+				result = SQLEnum.SUCCESS;
+			}
 		}
 		catch (SQLException e)
 		{
 			result = SQLEnum.FAILED_SQL_ERROR;
 		}
 		
-		result = SQLEnum.SUCCESS;
 		return result;
 	}
 
@@ -108,15 +114,21 @@ public class PendingFriendGateway extends Gateway
 		
 		try
 		{
-			Statement insert = (Statement) connection.createStatement();
-			insert.executeUpdate(deleteStatement + "'" + id + "')");
+			Statement delete = (Statement) connection.createStatement();
+			if (!delete.execute(deleteStatement + "'" + id + "')"))
+			{
+				result = SQLEnum.DOES_NOT_EXIST;
+			}
+			else
+			{
+				result = SQLEnum.SUCCESS;
+			}
 		}
 		catch (SQLException e)
 		{
 			result = SQLEnum.FAILED_SQL_ERROR;
 		}
 		
-		result = SQLEnum.SUCCESS;
 		return result;
 	}
 }
