@@ -6,7 +6,7 @@ package domainModel;
  */
 public class Friend extends DomainObject
 {
-	String displayName;
+	private String displayName;
 	long ourId;
 	
 	public Friend(Person friend, long id)
@@ -14,6 +14,7 @@ public class Friend extends DomainObject
 		this.ourId = id;
 		id = friend.getId();
 		displayName = friend.getDisplayName();
+		this.id = friend.id;
 	}
 
 	public String toString()

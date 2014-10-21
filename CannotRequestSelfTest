@@ -1,0 +1,7 @@
+CommandToCreateUser swanboy23 pw1 Zeus; swanboy23:pw1:Zeus 
+CommandToSelectUser swanboy23 pw1;
+CommandToMakeFriendRequest <userID> swanboy23;
+CommandToGetPendingOutgoingFriendList <userID>;
+CommandToGetPendingIncomingFriendList <userID>;
+CommandToRetrieveFriendList <userID>;
+CommandToPersistChanges;
