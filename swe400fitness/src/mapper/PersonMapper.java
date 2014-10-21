@@ -56,7 +56,7 @@ public class PersonMapper implements Mapper
 			long id = rs.getLong("id");
 			userName = rs.getString("username");
 			displayName = rs.getString("display_name");
-			Person result = new Person(userName, displayName);
+			Person result = new Person(userName, displayName, id);
 			result.setId(id);
 			return result;
 		} catch (SQLException e) {
