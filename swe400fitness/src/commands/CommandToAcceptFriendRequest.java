@@ -1,5 +1,9 @@
 package commands;
 
+import domainModel.Person;
+import mapper.MapperRegistry;
+import mapper.PersonMapper;
+
 /**
  * Accept a friend request from one user to another
  * @author merlin
@@ -31,8 +35,11 @@ public class CommandToAcceptFriendRequest implements Command
 	@Override
 	public void execute()
 	{
-		// TODO Auto-generated method stub
-
+		MapperRegistry mapperRegistry = MapperRegistry.getCurrent();
+		PersonMapper mapper = (PersonMapper) mapperRegistry.getMapper(Person.class);
+		Person requestee = mapper.find(userIDOfRequestee);
+		Person requester = mapper.find(userNameOfRequester);
+		requestee.acceptRequest(requester);
 	}
 
 	/**
