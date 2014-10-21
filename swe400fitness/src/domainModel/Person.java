@@ -1,4 +1,7 @@
 package domainModel;
+
+import gateway.KeyGateway;
+
 /**
  * 
  * @author Emily Maust, Olivia Pompa
@@ -15,11 +18,17 @@ public class Person extends DomainObject
 	
 	public Person(String userName, String displayName)
 	{
+		this(userName, displayName, new KeyGateway().generateKey());		
+	}
+	
+	public Person(String userName, String displayName, long id)
+	{
 		this.userName = userName;
 		this.displayName = displayName;
 		outgoingRequests = new OutgoingRequestsList();
 		incomingRequests = new IncomingRequestsList();
 		myFriends = new FriendList();
+		this.id = id;
 	}
 
 	public String toString()
@@ -77,8 +86,11 @@ public class Person extends DomainObject
 	 */
 	public void requestFriend(Person requestedFriend)
 	{
-		requestedFriend.addPersonToPending(this.asFriend());
-		outgoingRequests.addPerson(requestedFriend.asFriend());
+		if (requestedFriend.getId() != this.id)
+		{
+			requestedFriend.addPersonToPending(this.asFriend());
+			outgoingRequests.addPerson(requestedFriend.asFriend());			
+		}
 	}
 	
 	/**
