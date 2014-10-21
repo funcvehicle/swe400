@@ -1,7 +1,5 @@
 package domainModel;
 
-import gateway.KeyGateway;
-
 /**
  * 
  * @author Emily Maust, Olivia Pompa
@@ -15,11 +13,6 @@ public class Person extends DomainObject
 	private FriendList myFriends;
 	private OutgoingRequestsList outgoingRequests;
 	private IncomingRequestsList incomingRequests;
-	
-	public Person(String userName, String displayName)
-	{
-		this(userName, displayName, new KeyGateway().generateKey());		
-	}
 	
 	public Person(String userName, String displayName, long id)
 	{
@@ -38,7 +31,6 @@ public class Person extends DomainObject
 	
 	public void setPassword(String password)
 	{
-		markDirty();
 		this.password = password;
 	}
 	
@@ -70,12 +62,6 @@ public class Person extends DomainObject
 	public FriendList getFriendList()
 	{
 		return myFriends;
-	}
-	
-	public void changePassword(String newPassword)
-	{
-		markDirty();
-		password = newPassword;
 	}
 
 	/**
@@ -159,6 +145,6 @@ public class Person extends DomainObject
 	 */
 	public Friend asFriend()
 	{
-		return new Friend(this,this.id);
+		return new Friend(this, this.id);
 	}	
 }
