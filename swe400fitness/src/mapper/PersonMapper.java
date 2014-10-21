@@ -53,15 +53,15 @@ public class PersonMapper implements Mapper
 	{
 		String userName, displayName;
 		try {
+			long id = rs.getLong("id");
 			userName = rs.getString("username");
 			displayName = rs.getString("display_name");
 			Person result = new Person(userName, displayName);
+			result.setId(id);
 			return result;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//String password = rs.getString("password");
 		
 		return null;
 		
@@ -82,11 +82,10 @@ public class PersonMapper implements Mapper
 	public void insert(DomainObject o)
 	{
 		Person p = (Person) o;
+		long id = p.getId();
 		String userName = p.getUserName();
 		String password = p.getPassword();
 		String displayName = p.getDisplayName();
-		
-		long id = keyGen.generateKey();
 		
 		gate.insert(id, userName, displayName, password);
 	}
