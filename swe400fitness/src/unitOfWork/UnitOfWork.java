@@ -17,6 +17,8 @@ public class UnitOfWork
 {
 	public static ThreadLocal<UnitOfWork> current = new ThreadLocal<UnitOfWork>();
 	
+	Person selectedUser;
+	
 	protected ArrayList<DomainObject> newObjects;
 	protected ArrayList<DomainObject> dirtyObjects;
 	protected ArrayList<DomainObject> deletedObjects;
@@ -51,6 +53,31 @@ public class UnitOfWork
 	public static void setCurrent(UnitOfWork u)
 	{
 		current.set(u);
+	}
+	
+	public DomainObject searchMemory(Class<? extends DomainObject> c, long id)
+	{
+		DomainObject result = null;
+		
+		for (DomainObject o : newObjects)
+		{
+			if (o.getId() == id)
+				result = o;
+		}
+		
+		for (DomainObject o : dirtyObjects)
+		{
+			if (o.getId() == id)
+				result = o;
+		}
+		
+		for (DomainObject o : deletedObjects)
+		{
+			if (o.getId() == id)
+				result = o;
+		}
+		
+		return result;
 	}
 	
 	/**

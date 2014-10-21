@@ -43,15 +43,16 @@ public class CommandToCreateUser implements Command
 		//Check that the user does not already exist in database 
 		if (pm.find(userName) == null)
 		{
-			@SuppressWarnings("unused")
-			Person user = new Person(userName, displayName);
+			Person.createNewPerson(userName, displayName);
 		}
 		
 		else
 		{
-			System.err.println("ERROR: Cannot create user " + userName + " because username already exists!");
+			System.err.println("ERROR: Cannot create user " + userName + " because username already exists in DB!");
 			System.err.println("CommandToCreateUser " + userName + " failed!");
 		}
+		
+		UnitOfWork.getCurrent().commit();
 	}
 
 	/**

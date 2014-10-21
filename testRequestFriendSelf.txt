@@ -1,0 +1,11 @@
+CommandToCreateUser bob pw bobby; bob:pw:bobby
+CommandToSelectUser bob pw;
+CommandToMakeFriendRequest <userID> bob;
+CommandToGetPendingOutgoingFriendList <userID> bob; bob
+CommandToPersistChanges;
+CommandToSelectUser bob pw;
+CommandToGetPendingIncomingFriendList <userID> bob; bob
+CommandToAcceptFriendRequest <userID> bob;
+CommandToGetPendingIncomingFriendList <userID> bob;
+CommandToRetrieveFriendList <userID>; bob
+CommandToPersistChanges;

@@ -1,0 +1,7 @@
+CommandToCreateUser kyle123 pw1 kyle; kyle123:pw1:kyle
+CommandToCreateUser henry123 pw2 Henry; henry123:pw2:Henry
+CommandToSelectUser kyle123 pw1;
+CommandToMakeFriendRequest <userID> henry123;
+CommandToGetPendingOutgoingFriendList <userID>; kyle123
+CommandToCancelChanges;
+CommandToGetPendingOutgoingFriendList <userID>; kyle123

@@ -77,6 +77,7 @@ public class PersonGateway extends Gateway
 				Statement insert = (Statement) connection.createStatement();
 				insert.executeUpdate("INSERT INTO people (id,userName,displayName,password) VALUES ('"+id+"','"+userName+"','"+displayName+"','"+password+"')");
 			} catch (SQLException e) {
+				e.printStackTrace();
 				closeConnection();
 				return SQLEnum.FAILED_SQL_ERROR;
 			}

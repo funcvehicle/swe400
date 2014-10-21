@@ -1,0 +1,18 @@
+CommandToCreateUser watsonluv3r pw1 Sherlock; watsonluv3r:pw1:Sherlock 
+CommandToCreateUser sherlockluv3r pw2 Watson; sherlockluv3r:pw2:Watson
+CommandToSelectUser watsonluv3r pw1;
+CommandToMakeFriendRequest <userID> sherlockluv3r;
+CommandToGetPendingOutgoingFriendList <userID>; sherlockluv3r
+CommandToPersistChanges;
+CommandToSelectUser sherlockluv3r pw2;
+CommandToGetPendingIncomingFriendList <userID>; watsonluv3r
+CommandToAcceptFriendRequest <userID> watsonluv3r;
+CommandToGetPendingIncomingFriendList <userID>;
+CommandToRetrieveFriendList <userID>; watsonluv3r
+CommandToPersistChanges;
+CommandToSelectUser watsonluv3r pw1;
+CommandToRetrieveFriendList <userID>; sherlockluv3r
+CommandToUnfriend <userID> sherlockluv3r;
+CommandToRetrieveFriendList <userID>;
+CommandToSelectUser sherlockluv3r pw2;
+CommandToRetrieveFriendList <userID>;

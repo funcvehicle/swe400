@@ -23,6 +23,27 @@ public class Person extends DomainObject
 		myFriends = new FriendList();
 		this.id = id;
 	}
+	
+	/**
+	 * Create a new person and register it as new with the unit of work
+	 * @param userName
+	 * @param displayName
+	 * @return the created person
+	 */
+	public static Person createNewPerson(String userName, String displayName)
+	{
+		Person p = new Person(userName, displayName);
+		p.markNew();
+		return p;
+	}
+	
+	/**
+	 * Marks this person as deleted with the unit of work
+	 */
+	public void deleteMe()
+	{
+		markDeleted();
+	}
 
 	public String toString()
 	{
