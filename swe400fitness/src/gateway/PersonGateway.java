@@ -4,16 +4,24 @@ import java.sql.ResultSet;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import com.mysql.jdbc.Statement;
+import javax.sql.rowset.CachedRowSet;
 
+import com.mysql.jdbc.Statement;
 
 public class PersonGateway extends Gateway
 {
-	private Connection connection;
-	private String queryStringByID = "SELECT * FROM people WHERE id=";
-	private String queryStringByUserName = "SELECT * FROM people WHERE userName=";
+	private Connection	connection;
+	private String		queryStringByID			= "SELECT * FROM people WHERE id=";
+	private String		queryStringByUserName	= "SELECT * FROM people WHERE userName=";
+	
+	private String findStatement = "";
+	private String updateStatement = "UPDATE people SET";
+	private String insertStatement = "";
+	private String deleteStatement = "DELETE FROM people WHERE id=";
+
 	/**
 	 * Find a person by their unique ID
+	 * 
 	 * @param id
 	 * @return ResultSet containing one row from the people table
 	 */
@@ -22,21 +30,24 @@ public class PersonGateway extends Gateway
 		establishConnection();
 		connection = getConnection();
 		Statement find;
-		try {
+		try
+		{
 			find = (Statement) connection.createStatement();
-			ResultSet results = find.executeQuery(queryStringByID+id);
-			closeConnection();
+			ResultSet results = find.executeQuery(queryStringByID + id);
 			return results;
-		} catch (SQLException e) {
+		}
+		catch (SQLException e)
+		{
 			e.printStackTrace();
 		}
-		
-		closeConnection();
+
 		return new NullSet();
-		
+
 	}
+
 	/**
 	 * Find a user by their unique username
+	 * 
 	 * @param userName
 	 * @return ResultSet containing one row from the people table
 	 */
@@ -45,25 +56,28 @@ public class PersonGateway extends Gateway
 		establishConnection();
 		connection = getConnection();
 		Statement find;
-		try {
+		try
+		{
 			find = (Statement) connection.createStatement();
-			ResultSet results = find.executeQuery(queryStringByUserName+userName);
-			closeConnection();
+			ResultSet results = find.executeQuery(queryStringByUserName + userName);
 			return results;
-		} catch (SQLException e) {
+		}
+		catch (SQLException e)
+		{
 			e.printStackTrace();
 		}
-		
-		closeConnection();
+
 		return new NullSet();
 	}
-/**
- * Inserts one user into the people table
- * @param id
- * @param userName
- * @param displayName
- * @return
- */
+
+	/**
+	 * Inserts one user into the people table
+	 * 
+	 * @param id
+	 * @param userName
+	 * @param displayName
+	 * @return
+	 */
 	public SQLEnum insert(long id, String userName, String displayName, String password)
 	{
 		establishConnection();
@@ -71,18 +85,22 @@ public class PersonGateway extends Gateway
 		String[] params = new String[3];
 		params[0] = "people";
 		params[1] = userName;
-		if(recordExists(params) == SQLEnum.DOES_NOT_EXIST)
+		if (recordExists(params) == SQLEnum.DOES_NOT_EXIST)
 		{
-			try {
+			try
+			{
 				Statement insert = (Statement) connection.createStatement();
-				insert.executeUpdate("INSERT INTO people (id,userName,displayName,password) VALUES ('"+id+"','"+userName+"','"+displayName+"','"+password+"')");
-			} catch (SQLException e) {
+				insert.executeUpdate("INSERT INTO people (id,userName,displayName,password) VALUES ('" + id + "','"
+						+ userName + "','" + displayName + "','" + password + "')");
+			}
+			catch (SQLException e)
+			{
 				e.printStackTrace();
-				closeConnection();
+
 				return SQLEnum.FAILED_SQL_ERROR;
 			}
 		}
-		closeConnection();
+	
 		return SQLEnum.SUCCESS;
 	}
 
@@ -90,31 +108,39 @@ public class PersonGateway extends Gateway
 	{
 		establishConnection();
 		connection = getConnection();
-		try {
+		try
+		{
 			Statement updateStatement = (Statement) connection.createStatement();
-			updateStatement.execute("UPDATE people SET id="+id+",userName="+userName+",displayName="+displayName+" WHERE id="+id);
-		} catch (SQLException e) {
+			updateStatement.execute(updateStatement + "id=" + id + ",userName=" + userName + ",displayName="
+					+ displayName + " WHERE id=" + id);
+		}
+		catch (SQLException e)
+		{
 			return SQLEnum.FAILED_SQL_ERROR;
 		}
-		
-		closeConnection();
+
 		return SQLEnum.SUCCESS;
 	}
-	
+
 	public SQLEnum delete(long id)
 	{
 		establishConnection();
 		connection = getConnection();
-		try {
-			Statement deleteStatement = (Statement) connection.createStatement();
-			if(!deleteStatement.execute("DELETE FROM people WHERE id="+id)){
-				return SQLEnum.DOES_NOT_EXIST;
+		SQLEnum result = SQLEnum.SUCCESS;
+		
+		try
+		{
+			Statement delete = (Statement) connection.createStatement();
+			if (!delete.execute(deleteStatement + id))
+			{
+				result = SQLEnum.DOES_NOT_EXIST;
 			}
-		} catch (SQLException e) {
-			closeConnection();
-			return SQLEnum.FAILED_SQL_ERROR;
 		}
-		closeConnection();
-		return SQLEnum.SUCCESS;
+		catch (SQLException e)
+		{
+			result = SQLEnum.FAILED_SQL_ERROR;
+		}
+
+		return result;
 	}
 }
