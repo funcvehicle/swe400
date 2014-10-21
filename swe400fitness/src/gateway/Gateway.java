@@ -16,7 +16,7 @@ public abstract class Gateway
 {
 
 	private String driver = "com.mysql.jdbc.Driver";
-	private String url = "jdbc:mysql://lsagroup4.cbzhjl6tpflt.us-east-1.rds.amazonaws.com:3306";
+	private String url = "jdbc:mysql://lsagroup4.cbzhjl6tpflt.us-east-1.rds.amazonaws.com:3306/fitness4";
 	private String userName = "lsagroup4";
 	private String passWord = "lsagroup4";
 	private Connection connection;

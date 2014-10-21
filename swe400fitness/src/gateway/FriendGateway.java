@@ -36,7 +36,7 @@ public class FriendGateway extends Gateway
 		{
 			try {
 				Statement insert = (Statement) connection.createStatement();
-				insert.executeUpdate("INSERT INTO pendingFriends VALUES " + personID + "," + friendID);
+				insert.executeUpdate("INSERT INTO pendingfriends VALUES (1," + personID + "," + friendID + ");");
 			} catch (SQLException e) {
 				return SQLEnum.FAILED_SQL_ERROR;
 			}
