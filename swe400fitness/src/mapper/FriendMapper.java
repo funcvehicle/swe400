@@ -15,6 +15,11 @@ public class FriendMapper implements Mapper
 {
 	FriendGateway friendGate;
 	
+	public FriendMapper(FriendGateway friendGate)
+	{
+		friendGate = new FriendGateway();
+	}
+	
 	public Friend find(long id)
 	{
 		ResultSet record = friendGate.find(id);
