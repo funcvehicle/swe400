@@ -43,7 +43,7 @@ public class CommandToCreateUser implements Command
 		//Check that the user does not already exist in database 
 		if (pm.find(userName) == null)
 		{
-			Person.createNewPerson(userName, displayName);
+			pm.create(userName, password, displayName);
 		}
 		
 		else
