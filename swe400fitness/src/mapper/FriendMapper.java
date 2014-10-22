@@ -4,9 +4,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import gateway.FriendGateway;
+import gateway.PersonGateway;
 import domainModel.DomainObject;
 import domainModel.Friend;
-import domainModel.Person;
+import domainModel.FriendList;
 
 /*
  * Author: Hayden Cook
@@ -14,28 +15,37 @@ import domainModel.Person;
 public class FriendMapper implements Mapper
 {
 	FriendGateway friendGate;
+	PersonGateway personGate;
 	
 	public FriendMapper(FriendGateway friendGate)
 	{
 		friendGate = new FriendGateway();
+		personGate = new PersonGateway();
 	}
 	
-	public Friend find(long id)
+	public Friend findAll(Long myId)
 	{
-		ResultSet record = friendGate.find(id);
-		try 
-		{
-			record.next();
-		} catch (SQLException e) 
-		{
+		FriendList list = new FriendList();
+		try {			
+			ResultSet myList = friendGate.find(myId);
+			myList.next();
+			while (myList.next() == true)
+			{
+				long relationshipId = myList.getLong("id");
+				Friend friend = find(relationshipId);
+				list.addFriend(friend);
+			}
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		return load(record);
+		}	
+		return null;
 	}
 	
-	public Friend find(Long id)
+	public Friend find(Long relationshipId)
 	{
-		ResultSet record = friendGate.find(id);
+		ResultSet record = friendGate.find(relationshipId);
 		try
 		{
 			record.next();
@@ -43,26 +53,22 @@ public class FriendMapper implements Mapper
 		{
 			e.printStackTrace();
 		}
-		return load(record);
+		return loadOne(record);
 	}
 	
-	private Friend load(ResultSet record)
+	private Friend loadOne(ResultSet record)
 	{
 		try {
-		String userName = record.getString("username");
-		String displayName = record.getString("displayname");
-		Person person = new Person(userName, displayName);
-		long id;
-		id = record.getLong("ourId");
-		Friend friend = new Friend(person, id);
+		long id = record.getLong("friendId");
+		ResultSet friendSet = personGate.find(id);
+		String displayName = friendSet.getString("displayName");
+		Friend friend = new Friend(displayName, id);
 		return friend;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
+		}	
 		return null;
-		
 	}
 	
 	@Override

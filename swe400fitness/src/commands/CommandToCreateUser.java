@@ -43,7 +43,7 @@ public class CommandToCreateUser implements Command
 		//Check that the user does not already exist in database 
 		if (pm.find(userName) == null)
 		{
-			Person.createNewPerson(userName, displayName);
+			pm.create(userName, password, displayName);
 		}
 		
 		else
@@ -63,7 +63,9 @@ public class CommandToCreateUser implements Command
 	@Override
 	public Person getResult()
 	{
-		UnitOfWork work = UnitOfWork.getCurrent();
-		return null;
+		MapperRegistry mr = MapperRegistry.getCurrent();
+		PersonMapper pm = (PersonMapper) mr.getMapper(Person.class);
+		
+		return pm.find(userName);
 	}
 }

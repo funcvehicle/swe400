@@ -8,10 +8,10 @@ public class Friend extends DomainObject
 {
 	private String displayName;
 	
-	public Friend(Person friend, long id)
+	public Friend(String nameDisplay, long id)
 	{
-		displayName = friend.getDisplayName();
-		this.id = friend.id;
+		displayName = nameDisplay;
+		this.id = id;
 	}
 
 	public String toString()

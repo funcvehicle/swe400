@@ -30,9 +30,9 @@ public class Person extends DomainObject
 	 * @param displayName
 	 * @return the created person
 	 */
-	public static Person createNewPerson(String userName, String displayName)
+	public static Person createNewPerson(String userName, String displayName, long id)
 	{
-		Person p = new Person(userName, displayName);
+		Person p = new Person(userName, displayName, id);
 		p.markNew();
 		return p;
 	}
@@ -166,6 +166,6 @@ public class Person extends DomainObject
 	 */
 	public Friend asFriend()
 	{
-		return new Friend(this, this.id);
+		return new Friend(displayName, this.id);
 	}	
 }

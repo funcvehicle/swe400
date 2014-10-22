@@ -19,4 +19,11 @@ public class PendingFriendMapper implements Mapper
 		
 	}
 
+	@Override
+	public void delete(DomainObject o)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
 }

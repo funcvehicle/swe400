@@ -23,6 +23,14 @@ public class PersonMapper implements Mapper
 		gate = new PersonGateway();
 	}
 	
+	public Person create(String userName, String password,  String displayName)
+	{
+		long id = keyGen.generateKey();
+		Person p = Person.createNewPerson(userName, displayName, id);
+		p.setPassword(password);
+		return p;
+	}
+	
 	public Person find(long id)
 	{
 		ResultSet rs = gate.find(id);
@@ -56,7 +64,7 @@ public class PersonMapper implements Mapper
 			long id = rs.getLong("id");
 			userName = rs.getString("username");
 			displayName = rs.getString("display_name");
-			Person result = new Person(userName, displayName);
+			Person result = new Person(userName, displayName, id);
 			result.setId(id);
 			return result;
 		} catch (SQLException e) {
