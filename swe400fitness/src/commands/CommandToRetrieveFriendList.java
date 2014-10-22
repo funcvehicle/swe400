@@ -2,7 +2,10 @@ package commands;
 
 import java.util.ArrayList;
 
+import mapper.MapperRegistry;
+import mapper.PersonMapper;
 import domainModel.Friend;
+import domainModel.Person;
 
 /**
  * Cause a user's friend list to be fetched from the domain model (may or may
@@ -15,6 +18,7 @@ public class CommandToRetrieveFriendList implements Command
 {
 
 	private int userID;
+	private ArrayList<Friend> friends;
 
 	/**
 	 * The userID of the current user
@@ -32,8 +36,10 @@ public class CommandToRetrieveFriendList implements Command
 	@Override
 	public void execute()
 	{
-		// TODO Auto-generated method stub
-
+		MapperRegistry mapperRegistry = MapperRegistry.getCurrent();
+		PersonMapper mapper = (PersonMapper) mapperRegistry.getMapper(Person.class);
+		Person person = mapper.find(userID);
+		friends = person.getFriendList().getListOfFriends();
 	}
 
 	/**
@@ -43,8 +49,7 @@ public class CommandToRetrieveFriendList implements Command
 	@Override
 	public ArrayList<Friend> getResult()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return friends;
 	}
 
 }

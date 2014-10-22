@@ -12,6 +12,7 @@ public class CommandToSelectUser implements Command
 {
 	private String userName;
 	private String password;
+	private Person person;
 
 	/**
 	 * @param userName
@@ -34,30 +35,9 @@ public class CommandToSelectUser implements Command
 	@Override
 	public void execute()
 	{
-		UnitOfWork work = UnitOfWork.getCurrent();
 		MapperRegistry mr = MapperRegistry.getCurrent();
 		PersonMapper pm = (PersonMapper) mr.getMapper(Person.class);
-		Person user = pm.find(userName);
-		
-		//Check user exists
-		if (user != null)
-		{
-			//Check password
-			if (user.getPassword().equals(password))
-			{
-				//identity map.currentUser = user;
-			}
-			
-			else
-			{
-				System.err.println("Invalid password.");
-			}
-		}
-		
-		else
-		{
-			System.err.println("Invalid username.");
-		}
+		person = pm.find(userName);
 	}
 
 	/**
@@ -69,8 +49,7 @@ public class CommandToSelectUser implements Command
 	@Override
 	public Person getResult()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return person;
 	}
 
 }

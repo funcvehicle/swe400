@@ -34,13 +34,11 @@ public class CommandToUnFriend implements Command
 	@Override
 	public void execute()
 	{
-		MapperRegistry mr = MapperRegistry.getCurrent();
-		PersonMapper pm = (PersonMapper) mr.getMapper(Person.class);
-		
-		Person requester = pm.find(userIDOfRequester);
-		Person requestee = pm.find(userNameOfRequestee);
-		
-		
+		MapperRegistry mapperRegistry = MapperRegistry.getCurrent();
+		PersonMapper mapper = (PersonMapper) mapperRegistry.getMapper(Person.class);
+		Person requester = mapper.find(userIDOfRequester);
+		Person requestee = mapper.find(userNameOfRequestee);
+		requestee.rejectRequest(requester);
 	}
 
 	/**
