@@ -8,7 +8,6 @@ import gateway.PersonGateway;
 import domainModel.DomainObject;
 import domainModel.Friend;
 import domainModel.FriendList;
-import domainModel.Person;
 
 /*
  * Author: Hayden Cook

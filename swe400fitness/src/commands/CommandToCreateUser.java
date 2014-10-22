@@ -63,7 +63,9 @@ public class CommandToCreateUser implements Command
 	@Override
 	public Person getResult()
 	{
-		UnitOfWork work = UnitOfWork.getCurrent();
-		return null;
+		MapperRegistry mr = MapperRegistry.getCurrent();
+		PersonMapper pm = (PersonMapper) mr.getMapper(Person.class);
+		
+		return pm.find(userName);
 	}
 }
