@@ -1,10 +1,8 @@
 package mapper;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 import gateway.FriendGateway;
 import gateway.PersonGateway;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import domainModel.DomainObject;
 import domainModel.Friend;
 import domainModel.FriendList;
@@ -14,8 +12,8 @@ import domainModel.FriendList;
  */
 public class FriendMapper implements Mapper
 {
-	FriendGateway friendGate;
-	PersonGateway personGate;
+	private FriendGateway friendGate;
+	private PersonGateway personGate;
 	
 	public FriendMapper(FriendGateway friendGate)
 	{
@@ -23,52 +21,54 @@ public class FriendMapper implements Mapper
 		personGate = new PersonGateway();
 	}
 	
-	public Friend findAll(Long myId)
+	public FriendList findFriends(Long myId)
 	{
 		FriendList list = new FriendList();
-		try {			
+		try 
+		{			
 			ResultSet myList = friendGate.find(myId);
-			myList.next();
 			while (myList.next() == true)
 			{
 				long relationshipId = myList.getLong("id");
-				Friend friend = find(relationshipId);
+				Friend friend = findFriend(relationshipId);
 				list.addFriend(friend);
 			}
-		
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			return list;
+		} catch (SQLException e)
+		{
 			e.printStackTrace();
+			return null;
 		}	
-		return null;
 	}
 	
-	public Friend find(Long relationshipId)
+//	public Friend find(Long relationshipId) TODO Not really sure why this method is here, it may be significant
+//	{
+//		ResultSet record = friendGate.find(relationshipId);
+//		try
+//		{
+//			record.next();
+//		} catch (SQLException e) 
+//		{
+//			e.printStackTrace();
+//		}
+//		return loadOne(record);
+//	}
+	
+	private Friend findFriend(Long relationshipId)
 	{
-		ResultSet record = friendGate.find(relationshipId);
-		try
+		try 
 		{
-			record.next();
+			ResultSet friendResultSet = friendGate.find(relationshipId);
+			long id = friendResultSet.getLong("friendId");
+			ResultSet personResultSet = personGate.find(id);
+			String displayName = personResultSet.getString("displayName");
+			Friend friend = new Friend(displayName, id);
+			return friend;
 		} catch (SQLException e) 
 		{
 			e.printStackTrace();
-		}
-		return loadOne(record);
-	}
-	
-	private Friend loadOne(ResultSet record)
-	{
-		try {
-		long id = record.getLong("friendId");
-		ResultSet friendSet = personGate.find(id);
-		String displayName = friendSet.getString("displayName");
-		Friend friend = new Friend(displayName, id);
-		return friend;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return null;
 		}	
-		return null;
 	}
 	
 	@Override
