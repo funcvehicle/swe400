@@ -44,6 +44,7 @@ public class CommandToCreateUser implements Command
 		if (pm.find(userName) == null)
 		{
 			pm.create(userName, password, displayName);
+			UnitOfWork.getCurrent().commit();
 		}
 		
 		else
@@ -51,8 +52,6 @@ public class CommandToCreateUser implements Command
 			System.err.println("ERROR: Cannot create user " + userName + " because username already exists in DB!");
 			System.err.println("CommandToCreateUser " + userName + " failed!");
 		}
-		
-		UnitOfWork.getCurrent().commit();
 	}
 
 	/**

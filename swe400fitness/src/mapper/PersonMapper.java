@@ -93,8 +93,8 @@ public class PersonMapper implements Mapper
 		String userName, displayName, password;
 		try {
 			long id = rs.getLong("id");
-			userName = rs.getString("username");
-			displayName = rs.getString("display_name");
+			userName = rs.getString("userName");
+			displayName = rs.getString("displayName");
 
 			password = rs.getString("password");
 			Person result = new Person(userName, displayName, password, id);

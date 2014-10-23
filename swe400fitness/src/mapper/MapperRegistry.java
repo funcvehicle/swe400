@@ -33,6 +33,7 @@ public class MapperRegistry
 		{
 			newCurrent();
 		}
+		
 		return current.get();
 	}
 	
