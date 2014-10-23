@@ -40,7 +40,8 @@ public class KeyGateway extends Gateway
 
 			statement = connection.createStatement();
 			ResultSet results = statement.executeQuery("SELECT * FROM keytable");
-			long returnMe = results.getLong("key");
+			results.next();
+			long returnMe = results.getLong("nextId");
 			incrementKey(connection, returnMe);
 			closeConnection();
 			return returnMe;

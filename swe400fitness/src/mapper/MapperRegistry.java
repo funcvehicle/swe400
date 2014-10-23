@@ -24,15 +24,19 @@ public class MapperRegistry
 	public MapperRegistry()
 	{
 		pm = new PersonMapper(new PersonGateway());
-		fm = new FriendMapper(new FriendGateway());
+		fm = new FriendMapper(new FriendGateway(), new PersonGateway());
 	}
 	
 	public static MapperRegistry getCurrent()
 	{
+		if (current.get() == null)
+		{
+			newCurrent();
+		}
 		return current.get();
 	}
 	
-	public static void newCurrent()
+	private static void newCurrent()
 	{
 		setCurrent(new MapperRegistry());
 	}
