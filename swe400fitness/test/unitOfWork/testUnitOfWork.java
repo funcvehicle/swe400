@@ -19,7 +19,7 @@ public class testUnitOfWork
 	public void testRegisterNew()
 	{
 		UnitOfWork work = UnitOfWork.getCurrent();
-		Person testPerson = new Person("test", "test", -2);
+		Person testPerson = new Person("test", "test", "pw", -2);
 		work.registerNew(testPerson);
 		assertTrue(work.newObjects.contains(testPerson));
 	}

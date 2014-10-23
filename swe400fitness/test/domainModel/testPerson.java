@@ -19,8 +19,8 @@ public class testPerson
 	public void testRequestAFriend()
 	{
 		
-		Person personOne = new Person("myUsername", "Me", 0);
-		Person personTwo = new Person("hisUsername", "Him", 1);
+		Person personOne = new Person("myUsername", "Me", "pw", 0);
+		Person personTwo = new Person("hisUsername", "Him", "pw", 1);
 		personOne.requestFriend(personTwo);
 		assertEquals("Me", personTwo.getIncomingRequests().getIncomingRequestsList().get(0).getDisplayName());
 		assertEquals("Him", personOne.getOutgoingRequests().getOutgoingRequestsList().get(0).getDisplayName());
@@ -29,8 +29,8 @@ public class testPerson
 	@Test
 	public void testAcceptingAFriend()
 	{
-		Person personOne = new Person("myUsername", "Me", 0);
-		Person personTwo = new Person("hisUsername", "Him", 1);
+		Person personOne = new Person("myUsername", "Me", "pw", 0);
+		Person personTwo = new Person("hisUsername", "Him", "pw", 1);
 		personOne.requestFriend(personTwo);
 
 		assertTrue(personTwo.acceptRequest(personOne));
@@ -41,8 +41,8 @@ public class testPerson
 	@Test
 	public void testRejectARequest()
 	{
-		Person personOne = new Person("myUsername", "Me", 0);
-		Person personTwo = new Person("hisUsername", "Him", 1);
+		Person personOne = new Person("myUsername", "Me", "pw", 0);
+		Person personTwo = new Person("hisUsername", "Him", "pw", 1);
 		personOne.requestFriend(personTwo);
 		
 		assertTrue(personTwo.rejectRequest(personOne));
@@ -51,8 +51,8 @@ public class testPerson
 	@Test
 	public void testRemoveFriend()
 	{
-		Person personOne = new Person("myUsername", "Me", 0);
-		Person personTwo = new Person("hisUsername", "Him", 1);
+		Person personOne = new Person("myUsername", "Me", "pw", 0);
+		Person personTwo = new Person("hisUsername", "Him", "pw", 1);
 		personOne.requestFriend(personTwo);
 		personTwo.acceptRequest(personOne);
 		
