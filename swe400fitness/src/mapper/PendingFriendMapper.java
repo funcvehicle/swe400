@@ -126,21 +126,21 @@ public class PendingFriendMapper implements Mapper
 	@Override
 	public void insert(DomainObject o)
 	{
-		// TODO Auto-generated method stub
+		// TODO Adds a request to database
 		
 	}
 
 	@Override
 	public void update(DomainObject o)
 	{
-		// TODO Auto-generated method stub
+		// TODO No code here! Unnecessary method
 		
 	}
 
 	@Override
 	public void delete(DomainObject o)
 	{
-		// TODO Auto-generated method stub
+		// TODO Remove request from database
 		
 	}
 
