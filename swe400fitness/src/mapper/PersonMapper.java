@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import gateway.KeyGateway;
+import gateway.NullSet;
 import gateway.PersonGateway;
 import domainModel.DomainObject;
 import domainModel.Person;
@@ -20,7 +21,8 @@ public class PersonMapper implements Mapper
 
 	public PersonMapper(PersonGateway gate)
 	{
-		gate = new PersonGateway();
+		this.gate = gate;
+		keyGen = new KeyGateway();
 	}
 
 	/**
@@ -45,9 +47,11 @@ public class PersonMapper implements Mapper
 	public Person find(long id)
 	{
 		ResultSet rs = gate.find(id);
+		
 		try
 		{
-			rs.next();
+			if (rs.next() == false)
+				return null;
 		}
 		catch (SQLException e)
 		{
@@ -65,9 +69,11 @@ public class PersonMapper implements Mapper
 	public Person find(String username)
 	{
 		ResultSet rs = gate.find(username);
+		
 		try
 		{
-			rs.next();
+			if (rs.next() == false)
+				return null;
 		}
 		catch (SQLException e)
 		{

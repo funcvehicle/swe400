@@ -27,6 +27,7 @@ public class PersonGateway extends Gateway
 		establishConnection();
 		connection = getConnection();
 		Statement find;
+		
 		try
 		{
 			find = (Statement) connection.createStatement();
@@ -58,7 +59,7 @@ public class PersonGateway extends Gateway
 		try
 		{
 			find = (Statement) connection.createStatement();
-			results = find.executeQuery(queryStringByUserName + userName);
+			results = find.executeQuery(queryStringByUserName + "'" + userName + "'");
 		}
 		catch (SQLException e)
 		{
