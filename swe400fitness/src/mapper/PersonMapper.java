@@ -39,6 +39,11 @@ public class PersonMapper implements Mapper
 		return p;
 	}
 
+	/**
+	 * Find a person with the given id.
+	 * @param id
+	 * @return
+	 */
 	public Person find(long id)
 	{
 		ResultSet rs = gate.find(id);
@@ -54,6 +59,11 @@ public class PersonMapper implements Mapper
 		return load(rs);
 	}
 
+	/**
+	 * Find a person with the given username.
+	 * @param username
+	 * @return
+	 */
 	public Person find(String username)
 	{
 		ResultSet rs = gate.find(username);
@@ -69,24 +79,30 @@ public class PersonMapper implements Mapper
 		return load(rs);
 	}
 
+	/**
+	 * Construct a Person object from a ResultSet.
+	 * @param rs result to use to construct the person
+	 * @return a constructed person object
+	 */
 	private Person load(ResultSet rs)
 	{
 		String userName, displayName;
+		Person result = null;
+		
 		try
 		{
 			long id = rs.getLong("id");
 			userName = rs.getString("username");
 			displayName = rs.getString("display_name");
-			Person result = new Person(userName, displayName, id);
-			result.setId(id);
-			return result;
+			
+			result = new Person(userName, displayName, id);
 		}
 		catch (SQLException e)
 		{
 			e.printStackTrace();
 		}
 
-		return null;
+		return result;
 
 	}
 
