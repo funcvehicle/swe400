@@ -103,7 +103,7 @@ public abstract class Gateway
 		return SQLEnum.DOES_NOT_EXIST;
 	}
 	/**
-	 * Check the people table for ar ecord
+	 * Check the people table for a record
 	 * @param set
 	 * @param params
 	 * @return

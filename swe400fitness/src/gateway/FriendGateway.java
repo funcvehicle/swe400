@@ -13,7 +13,6 @@ import com.mysql.jdbc.*;
  */
 public class FriendGateway extends Gateway
 {
-
 	private Connection	connection;
 	private String		selectStatement	= "SELECT * FROM friends WHERE userId=";
 	private String		insertStatement	= "INSERT INTO friends VALUES (";
