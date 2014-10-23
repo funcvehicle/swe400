@@ -23,7 +23,7 @@ public class testFriend {
 		//need to create the person first
 		assertFalse(friendGateway.create(0, 1, 2) == SQLEnum.FAILED_SQL_ERROR);
 		assertFalse(friendGateway.find(1) instanceof NullSet);
-		assertFalse(friendGateway.delete(1, 2) == SQLEnum.FAILED_SQL_ERROR);
+		assertFalse(friendGateway.delete(0) == SQLEnum.FAILED_SQL_ERROR);
 	}
 	@Test
 	public void testFindDoesNotExist()

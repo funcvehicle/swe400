@@ -56,4 +56,9 @@ public class CommandToGetPendingIncomingFriendList implements Command
 		return incomingFriendsList;
 	}
 
+	public long getUserID()
+	{
+		return userID;
+	}
+
 }

@@ -52,4 +52,14 @@ public class CommandToAcceptFriendRequest implements Command
 		return null;
 	}
 
+	public String getUserNameOfRequester()
+	{
+		return userNameOfRequester;
+	}
+
+	public long getUserIDOfRequestee()
+	{
+		return userIDOfRequestee;
+	}
+
 }
