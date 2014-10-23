@@ -68,4 +68,22 @@ public class CommandToCreateUser implements Command
 		
 		return pm.find(userName);
 	}
+
+
+	public String getUserName()
+	{
+		return userName;
+	}
+
+
+	public String getPassword()
+	{
+		return password;
+	}
+
+
+	public String getDisplayName()
+	{
+		return displayName;
+	}
 }

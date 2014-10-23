@@ -54,4 +54,14 @@ public class CommandToSelectUser implements Command
 		return person;
 	}
 
+	public String getUserName()
+	{
+		return userName;
+	}
+
+	public String getPassword()
+	{
+		return password;
+	}
+
 }
