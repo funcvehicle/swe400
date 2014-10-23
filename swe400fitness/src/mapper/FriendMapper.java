@@ -74,7 +74,7 @@ public class FriendMapper implements Mapper
 	@Override
 	public void update(DomainObject object)
 	{
-		
+		//TODO Should do nothing
 	}
 	
 	@Override
