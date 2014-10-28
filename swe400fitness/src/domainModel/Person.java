@@ -99,12 +99,12 @@ public class Person extends DomainObject
 	 * pending invites list.
 	 * @param requestedFriend
 	 */
-	public void requestFriend(Person requestedFriend)
+	public void requestFriend(Friend requestedFriend)
 	{
 		if (requestedFriend.getId() != this.id)
 		{
-			requestedFriend.addPersonToPending(this.asFriend());
-			outgoingRequests.addPerson(requestedFriend.asFriend());			
+			//requestedFriend.addPersonToPending(this.asFriend());
+			outgoingRequests.addPerson(requestedFriend);			
 		}
 	}
 	
@@ -121,14 +121,14 @@ public class Person extends DomainObject
 	 * Accept an incoming friend request.
 	 * @param friendAccepted
 	 */
-	public boolean acceptRequest(Person friendAccepted)
+	public boolean acceptRequest(Friend friendAccepted)
 	{
-		myFriends.addFriend(friendAccepted.asFriend());
-		boolean mySuccess = incomingRequests.removeRequest(friendAccepted.asFriend());
+		myFriends.addFriend(friendAccepted);
+		boolean mySuccess = incomingRequests.removeRequest(friendAccepted);
 				
-		friendAccepted.myFriends.addFriend(this.asFriend());
-		boolean theirSuccess = friendAccepted.outgoingRequests.removeRequest(this.asFriend());
-		if (mySuccess && theirSuccess == true)
+		//friendAccepted.myFriends.addFriend(this.asFriend());
+		//boolean theirSuccess = friendAccepted.outgoingRequests.removeRequest(this.asFriend());
+		if (mySuccess /*&& theirSuccess*/ == true)
 		{
 			return true;
 		}
@@ -140,12 +140,12 @@ public class Person extends DomainObject
 	 * @param requestor
 	 * @return
 	 */
-	public boolean rejectRequest(Person requestor)
+	public boolean rejectRequest(Friend requestor)
 	{
-		boolean mySuccess = incomingRequests.removeRequest(requestor.asFriend());	
-		boolean theirSuccess = requestor.outgoingRequests.removeRequest(this.asFriend());
+		boolean mySuccess = incomingRequests.removeRequest(requestor);	
+		//boolean theirSuccess = requestor.outgoingRequests.removeRequest(this.asFriend());
 		
-		if (mySuccess && theirSuccess == true)
+		if (mySuccess /*&& theirSuccess*/ == true)
 		{
 			return true;
 		}
@@ -157,11 +157,11 @@ public class Person extends DomainObject
 	 * @param friend
 	 * @return
 	 */
-	public boolean removeFriend(Person friend)
+	public boolean removeFriend(Friend friend)
 	{
-		boolean mySuccess = myFriends.unFriend(friend.asFriend());
-		boolean theirSuccess = friend.myFriends.unFriend(this.asFriend());
-		if (mySuccess && theirSuccess == true)
+		boolean mySuccess = myFriends.unFriend(friend);
+		//boolean theirSuccess = friend.myFriends.unFriend(this.asFriend());
+		if (mySuccess /*&& theirSuccess*/ == true)
 		{
 			return true;
 		}
@@ -172,8 +172,8 @@ public class Person extends DomainObject
 	 * Create an instance of myself as a friend
 	 * @return
 	 */
-	public Friend asFriend()
-	{
-		return new Friend(displayName, this.id);
-	}	
+//	public Friend asFriend()
+//	{
+//		return new Friend(displayName, this.id);
+//	}	
 }
