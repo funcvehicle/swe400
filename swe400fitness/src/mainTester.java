@@ -7,15 +7,22 @@ public class mainTester
 {
 	public static void main(String[] args)
 	{	
-		CommandToCreateUser createKarl = new CommandToCreateUser("Karl", "karlspassword", "Karly");
-		createKarl.execute();
-		Person karl = createKarl.getResult();
-		
-		CommandToCreateUser createTed = new CommandToCreateUser("Ted", "tedspassword", "teddy");
-		createTed.execute();
+//		CommandToCreateUser createKarl = new CommandToCreateUser("Karl", "karlspassword", "Karly");
+//		createKarl.execute();
+//		Person karl = createKarl.getResult();
+//		
+//		CommandToCreateUser createTed = new CommandToCreateUser("Ted", "tedspassword", "teddy");
+//		createTed.execute();
 		
 //		CommandToSelectUser selectKarl = new CommandToSelectUser("Karl", "karlspassword");
 //		selectKarl.execute();
+		
+		CommandToModifyUser modifyTed = new CommandToModifyUser(1, "teddo");
+		modifyTed.execute();
+		
+		CommandToSelectUser selectTed = new CommandToSelectUser("Ted", "tedspassword");
+		selectTed.execute();
+		System.out.println(selectTed.getResult().getDisplayName());
 //		
 //		CommandToMakeFriendRequest requestTed = new CommandToMakeFriendRequest(0, "");
 	}
