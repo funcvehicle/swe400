@@ -53,7 +53,14 @@ public class Person extends DomainObject
 	
 	public void setPassword(String password)
 	{
+		markDirty();
 		this.password = password;
+	}
+	
+	public void setDisplayName(String displayName)
+	{
+		markDirty();
+		this.displayName = displayName;
 	}
 	
 	public String getUserName()
