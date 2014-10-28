@@ -10,7 +10,6 @@ import unitOfWork.UnitOfWork;
  */
 public class CommandToPersistChanges implements Command
 {
-
 	/**
 	 * 
 	 * @see Command#execute()
