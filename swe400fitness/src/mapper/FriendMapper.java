@@ -15,10 +15,10 @@ public class FriendMapper implements Mapper
 	private FriendGateway friendGate;
 	private PersonGateway personGate;
 	
-	public FriendMapper(FriendGateway friendGate)
+	public FriendMapper(FriendGateway friendGate, PersonGateway personGate)
 	{
-		friendGate = new FriendGateway();
-		personGate = new PersonGateway();
+		this.friendGate = friendGate;
+		this.personGate = personGate;
 	}
 	
 	public FriendList findFriends(Long myId)
@@ -74,7 +74,7 @@ public class FriendMapper implements Mapper
 	@Override
 	public void update(DomainObject object)
 	{
-		
+		//TODO Should do nothing
 	}
 	
 	@Override

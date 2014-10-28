@@ -18,7 +18,7 @@ public class KeyGateway extends Gateway
 		try
 		{
 			Statement statement = connection.createStatement();
-			statement.execute("UPDATE keytable SET key=" + (current + 1) + " WHERE key=" + current);
+			statement.execute("UPDATE keytable SET nextId=" + (current + 1) + " WHERE nextId=" + current);
 		}
 		catch (SQLException e)
 		{
@@ -40,7 +40,8 @@ public class KeyGateway extends Gateway
 
 			statement = connection.createStatement();
 			ResultSet results = statement.executeQuery("SELECT * FROM keytable");
-			long returnMe = results.getLong("key");
+			results.next();
+			long returnMe = results.getLong("nextId");
 			incrementKey(connection, returnMe);
 			closeConnection();
 			return returnMe;
