@@ -26,6 +26,13 @@ public class FriendMapper implements Mapper
 		this.keyGate = new KeyGateway();
 	}
 	
+	public Friend create(String displayName, long id, long currentUserId)
+	{
+		long relationshipId = keyGate.generateKey();
+		Friend f = Friend.createNewFriend(displayName, id, relationshipId, currentUserId);
+		return f;
+	}
+	
 	public FriendList findFriends(Long myId)
 	{
 		FriendList list = new FriendList();
@@ -55,7 +62,7 @@ public class FriendMapper implements Mapper
 			long id = friendResultSet.getLong("friendId");
 			ResultSet personResultSet = personGate.find(id);
 			String displayName = personResultSet.getString("displayName");
-			Friend friend = new Friend(displayName, id);
+			Friend friend = new Friend(displayName, id, relationshipId);
 			return friend;
 		} catch (SQLException e) 
 		{
