@@ -4,7 +4,10 @@ import java.sql.ResultSet;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import javax.sql.rowset.CachedRowSet;
+
 import com.mysql.jdbc.Statement;
+import com.sun.rowset.CachedRowSetImpl;
 
 public class PersonGateway extends Gateway
 {
@@ -12,7 +15,7 @@ public class PersonGateway extends Gateway
 	private String		queryStringByID			= "SELECT * FROM people WHERE id=";
 	private String		queryStringByUserName	= "SELECT * FROM people WHERE userName=";
 	
-	private String updateStatement = "UPDATE people SET";
+	private String updateStatement = "UPDATE people SET ";
 	private String insertStatement = "INSERT INTO people (id,userName,displayName,password) VALUES (";
 	private String deleteStatement = "DELETE FROM people WHERE id=";
 
@@ -22,24 +25,28 @@ public class PersonGateway extends Gateway
 	 * @param id
 	 * @return ResultSet containing one row from the people table
 	 */
-	public ResultSet find(long id)
+	public CachedRowSet find(long id)
 	{
 		establishConnection();
 		connection = getConnection();
 		Statement find;
+		CachedRowSet results;
 		
 		try
 		{
+			results = new CachedRowSetImpl();
 			find = (Statement) connection.createStatement();
-			ResultSet results = find.executeQuery(queryStringByID + id);
-			return results;
+			ResultSet data = find.executeQuery(queryStringByID + id);
+			results.populate(data);
 		}
 		catch (SQLException e)
 		{
-			e.printStackTrace();
+			System.err.println(PersonGateway.class.getName() + " SQL ERROR: " + e.getMessage());
+			results = null;
 		}
 
-		return new NullSet();
+		closeConnection();
+		return results;
 
 	}
 
@@ -49,24 +56,27 @@ public class PersonGateway extends Gateway
 	 * @param userName
 	 * @return ResultSet containing one row from the people table
 	 */
-	public ResultSet find(String userName)
+	public CachedRowSet find(String userName)
 	{
 		establishConnection();
 		connection = getConnection();
 		Statement find;
-		ResultSet results;
+		CachedRowSet results;
 		
 		try
 		{
+			results = new CachedRowSetImpl();
 			find = (Statement) connection.createStatement();
-			results = find.executeQuery(queryStringByUserName + "'" + userName + "'");
+			ResultSet data = find.executeQuery(queryStringByUserName + "'" + userName + "'");
+			results.populate(data);
 		}
 		catch (SQLException e)
 		{
-			results = new NullSet();
-			e.printStackTrace();
+			results = null;
+			System.err.println(PersonGateway.class.getName() + " SQL ERROR: " + e.getMessage());
 		}
 
+		closeConnection();
 		return results;
 	}
 
@@ -113,14 +123,16 @@ public class PersonGateway extends Gateway
 		try
 		{
 			Statement updateStatement = (Statement) connection.createStatement();
-			updateStatement.execute(updateStatement + "userName=" + userName + ",password=" + password + ",displayName="
-					+ displayName + " WHERE id=" + id);
+			updateStatement.execute("UPDATE people SET userName='" + userName + "', password='" + password + "', displayName='"
+					+ displayName + "' WHERE id=" + id);
 		}
 		catch (SQLException e)
 		{
+			e.printStackTrace();
 			result = SQLEnum.FAILED_SQL_ERROR;
 		}
 
+		closeConnection();
 		return result;
 	}
 
@@ -148,6 +160,7 @@ public class PersonGateway extends Gateway
 			result = SQLEnum.FAILED_SQL_ERROR;
 		}
 
+		closeConnection();
 		return result;
 	}
 }
