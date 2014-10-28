@@ -126,7 +126,7 @@ public class PendingFriendMapper implements Mapper
 	@Override
 	public void insert(DomainObject o)
 	{
-		// TODO Adds a request to database
+		
 		
 	}
 
@@ -140,7 +140,7 @@ public class PendingFriendMapper implements Mapper
 	@Override
 	public void delete(DomainObject o)
 	{
-		// TODO Remove request from database
+		
 		
 	}
 
