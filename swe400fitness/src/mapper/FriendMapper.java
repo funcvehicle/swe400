@@ -1,15 +1,11 @@
 package mapper;
 import gateway.FriendGateway;
-import gateway.KeyGateway;
 import gateway.PersonGateway;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import domainModel.DomainObject;
 import domainModel.Friend;
 import domainModel.FriendList;
-import domainModel.Person;
 
 /*
  * Author: Hayden Cook
@@ -18,12 +14,11 @@ public class FriendMapper implements Mapper
 {
 	private FriendGateway friendGate;
 	private PersonGateway personGate;
-	private KeyGateway keyGate;
+	
 	public FriendMapper(FriendGateway friendGate, PersonGateway personGate)
 	{
 		this.friendGate = friendGate;
 		this.personGate = personGate;
-		this.keyGate = new KeyGateway();
 	}
 	
 	public FriendList findFriends(Long myId)
@@ -46,6 +41,18 @@ public class FriendMapper implements Mapper
 		}	
 	}
 	
+//	public Friend find(Long relationshipId) TODO Not really sure why this method is here, it may be significant
+//	{
+//		ResultSet record = friendGate.find(relationshipId);
+//		try
+//		{
+//			record.next();
+//		} catch (SQLException e) 
+//		{
+//			e.printStackTrace();
+//		}
+//		return loadOne(record);
+//	}
 	
 	private Friend findFriend(Long relationshipId)
 	{
@@ -70,30 +77,23 @@ public class FriendMapper implements Mapper
 		//TODO Should do nothing
 	}
 	
-	public void insert(DomainObject person, DomainObject friend)
+	@Override
+	public void insert(DomainObject object)
 	{
-		Friend fFriend = (Friend) friend;
-		Person pPerson = (Person) person;
-		long personID = pPerson.getId();
-		long FriendID = fFriend.getId();
-		friendGate.create(keyGate.generateKey(),FriendID, personID);
+		//Friend friend = (Friend) object;
+		//String displayName = friend.getDisplayName();
+		//long id = friend.getId();
+		//friendGate.insert(id, displayName);
+		// TODO
 	}
 	
 	@Override
 	public void delete(DomainObject object)
 	{
-		Friend friend = (Friend) object;
-		long id = friend.getId();
-		friendGate.delete(id);
+		//Friend friend = (Friend) object;
+		//long id = friend.getId();
+		// TODO Check with Gateway
+		//friendGate.delete(id);
 	}
-
-	@Override
-	public void insert(DomainObject o) 
-	{
-		// TODO Auto-generated method stub
-		
-	}
-	
-	
 }
 
