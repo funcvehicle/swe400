@@ -14,8 +14,7 @@ public class PersonGateway extends Gateway
 	private Connection	connection;
 	private String		queryStringByID			= "SELECT * FROM people WHERE id=";
 	private String		queryStringByUserName	= "SELECT * FROM people WHERE userName=";
-	
-	private String updateStatement = "UPDATE people SET ";
+
 	private String insertStatement = "INSERT INTO people (id,userName,displayName,password) VALUES (";
 	private String deleteStatement = "DELETE FROM people WHERE id=";
 
