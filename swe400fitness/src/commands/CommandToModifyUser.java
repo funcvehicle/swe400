@@ -2,6 +2,7 @@ package commands;
 
 import domainModel.Person;
 import mapper.MapperRegistry;
+import mapper.PersonMapper;
 import unitOfWork.UnitOfWork;
 
 /**
@@ -33,11 +34,20 @@ public class CommandToModifyUser implements Command
 	@Override
 	public void execute()
 	{
-		UnitOfWork work = UnitOfWork.getCurrent();
-		// load person from DB?
-		// update in memory object, then register with unit of work?
+		MapperRegistry mr = MapperRegistry.getCurrent();
+		PersonMapper pm = (PersonMapper) mr.getMapper(Person.class);
 		
-		//work.registerDirty();
+		Person p = pm.find(userID);
+		
+		if (p != null)
+		{
+			p.setDisplayName(newDisplayName);
+		}
+		else
+		{
+			System.err.println("ERROR: Cannot modify user " + userID + " because the ID does not exist!");
+			System.err.println("Command to modify user " + userID + " failed!");
+		}	
 	}
 
 	/**
@@ -49,7 +59,6 @@ public class CommandToModifyUser implements Command
 	@Override
 	public Object getResult()
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 }

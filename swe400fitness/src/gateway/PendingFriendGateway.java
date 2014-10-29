@@ -3,6 +3,9 @@ package gateway;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import com.sun.rowset.CachedRowSetImpl;
+
+import javax.sql.rowset.CachedRowSet;
 
 import com.mysql.jdbc.Statement;
 
@@ -25,22 +28,28 @@ public class PendingFriendGateway extends Gateway
 	 * Find all requests coming from a user
 	 * @param userID
 	 */
-	public ResultSet findOutgoing(long inquirerID)
+	public CachedRowSet findOutgoing(long inquirerID)
 	{
 		establishConnection();
 		connection = getConnection();
-		ResultSet results;
+		ResultSet data;
+		CachedRowSet results;
 		
 		try
 		{
+			results = new CachedRowSetImpl();
 			Statement select = (Statement) connection.createStatement();
-			results = select.executeQuery(findOutgoingStatement + inquirerID);
+			data = select.executeQuery(findOutgoingStatement + inquirerID);
+			results.populate(data);
+			
 		}
 		catch (SQLException e)
 		{
-			results = new NullSet();
+			System.err.println("SQL ERROR: " + e.getMessage());
+			results = null;
 		}
 		
+		closeConnection();
 		return results;
 	}
 	
@@ -49,22 +58,27 @@ public class PendingFriendGateway extends Gateway
 	 * @param recipientID
 	 * @return
 	 */
-	public ResultSet findIncoming(long recipientID)
+	public CachedRowSet findIncoming(long recipientID)
 	{
 		establishConnection();
 		connection = getConnection();
-		ResultSet results;
+		ResultSet data;
+		CachedRowSet results;
 		
 		try
 		{
+			results = new CachedRowSetImpl();
 			Statement select = (Statement) connection.createStatement();
-			results = select.executeQuery(findIncomingStatement + recipientID);
+			data = select.executeQuery(findIncomingStatement + recipientID);
+			results.populate(data);
 		}
 		catch (SQLException e)
 		{
-			results = new NullSet();
+			System.err.println("SQL ERROR: " + e.getMessage());
+			results = null;
 		}
 		
+		closeConnection();
 		return results;
 	}
 	
@@ -94,6 +108,7 @@ public class PendingFriendGateway extends Gateway
 			result = SQLEnum.FAILED_SQL_ERROR;
 		}
 		
+		closeConnection();
 		return result;
 	}
 
@@ -121,6 +136,7 @@ public class PendingFriendGateway extends Gateway
 			result = SQLEnum.FAILED_SQL_ERROR;
 		}
 		
+		closeConnection();
 		return result;
 	}
 }

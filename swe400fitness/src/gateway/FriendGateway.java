@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.sql.rowset.CachedRowSet;
+
 import com.mysql.jdbc.*;
+import com.sun.rowset.CachedRowSetImpl;
 
 /**
  * 
@@ -17,10 +20,6 @@ public class FriendGateway extends Gateway
 	private String		selectStatement	= "SELECT * FROM friends WHERE userId=";
 	private String		insertStatement	= "INSERT INTO friends VALUES (";
 	private String		deleteStatement	= "DELETE FROM friends WHERE userId=";
-
-	public FriendGateway()
-	{
-	}
 
 	/**
 	 * Create a friendship in the DB
@@ -57,6 +56,7 @@ public class FriendGateway extends Gateway
 			result = SQLEnum.EXISTS;
 		}
 
+		closeConnection();
 		return result;
 	}
 
@@ -66,23 +66,28 @@ public class FriendGateway extends Gateway
 	 * @param userId
 	 * @return RecordSet of all friendships for a a given userId
 	 */
-	public ResultSet find(long userId)
+	public CachedRowSet find(long userId)
 	{
 		establishConnection();
 		connection = getConnection();
-		ResultSet results;
+		ResultSet data;
+		CachedRowSet results;
 
 		try
 		{
+			results = new CachedRowSetImpl();
 			Statement select = (Statement) connection.createStatement();
-			results = select.executeQuery(selectStatement + userId);
-		}
-		catch (SQLException e)
-		{
-			results = new NullSet();
-			e.printStackTrace();
+			data = select.executeQuery(selectStatement + userId);
+			results.populate(data);
 		}
 		
+		catch (SQLException e)
+		{
+			results = null;
+			System.err.println("SQL ERROR: " + e.getMessage());
+		}
+		
+		closeConnection();
 		return results;
 	}
 	
@@ -108,6 +113,7 @@ public class FriendGateway extends Gateway
 			result = SQLEnum.FAILED_SQL_ERROR;
 		}
 
+		closeConnection();
 		return result;
 	}
 

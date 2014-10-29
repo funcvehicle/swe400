@@ -67,14 +67,20 @@ public abstract class Gateway
 			Statement findMe = (Statement) connection.createStatement();
 			
 			ResultSet set = findMe.executeQuery(query);
-			switch(params[0]){
-			case "friends":
+			if (params[0].equals("friends"))
+			{
 				return checkFriends(set, params);
-			case "people":
+			}
+			else if (params[0].equals("people"))
+			{
 				return checkPeople(set, params);
-			case "pendingFriends":
+			}
+			else if (params[0].equals("pendingFriends"))
+			{
 				return checkPendingFriends(set, params);
-			default:
+			}
+			else
+			{
 				return SQLEnum.FAILED_BAD_PARAMS;
 			}
 

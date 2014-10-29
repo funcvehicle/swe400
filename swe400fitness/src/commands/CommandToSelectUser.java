@@ -38,8 +38,11 @@ public class CommandToSelectUser implements Command
 		MapperRegistry mr = MapperRegistry.getCurrent();
 		PersonMapper pm = (PersonMapper) mr.getMapper(Person.class);
 		person = pm.find(userName);
-		
-		//TODO: validate password
+		if (!person.getPassword().equals(password))
+		{
+			person = null;
+			System.err.println("Username and password do not match.");
+		}
 	}
 
 	/**

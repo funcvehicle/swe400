@@ -1,6 +1,8 @@
 package commands;
 
+import domainModel.Friend;
 import domainModel.Person;
+import mapper.FriendMapper;
 import mapper.MapperRegistry;
 import mapper.PersonMapper;
 
@@ -36,10 +38,12 @@ public class CommandToAcceptFriendRequest implements Command
 	public void execute()
 	{
 		MapperRegistry mapperRegistry = MapperRegistry.getCurrent();
-		PersonMapper mapper = (PersonMapper) mapperRegistry.getMapper(Person.class);
-		Person requestee = mapper.find(userIDOfRequestee);
-		Person requester = mapper.find(userNameOfRequester);
-		requestee.acceptRequest(requester);
+		PersonMapper pMapper = (PersonMapper) mapperRegistry.getMapper(Person.class);
+		FriendMapper fMapper = (FriendMapper) mapperRegistry.getMapper(Friend.class);
+		Person requestee = pMapper.find(userIDOfRequestee);
+		Person requester = pMapper.find(userNameOfRequester);
+		Friend friend = fMapper.create(requester.getDisplayName(), requester.getId(), requestee.getId());
+		requestee.acceptRequest(friend);
 	}
 
 	/**

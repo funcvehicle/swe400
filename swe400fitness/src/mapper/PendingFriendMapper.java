@@ -126,10 +126,10 @@ public class PendingFriendMapper implements Mapper
 	@Override
 	public void insert(DomainObject o)
 	{
-		Friend pendingFriend = (Friend) o;
-		String displayName = pendingFriend.getDisplayName();
-		long id = pendingFriend.getId();
-		gate.insert(id, displayName);
+//		Friend pendingFriend = (Friend) o;
+//		String displayName = pendingFriend.getDisplayName();
+//		long id = pendingFriend.getId();
+//		gate.insert(id, displayName);
 		
 	}
 
@@ -143,9 +143,9 @@ public class PendingFriendMapper implements Mapper
 	@Override
 	public void delete(DomainObject o)
 	{
-		Friend pendingFriend = (Friend) o;
-		long id = pendingFriend.getId();
-		gate.delete(id);
+//		Friend pendingFriend = (Friend) o;
+//		long id = pendingFriend.getId();
+//		gate.delete(id);
 	}
 
 }

@@ -14,9 +14,20 @@ public class mainTester
 		CommandToCreateUser createTed = new CommandToCreateUser("Ted", "tedspassword", "teddy");
 		createTed.execute();
 		
-//		CommandToSelectUser selectKarl = new CommandToSelectUser("Karl", "karlspassword");
-//		selectKarl.execute();
-//		
+		CommandToSelectUser selectKarl = new CommandToSelectUser("Karl", "karlspassword");
+		selectKarl.execute();
+		System.out.println(selectKarl.getResult().getDisplayName());
+		
+		CommandToModifyUser modifyTed = new CommandToModifyUser(1, "teddo");
+		modifyTed.execute();
+		
+		CommandToPersistChanges persist = new CommandToPersistChanges();
+		persist.execute();
+		
+		CommandToSelectUser selectTed = new CommandToSelectUser("Ted", "tedspassword");
+		selectTed.execute();
+		System.out.println(selectTed.getResult().getDisplayName());
+		
 //		CommandToMakeFriendRequest requestTed = new CommandToMakeFriendRequest(0, "");
 	}
 }
