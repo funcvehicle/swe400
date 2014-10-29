@@ -3,6 +3,7 @@ package commands;
 import gateway.PersonGateway;
 import mapper.MapperRegistry;
 import mapper.PersonMapper;
+import domainModel.Friend;
 import domainModel.Person;
 
 /**
@@ -40,7 +41,8 @@ public class CommandToMakeFriendRequest implements Command
 		PersonMapper mapper = (PersonMapper) mapperRegistry.getMapper(Person.class);
 		Person requestee = mapper.find(userNameOfRequestee);
 		Person requester = mapper.find(userIDOfRequester);
-		requester.requestFriend(requestee);
+		Friend friend = new Friend(requestee.getDisplayName(), requestee.getId());
+		requester.requestFriend(friend);
 	}
 
 	/**

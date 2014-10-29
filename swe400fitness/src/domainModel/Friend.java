@@ -10,10 +10,15 @@ public class Friend extends DomainObject
 	private long reationshipId;
 	private long currentUserId;
 	
-	public Friend(String nameDisplay, long id, long relationshipId)
+	public Friend(String nameDisplay, long id)
 	{
 		displayName = nameDisplay;
 		this.id = id;
+	}
+	
+	public Friend(String nameDisplay, long id, long relationshipId)
+	{
+		this(nameDisplay, relationshipId);
 		this.reationshipId = relationshipId;
 	}
 	
