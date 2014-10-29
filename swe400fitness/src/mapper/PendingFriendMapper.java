@@ -126,22 +126,26 @@ public class PendingFriendMapper implements Mapper
 	@Override
 	public void insert(DomainObject o)
 	{
-		// TODO Adds a request to database
+		Friend pendingFriend = (Friend) o;
+		String displayName = pendingFriend.getDisplayName();
+		long id = pendingFriend.getId();
+		gate.insert(id, displayName);
 		
 	}
 
 	@Override
 	public void update(DomainObject o)
 	{
-		// TODO No code here! Unnecessary method
+		// Should do nothing
 		
 	}
 
 	@Override
 	public void delete(DomainObject o)
 	{
-		// TODO Remove request from database
-		
+		Friend pendingFriend = (Friend) o;
+		long id = pendingFriend.getId();
+		gate.delete(id);
 	}
 
 }
