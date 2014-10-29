@@ -7,7 +7,7 @@ import gateway.KeyGateway;
 import gateway.PendingFriendGateway;
 import gateway.PersonGateway;
 import domainModel.DomainObject;
-import domainModel.Friend;
+import domainModel.PendingFriend;
 import domainModel.IncomingRequestsList;
 import domainModel.OutgoingRequestsList;
 
@@ -41,8 +41,8 @@ public class PendingFriendMapper implements Mapper
 			while (myList.next() == true)
 			{
 				long pendingRelationshipId = myList.getLong("id");
-				Friend friend = findInquirer(pendingRelationshipId);
-				list.addIncomingRequest(friend);
+				PendingFriend pendingFriend = findInquirer(pendingRelationshipId);
+				list.addIncomingRequest(pendingFriend);
 			}
 			return list;
 		}
@@ -66,8 +66,8 @@ public class PendingFriendMapper implements Mapper
 		long id = record.getLong("inquirerId");
 		ResultSet personRecord = personGate.find(id);
 		String displayName = personRecord.getString("displayName");
-		Friend friend = new Friend(displayName, id);
-		return friend;
+		PendingFriend pendingFriend = new PendingFriend(displayName, id);
+		return pendingFriend;
 		} catch (SQLException e)
 		{
 			e.printStackTrace();
@@ -89,8 +89,8 @@ public class PendingFriendMapper implements Mapper
 			while (myList.next() == true)
 			{
 				long pendingRelationshipId = myList.getLong("id");
-				Friend friend = findRecipient(pendingRelationshipId);
-				list.addPerson(friend);
+				PendingFriend pendingFriend = findRecipient(pendingRelationshipId);
+				list.addPerson(pendingFriend);
 			}
 			return list;
 		}
@@ -114,8 +114,8 @@ public class PendingFriendMapper implements Mapper
 		long id = record.getLong("inquirerId");
 		ResultSet personRecord = personGate.find(id);
 		String displayName = personRecord.getString("displayName");
-		Friend friend = new Friend(displayName, id);
-		return friend;
+		PendingFriend pendingFriend = new PendingFriend(displayName, id);
+		return pendingFriend;
 		} catch (SQLException e)
 		{
 			e.printStackTrace();
@@ -124,7 +124,7 @@ public class PendingFriendMapper implements Mapper
 	}
 	
 	@Override
-	public void insert(DomainObject o)
+	public void insert(DomainObject object)
 	{
 //		Friend pendingFriend = (Friend) o;
 //		String displayName = pendingFriend.getDisplayName();
