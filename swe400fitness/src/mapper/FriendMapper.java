@@ -90,15 +90,15 @@ public class FriendMapper implements Mapper
 	public void delete(DomainObject object)
 	{
 		Friend friend = (Friend) object;
-		long id = friend.getId();
+		long id = friend.getRelationshipId();
 		friendGate.delete(id);
 	}
 
 	@Override
-	public void insert(DomainObject o) 
+	public void insert(DomainObject object) 
 	{
-		// TODO Auto-generated method stub
-		
+		Friend friend = (Friend) object;
+		friendGate.create(friend.getRelationshipId(), friend.getCurrentUserId(), friend.getId());
 	}
 	
 	
