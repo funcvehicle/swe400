@@ -6,6 +6,7 @@ import mapper.MapperRegistry;
 import mapper.PendingFriendMapper;
 import mapper.PersonMapper;
 import domainModel.Friend;
+import domainModel.IncomingRequestsList;
 import domainModel.PendingRequest;
 import domainModel.Person;
 
@@ -45,9 +46,14 @@ public class CommandToGetPendingIncomingFriendList implements Command
 		PersonMapper mapper = (PersonMapper) mapperRegistry.getMapper(Person.class);
 		PendingFriendMapper pfMapper = (PendingFriendMapper) mapperRegistry.getMapper(PendingRequest.class);
 		Person person = mapper.find(userID);
-		
-		
-		incomingFriendsList = person.getIncomingRequests().getIncomingRequestsList();
+		IncomingRequestsList incomingRequestsList = pfMapper.findIncomingRequests(person.getId());
+		ArrayList<PendingRequest> pendingRequests = incomingRequestsList.getIncomingRequestsList();
+		incomingFriendsList = new ArrayList<Friend>();
+		for (PendingRequest pr : pendingRequests)
+		{
+			Friend friend = new Friend(pr.getDisplayName(), pr.getInquirerId());
+			incomingFriendsList.add(friend);
+		}
 	}
 
 	/**

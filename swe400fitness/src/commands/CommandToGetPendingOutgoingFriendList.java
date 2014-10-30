@@ -3,8 +3,11 @@ package commands;
 import java.util.ArrayList;
 
 import mapper.MapperRegistry;
+import mapper.PendingFriendMapper;
 import mapper.PersonMapper;
 import domainModel.Friend;
+import domainModel.OutgoingRequestsList;
+import domainModel.PendingRequest;
 import domainModel.Person;
 
 /**
@@ -18,7 +21,7 @@ import domainModel.Person;
 public class CommandToGetPendingOutgoingFriendList implements Command
 {
 
-	private int userID;
+	private long userID;
 	private ArrayList<Friend> outgoingFriendsList;
 
 	/**
@@ -30,6 +33,7 @@ public class CommandToGetPendingOutgoingFriendList implements Command
 	public CommandToGetPendingOutgoingFriendList(int userID)
 	{
 		this.userID = userID;
+		outgoingFriendsList = new ArrayList<Friend>();
 	}
 
 	/**
@@ -40,9 +44,14 @@ public class CommandToGetPendingOutgoingFriendList implements Command
 	public void execute()
 	{
 		MapperRegistry mapperRegistry = MapperRegistry.getCurrent();
-		PersonMapper mapper = (PersonMapper) mapperRegistry.getMapper(Person.class);
-		Person person = mapper.find(userID);
-		outgoingFriendsList = person.getOutgoingRequests().getOutgoingRequestsList();
+		PendingFriendMapper pfMapper = (PendingFriendMapper) mapperRegistry.getMapper(PendingRequest.class);
+		OutgoingRequestsList outgoingRequestsList = pfMapper.findOutgoingRequests(userID);
+		ArrayList<PendingRequest> pendingFriends = outgoingRequestsList.getOutgoingRequestsList();
+		for (PendingRequest pf : pendingFriends)
+		{
+			Friend friend = new Friend(pf.getDisplayName(), pf.getRecipientId());
+			outgoingFriendsList.add(friend);
+		}
 	}
 
 	/**

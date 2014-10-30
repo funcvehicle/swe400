@@ -1,7 +1,9 @@
 package commands;
 
+import domainModel.PendingRequest;
 import domainModel.Person;
 import mapper.MapperRegistry;
+import mapper.PendingFriendMapper;
 import mapper.PersonMapper;
 
 /**
@@ -36,9 +38,11 @@ public class CommandToRejectFriendRequest implements Command
 	{
 		MapperRegistry mapperRegistry = MapperRegistry.getCurrent();
 		PersonMapper mapper = (PersonMapper) mapperRegistry.getMapper(Person.class);
+		PendingFriendMapper pfMapper = (PendingFriendMapper) mapperRegistry.getMapper(PendingRequest.class);
 		Person requestee = mapper.find(userIDOfRequestee);
-		Person requester = mapper.find(userName OfRequester);
-		requestee.rejectRequest(requester);
+		Person requester = mapper.find(userNameOfRequester);
+		PendingRequest pendingRequest = pfMapper.create(requestee.getId(), requester.getId(), requester.getDisplayName());
+		requestee.rejectRequest(pendingRequest);
 	}
 
 	/**
