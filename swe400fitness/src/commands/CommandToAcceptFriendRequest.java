@@ -16,7 +16,7 @@ import mapper.PersonMapper;
 public class CommandToAcceptFriendRequest implements Command
 {
 
-	private int userIDOfRequestee;
+	private long userIDOfRequestee;
 	private String userNameOfRequester;
 
 
@@ -43,7 +43,7 @@ public class CommandToAcceptFriendRequest implements Command
 		PendingFriendMapper pfMapper = (PendingFriendMapper) mapperRegistry.getMapper(PendingRequest.class);
 		
 		Person requestee = pMapper.find(userIDOfRequestee);
-		requestee.
+		requestee.setIncomingRequests(pfMapper.findIncomingRequests(userIDOfRequestee));
 		Person requester = pMapper.find(userNameOfRequester);
 		
 		PendingRequest pendingRequest = pfMapper.create(requester.getId(), requestee.getId(), requester.getDisplayName());
