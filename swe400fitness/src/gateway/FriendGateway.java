@@ -17,9 +17,9 @@ import com.sun.rowset.CachedRowSetImpl;
 public class FriendGateway extends Gateway
 {
 	private Connection	connection;
-	private String		selectStatement	= "SELECT * FROM friends WHERE userId=";
+	private String		selectStatement	= "SELECT * FROM friends WHERE personId=";
 	private String		insertStatement	= "INSERT INTO friends VALUES (";
-	private String		deleteStatement	= "DELETE FROM friends WHERE userId=";
+	private String		deleteStatement	= "DELETE FROM friends WHERE id=";
 
 	/**
 	 * Create a friendship in the DB
@@ -77,7 +77,7 @@ public class FriendGateway extends Gateway
 		{
 			results = new CachedRowSetImpl();
 			Statement select = (Statement) connection.createStatement();
-			data = select.executeQuery(selectStatement + userId);
+			data = select.executeQuery(selectStatement + userId + " OR friendId=" + userId);
 			results.populate(data);
 		}
 		
@@ -106,7 +106,6 @@ public class FriendGateway extends Gateway
 		{
 			Statement delete = (Statement) connection.createStatement();
 			delete.execute(deleteStatement + relationId);
-			
 		}
 		catch (SQLException e)
 		{

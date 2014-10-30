@@ -15,7 +15,6 @@ public class CommandToRejectFriendRequest implements Command
 	private int userIDOfRequestee;
 	private String userNameOfRequester;
 
-
 	/**
 	 * 
 	 * @param userIDOfRequestee the User ID of the user accepting the request
@@ -38,7 +37,7 @@ public class CommandToRejectFriendRequest implements Command
 		MapperRegistry mapperRegistry = MapperRegistry.getCurrent();
 		PersonMapper mapper = (PersonMapper) mapperRegistry.getMapper(Person.class);
 		Person requestee = mapper.find(userIDOfRequestee);
-		Person requester = mapper.find(userNameOfRequester);
+		Person requester = mapper.find(userName OfRequester);
 		requestee.rejectRequest(requester);
 	}
 
