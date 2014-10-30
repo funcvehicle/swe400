@@ -1,7 +1,9 @@
 package commands;
 
+import domainModel.Friend;
 import domainModel.PendingRequest;
 import domainModel.Person;
+import mapper.FriendMapper;
 import mapper.MapperRegistry;
 import mapper.PendingFriendMapper;
 import mapper.PersonMapper;
@@ -13,8 +15,7 @@ import mapper.PersonMapper;
  */
 public class CommandToRejectFriendRequest implements Command
 {
-
-	private int userIDOfRequestee;
+	private long userIDOfRequestee;
 	private String userNameOfRequester;
 
 	/**
@@ -37,12 +38,28 @@ public class CommandToRejectFriendRequest implements Command
 	public void execute()
 	{
 		MapperRegistry mapperRegistry = MapperRegistry.getCurrent();
-		PersonMapper mapper = (PersonMapper) mapperRegistry.getMapper(Person.class);
+		PersonMapper pMapper = (PersonMapper) mapperRegistry.getMapper(Person.class);
 		PendingFriendMapper pfMapper = (PendingFriendMapper) mapperRegistry.getMapper(PendingRequest.class);
-		Person requestee = mapper.find(userIDOfRequestee);
-		Person requester = mapper.find(userNameOfRequester);
-		PendingRequest pendingRequest = pfMapper.create(requestee.getId(), requester.getId(), requester.getDisplayName());
-		requestee.rejectRequest(pendingRequest);
+		FriendMapper fm = (FriendMapper) mapperRegistry.getMapper(Friend.class);
+		
+		Person requestee = pMapper.find(userIDOfRequestee);
+		requestee.setIncomingRequests(pfMapper.findIncomingRequests(userIDOfRequestee));
+		Person requester = pMapper.find(userNameOfRequester);
+		
+		fm.create(requester.getDisplayName(), requester.getId(), userIDOfRequestee);
+		
+		PendingRequest pendingRequest = pfMapper.findIncomingRelationshipId(requester.getId(), requestee.getId());
+		
+		if (pendingRequest != null)
+		{
+			requestee.rejectRequest(pendingRequest);
+			pendingRequest.deleteRequest();
+		}
+		
+		else
+		{
+			System.err.println("ERROR: request from " + userNameOfRequester + " does not exist, cannot accept");
+		}
 	}
 
 	/**

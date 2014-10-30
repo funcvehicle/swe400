@@ -29,15 +29,20 @@ public class mainTester
 		
 //		CommandToMakeFriendRequest requestKarl = new CommandToMakeFriendRequest(3, "Karl");
 //		requestKarl.execute();
-//		
+//		persist.execute();
+		
+		CommandToRejectFriendRequest rejectTed = new CommandToRejectFriendRequest(2, "Ted");
+		rejectTed.execute();
+		persist.execute();
+		
 //		persist.execute();
 		
 //		CommandToAcceptFriendRequest acceptTed = new CommandToAcceptFriendRequest(2, "Ted");
 //		acceptTed.execute();
 //		persist.execute();
 		
-		CommandToUnFriend unfriendTed = new CommandToUnFriend(2, "Ted");
-		unfriendTed.execute();
-		persist.execute();
+//		CommandToUnFriend unfriendTed = new CommandToUnFriend(2, "Ted");
+//		unfriendTed.execute();
+//		persist.execute();
 	}
 }
