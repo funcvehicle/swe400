@@ -58,7 +58,7 @@ public class CommandToRejectFriendRequest implements Command
 		
 		else
 		{
-			System.err.println("ERROR: request from " + userNameOfRequester + " does not exist, cannot accept");
+			System.err.println("ERROR: request from " + userNameOfRequester + " does not exist, cannot reject");
 		}
 	}
 

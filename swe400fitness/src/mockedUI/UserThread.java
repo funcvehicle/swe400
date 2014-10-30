@@ -6,6 +6,8 @@ import java.lang.reflect.Constructor;
 import java.util.Scanner;
 
 import commands.Command;
+import domainModel.DomainObject;
+import domainModel.Person;
 
 /**
  * Reads a file of instructions, executes them, and verifies the results as it
@@ -44,7 +46,7 @@ public class UserThread implements Runnable
 
 	private static final String INSERT_USER_ID = "<userID>";
 	private Scanner commandReader;
-	private int currentUserID;
+	private long currentUserID;
 	private boolean running;
 
 	/**
@@ -65,7 +67,7 @@ public class UserThread implements Runnable
 	 */
 	public UserThread(String fileTitle) throws FileNotFoundException
 	{
-		commandReader = new Scanner(new File("/test/" + fileTitle));
+		commandReader = new Scanner(new File(fileTitle));
 	}
 
 	/**
@@ -80,7 +82,7 @@ public class UserThread implements Runnable
 		try
 		{
 			return (Class<? extends Command>) Class.forName(
-					"domainLogic." + command).asSubclass(Command.class);
+					"commands." + command).asSubclass(Command.class);
 		} catch (ClassNotFoundException e)
 		{
 			System.out.println("Unrecognized command: " + command);
@@ -188,8 +190,12 @@ public class UserThread implements Runnable
 		cmd.execute();
 		if (parts.length == 2)
 		{
-			String result = (String) cmd.getResult();
-			if (result == null)
+			String result = "" + cmd.getResult();
+			if (cmd.getResult() == Person.class)
+			{
+				this.currentUserID = ((DomainObject) cmd.getResult()).getId();
+			}
+			if (result == "")
 			{
 				return false;
 			}

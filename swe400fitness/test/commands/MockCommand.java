@@ -1,5 +1,8 @@
 package commands;
 
+import commands.Command;
+import commands.domainLogic;
+
 /**
  * A command that is used in the tests of UserThread to make sure that it checks
  * the results of commands when appropriate

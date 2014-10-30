@@ -61,6 +61,7 @@ public class Person extends DomainObject
 		markDeleted();
 	}
 
+	@Override
 	public String toString()
 	{
 		return (userName + ":" + password + ":" + displayName);

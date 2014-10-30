@@ -44,7 +44,9 @@ public class CommandToMakeFriendRequest implements Command
 		PendingFriendMapper pfm = (PendingFriendMapper) mapperRegistry.getMapper(PendingRequest.class);
 		
 		Person recipient = mapper.find(userNameOfRequestee);
+		System.out.println(userNameOfRequestee + " " + recipient);
 		Person inquirer = mapper.find(userIDOfRequester);
+		System.out.println(userIDOfRequester + " " + inquirer);
 		
 		PendingRequest request = pfm.create(inquirer.getId(), recipient.getId(), recipient.getDisplayName());
 		
