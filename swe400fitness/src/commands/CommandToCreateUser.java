@@ -31,27 +31,37 @@ public class CommandToCreateUser implements Command
 	}
 	
 	
+//	/**
+//	 * @see Command#execute()
+//	 */
+//	@Override
+//	public void execute()
+//	{
+//		MapperRegistry mr = MapperRegistry.getCurrent();
+//		PersonMapper pm = (PersonMapper) mr.getMapper(Person.class);
+//		
+//		//Check that the user does not already exist in database 
+//		if (pm.find(userName) == null)
+//		{
+//			pm.create(userName, password, displayName);
+//			UnitOfWork.getCurrent().commit();
+//		}
+//		
+//		else
+//		{
+//			System.err.println("ERROR: Cannot create user " + userName + " because username already exists in DB!");
+//			System.err.println("CommandToCreateUser " + userName + " failed!");
+//		}
+//	}
+	
 	/**
 	 * @see Command#execute()
 	 */
 	@Override
 	public void execute()
 	{
-		MapperRegistry mr = MapperRegistry.getCurrent();
-		PersonMapper pm = (PersonMapper) mr.getMapper(Person.class);
-		
-		//Check that the user does not already exist in database 
-		if (pm.find(userName) == null)
-		{
-			pm.create(userName, password, displayName);
-			UnitOfWork.getCurrent().commit();
-		}
-		
-		else
-		{
-			System.err.println("ERROR: Cannot create user " + userName + " because username already exists in DB!");
-			System.err.println("CommandToCreateUser " + userName + " failed!");
-		}
+		Person.createNewPerson(userName, displayName, password);
+		UnitOfWork.getCurrent().commit();
 	}
 
 	/**

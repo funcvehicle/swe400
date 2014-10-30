@@ -14,7 +14,7 @@ public class Person extends DomainObject
 	private OutgoingRequestsList outgoingRequests;
 	private IncomingRequestsList incomingRequests;
 	
-	public Person(String userName, String displayName, String password, long id)
+	public Person(String userName, String displayName, String password)
 	{
 		this.userName = userName;
 		this.displayName = displayName;
@@ -22,7 +22,6 @@ public class Person extends DomainObject
 		outgoingRequests = new OutgoingRequestsList();
 		incomingRequests = new IncomingRequestsList();
 		myFriends = new FriendList();
-		this.id = id;
 	}
 	
 	/**
@@ -31,9 +30,9 @@ public class Person extends DomainObject
 	 * @param displayName
 	 * @return the created person
 	 */
-	public static Person createNewPerson(String userName, String displayName, String password, long id)
+	public static Person createNewPerson(String userName, String displayName, String password)
 	{
-		Person p = new Person(userName, displayName, password, id);
+		Person p = new Person(userName, displayName, password);
 		p.markNew();
 		return p;
 	}
