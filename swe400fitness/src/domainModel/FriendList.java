@@ -29,13 +29,12 @@ public class FriendList extends DomainObject
 	
 	public boolean addFriend(Friend friend)
 	{
-		this.markDirty();
 		return listOfFriends.add(friend);
 	}
 	
 	public boolean unFriend(Friend friend)
 	{
-		this.markDirty();
+		friend.markDeleted();
 		for (int i = 0; i < listOfFriends.size(); i++)
 		{
 			if (listOfFriends.get(i).getId() == (friend.getId()))
