@@ -1,4 +1,3 @@
-import mapper.MapperRegistry;
 import commands.*;
 import domainModel.Person;
 
@@ -30,10 +29,10 @@ public class mainTester
 		
 		CommandToMakeFriendRequest requestKarl = new CommandToMakeFriendRequest(2, "Karl");
 		requestKarl.execute();
-		requestKarl.getResult();
 		
 		persist.execute();
 		
 		CommandToAcceptFriendRequest acceptTed = new CommandToAcceptFriendRequest(3, "Ted");
+		acceptTed.execute();
 	}
 }
