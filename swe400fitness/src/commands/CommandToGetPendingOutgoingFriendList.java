@@ -30,7 +30,7 @@ public class CommandToGetPendingOutgoingFriendList implements Command
 	 * @param userID
 	 *            unique
 	 */
-	public CommandToGetPendingOutgoingFriendList(int userID)
+	public CommandToGetPendingOutgoingFriendList(long userID)
 	{
 		this.userID = userID;
 		outgoingFriendsList = new ArrayList<Friend>();
@@ -45,8 +45,11 @@ public class CommandToGetPendingOutgoingFriendList implements Command
 	{
 		MapperRegistry mapperRegistry = MapperRegistry.getCurrent();
 		PendingFriendMapper pfMapper = (PendingFriendMapper) mapperRegistry.getMapper(PendingRequest.class);
+		
 		OutgoingRequestsList outgoingRequestsList = pfMapper.findOutgoingRequests(userID);
 		ArrayList<PendingRequest> pendingFriends = outgoingRequestsList.getOutgoingRequestsList();
+		outgoingFriendsList = new ArrayList<Friend>();
+		
 		for (PendingRequest pf : pendingFriends)
 		{
 			Friend friend = new Friend(pf.getDisplayName(), pf.getRecipientId());

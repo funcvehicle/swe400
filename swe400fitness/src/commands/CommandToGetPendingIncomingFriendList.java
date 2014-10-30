@@ -30,7 +30,7 @@ public class CommandToGetPendingIncomingFriendList implements Command
 	 * @param userID
 	 *            unique
 	 */
-	public CommandToGetPendingIncomingFriendList(int userID)
+	public CommandToGetPendingIncomingFriendList(long userID)
 	{
 		this.userID = userID;
 	}
@@ -45,9 +45,8 @@ public class CommandToGetPendingIncomingFriendList implements Command
 		MapperRegistry mapperRegistry = MapperRegistry.getCurrent();
 		PersonMapper mapper = (PersonMapper) mapperRegistry.getMapper(Person.class);
 		PendingFriendMapper pfMapper = (PendingFriendMapper) mapperRegistry.getMapper(PendingRequest.class);
-		Person person = mapper.find(userID);
 		
-		IncomingRequestsList incomingRequestsList = pfMapper.findIncomingRequests(person.getId());
+		IncomingRequestsList incomingRequestsList = pfMapper.findIncomingRequests(userID);
 		ArrayList<PendingRequest> pendingRequests = incomingRequestsList.getIncomingRequestsList();
 		incomingFriendsList = new ArrayList<Friend>();
 		

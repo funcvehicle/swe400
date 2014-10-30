@@ -25,7 +25,7 @@ public class CommandToUnFriend implements Command
 	 * @param userIDOfRequester the User ID of the user cancel the relationship
 	 * @param userNameOfRequestee the User Name of the user being unfriended
 	 */
-	public CommandToUnFriend(int userIDOfRequester, String userNameOfRequestee)
+	public CommandToUnFriend(long userIDOfRequester, String userNameOfRequestee)
 	{
 		this.userIDOfRequester = userIDOfRequester;
 		this.userNameOfRequestee = userNameOfRequestee;

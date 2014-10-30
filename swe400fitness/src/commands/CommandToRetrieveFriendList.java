@@ -25,7 +25,7 @@ public class CommandToRetrieveFriendList implements Command
 	 * The userID of the current user
 	 * @param userID unique
 	 */
-	public CommandToRetrieveFriendList(int userID)
+	public CommandToRetrieveFriendList(long userID)
 	{
 		this.userID = userID;
 	}

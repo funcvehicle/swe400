@@ -26,7 +26,7 @@ public class CommandToMakeFriendRequest implements Command
 	 * @param userIDOfRequester the User ID of the user making the request
 	 * @param userNameOfRequestee the User Name of the user being friended
 	 */
-	public CommandToMakeFriendRequest(int userIDOfRequester, String userNameOfRequestee)
+	public CommandToMakeFriendRequest(long userIDOfRequester, String userNameOfRequestee)
 	{
 		this.userIDOfRequester = userIDOfRequester;
 		this.userNameOfRequestee = userNameOfRequestee;

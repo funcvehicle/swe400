@@ -25,7 +25,7 @@ public class CommandToAcceptFriendRequest implements Command
 	 * @param userIDOfRequestee the User ID of the user accepting the request
 	 * @param userNameOfRequester the User Name of the user who initiated the friend request
 	 */
-	public CommandToAcceptFriendRequest(int userIDOfRequestee, String userNameOfRequester)
+	public CommandToAcceptFriendRequest(long userIDOfRequestee, String userNameOfRequester)
 	{
 		this.userIDOfRequestee = userIDOfRequestee;
 		this.userNameOfRequester = userNameOfRequester;

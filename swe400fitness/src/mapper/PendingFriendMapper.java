@@ -3,6 +3,8 @@ package mapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.sql.rowset.CachedRowSet;
+
 import gateway.KeyGateway;
 import gateway.PendingFriendGateway;
 import gateway.PersonGateway;
@@ -111,24 +113,27 @@ public class PendingFriendMapper implements Mapper
 		try
 		{
 			ResultSet myList = pendingFriendGate.findOutgoing(myId);
+			
 			while (myList.next() == true)
 			{
 				long pendingRelationshipId = myList.getLong("id");
 				long recipientId = myList.getLong("recipientId");
-				ResultSet recipient = personGate.find("recipientId");
-				recipient.next();
-				String recipientName = recipient.getString("displayName");
-				PendingRequest pendingFriend = new PendingRequest(myId, recipientId, pendingRelationshipId, recipientName);
-				list.addPerson(pendingFriend);
+				CachedRowSet recipient = personGate.find(recipientId);
+				if(recipient.next())
+				{
+					String recipientName = recipient.getString("displayName");
+					PendingRequest pendingFriend = new PendingRequest(myId, recipientId, pendingRelationshipId, recipientName);
+					list.addPerson(pendingFriend);
+				}
 			}
-			return list;
+			
 		}
 		catch (SQLException e)
 		{
-			// TODO
-			e.printStackTrace();
-			return null;
+			list = new OutgoingRequestsList();
 		}
+		
+		return list;
 	}
 	
 	public long findOutgoingRelationshipId(long requesterId, long requesteeId)

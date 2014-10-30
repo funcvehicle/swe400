@@ -13,7 +13,7 @@ import unitOfWork.UnitOfWork;
 public class CommandToModifyUser implements Command
 {
 
-	private int userID;
+	private long userID;
 	private String newDisplayName;
 
 	/**
@@ -21,7 +21,7 @@ public class CommandToModifyUser implements Command
 	 * @param userID the unique ID of this user
 	 * @param newDisplayName the name this user wants to be known by
 	 */
-	public CommandToModifyUser(int userID, String newDisplayName)
+	public CommandToModifyUser(long userID, String newDisplayName)
 	{
 		this.userID = userID;
 		this.newDisplayName = newDisplayName;
