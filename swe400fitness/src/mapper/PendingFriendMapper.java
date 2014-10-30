@@ -78,6 +78,26 @@ public class PendingFriendMapper implements Mapper
 		return list;
 	}
 	
+	public long findIncomingRelationshipId(long requesterId, long requesteeId)
+	{
+		long id = 0;
+		try
+		{
+			ResultSet myList = pendingFriendGate.findIncoming(requesteeId);
+			while (myList.next() == true)
+			{
+				if (requesterId == myList.getLong("inquirerId"))
+				{
+					id = myList.getLong("id");
+				}
+			}
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return id;
+	}
+	
 	/**
 	 * Returns a list of all outgoing requests for one individual
 	 * 
@@ -108,6 +128,26 @@ public class PendingFriendMapper implements Mapper
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	public long findOutgoingRelationshipId(long requesterId, long requesteeId)
+	{
+		long id = 0;
+		try
+		{
+			ResultSet myList = pendingFriendGate.findOutgoing(requesterId);
+			while (myList.next() == true)
+			{
+				if (requesteeId == myList.getLong("recipientId"))
+				{
+					id = myList.getLong("id");
+				}
+			}
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return id;
 	}
 
 	/**
