@@ -21,7 +21,8 @@ public class testPerson
 		
 		Person personOne = new Person("myUsername", "Me", "pw", 0);
 		Person personTwo = new Person("hisUsername", "Him", "pw", 1);
-		personOne.requestFriend(personTwo);
+		PendingRequest request = new PendingRequest(personOne.getId(), personTwo.getId(), 0, "");
+		personOne.requestFriend(request);
 		assertEquals("Me", personTwo.getIncomingRequests().getIncomingRequestsList().get(0).getDisplayName());
 		assertEquals("Him", personOne.getOutgoingRequests().getOutgoingRequestsList().get(0).getDisplayName());
 	}
