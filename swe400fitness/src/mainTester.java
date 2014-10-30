@@ -18,7 +18,7 @@ public class mainTester
 		selectKarl.execute();
 		System.out.println(selectKarl.getResult().getDisplayName());
 		
-		CommandToModifyUser modifyTed = new CommandToModifyUser(1, "teddo");
+		CommandToModifyUser modifyTed = new CommandToModifyUser(3, "teddo");
 		modifyTed.execute();
 		
 		CommandToPersistChanges persist = new CommandToPersistChanges();
@@ -28,6 +28,12 @@ public class mainTester
 		selectTed.execute();
 		System.out.println(selectTed.getResult().getDisplayName());
 		
-//		CommandToMakeFriendRequest requestTed = new CommandToMakeFriendRequest(0, "");
+		CommandToMakeFriendRequest requestKarl = new CommandToMakeFriendRequest(2, "Karl");
+		requestKarl.execute();
+		requestKarl.getResult();
+		
+		persist.execute();
+		
+		CommandToAcceptFriendRequest acceptTed = new CommandToAcceptFriendRequest(3, "Ted");
 	}
 }

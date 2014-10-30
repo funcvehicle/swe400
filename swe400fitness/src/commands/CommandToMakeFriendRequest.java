@@ -2,8 +2,10 @@ package commands;
 
 import gateway.PersonGateway;
 import mapper.MapperRegistry;
+import mapper.PendingFriendMapper;
 import mapper.PersonMapper;
 import domainModel.Friend;
+import domainModel.PendingRequest;
 import domainModel.Person;
 
 /**
@@ -39,10 +41,14 @@ public class CommandToMakeFriendRequest implements Command
 	{
 		MapperRegistry mapperRegistry = MapperRegistry.getCurrent();
 		PersonMapper mapper = (PersonMapper) mapperRegistry.getMapper(Person.class);
-		Person requestee = mapper.find(userNameOfRequestee);
-		Person requester = mapper.find(userIDOfRequester);
-		Friend friend = new Friend(requestee.getDisplayName(), requestee.getId());
-		requester.requestFriend(friend);
+		PendingFriendMapper pfm = (PendingFriendMapper) mapperRegistry.getMapper(PendingRequest.class);
+		
+		Person recipient = mapper.find(userNameOfRequestee);
+		Person inquirer = mapper.find(userIDOfRequester);
+		
+		PendingRequest request = pfm.create(inquirer.getId(), recipient.getId(), recipient.getDisplayName());
+		
+		inquirer.requestFriend(request);
 	}
 
 	/**

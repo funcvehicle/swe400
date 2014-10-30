@@ -1,9 +1,11 @@
 package mapper;
 
 import gateway.FriendGateway;
+import gateway.PendingFriendGateway;
 import gateway.PersonGateway;
 import domainModel.DomainObject;
 import domainModel.Friend;
+import domainModel.PendingRequest;
 import domainModel.Person;
 
 /**
@@ -20,11 +22,13 @@ public class MapperRegistry
 	
 	protected PersonMapper pm;
 	protected FriendMapper fm;
+	protected PendingFriendMapper pfm;
 	
 	public MapperRegistry()
 	{
 		pm = new PersonMapper(new PersonGateway());
 		fm = new FriendMapper(new FriendGateway(), new PersonGateway());
+		pfm = new PendingFriendMapper(new PendingFriendGateway());
 	}
 	
 	public static MapperRegistry getCurrent()
@@ -59,6 +63,11 @@ public class MapperRegistry
 		else if (c == Friend.class)
 		{
 			m = fm;
+		}
+		
+		else if (c == PendingRequest.class)
+		{
+			m = pfm;
 		}
 		
 		return m;

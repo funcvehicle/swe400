@@ -19,7 +19,7 @@ public class PendingFriendGateway extends Gateway
 	 */
 	private Connection	connection;
 	private String		findOutgoingStatement	= "SELECT * FROM pendingfriends WHERE inquirerId=";
-	private String		findIncomingStatement	= "SELECT * FROM pendingfriends WHERE inquirerId=";
+	private String		findIncomingStatement	= "SELECT * FROM pendingfriends WHERE recipientId=";
 	private String		deleteStatement	= "DELETE FROM pendingfriends WHERE id=";
 	private String		insertStatement	= "INSERT INTO pendingfriends (inquirerId, recipientId, id) VALUES (";
 	

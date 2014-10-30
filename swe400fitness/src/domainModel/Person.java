@@ -99,7 +99,7 @@ public class Person extends DomainObject
 	 * pending invites list.
 	 * @param requestedFriend
 	 */
-	public void requestFriend(Friend requestedFriend)
+	public void requestFriend(PendingRequest requestedFriend)
 	{
 		if (requestedFriend.getId() != this.id)
 		{
@@ -112,7 +112,7 @@ public class Person extends DomainObject
 	 * Adds a person to my incoming requests.
 	 * @param friend
 	 */
-	public void addPersonToPending(Friend friend)
+	public void addPersonToPending(PendingRequest friend)
 	{
 		incomingRequests.addIncomingRequest(friend);
 	}

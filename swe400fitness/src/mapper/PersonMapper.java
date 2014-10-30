@@ -27,6 +27,7 @@ public class PersonMapper implements Mapper
 
 	/**
 	 * Create a new person and fetch an id for him/her
+	 * 
 	 * @param userName
 	 * @param password
 	 * @param displayName
@@ -41,13 +42,14 @@ public class PersonMapper implements Mapper
 
 	/**
 	 * Find a person with the given id.
+	 * 
 	 * @param id
 	 * @return
 	 */
 	public Person find(long id)
 	{
 		ResultSet rs = gate.find(id);
-		
+
 		try
 		{
 			if (rs.next() == false)
@@ -63,13 +65,14 @@ public class PersonMapper implements Mapper
 
 	/**
 	 * Find a person with the given username.
+	 * 
 	 * @param username
 	 * @return
 	 */
 	public Person find(String username)
 	{
 		ResultSet rs = gate.find(username);
-		
+
 		try
 		{
 			if (rs.next() == false)
@@ -85,13 +88,15 @@ public class PersonMapper implements Mapper
 
 	/**
 	 * Construct a Person object from a ResultSet.
+	 * 
 	 * @param rs result to use to construct the person
 	 * @return a constructed person object
 	 */
 	private Person load(ResultSet rs)
 	{
 		String userName, displayName, password;
-		try {
+		try
+		{
 			long id = rs.getLong("id");
 			userName = rs.getString("userName");
 			displayName = rs.getString("displayName");
@@ -100,13 +105,12 @@ public class PersonMapper implements Mapper
 			Person result = new Person(userName, displayName, password, id);
 			result.setId(id);
 			return result;
-		} 
+		}
 		catch (SQLException e)
 		{
 			e.printStackTrace();
 			return null;
 		}
-
 	}
 
 	/**
@@ -139,15 +143,14 @@ public class PersonMapper implements Mapper
 	}
 
 	/**
-	 * Delete the person from the people table
-	 * --Should never be called.
+	 * Delete the person from the people table --Should never be called.
 	 */
 	@Override
 	public void delete(DomainObject o)
 	{
 		Person p = (Person) o;
 		long id = p.getId();
-		
+
 		gate.delete(id);
 	}
 }

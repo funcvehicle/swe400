@@ -10,17 +10,17 @@ import java.util.ArrayList;
  */
 public class IncomingRequestsList extends DomainObject
 {
-	private ArrayList<Friend> incomingRequestsList;
+	private ArrayList<PendingRequest> incomingRequestsList;
 
 	public IncomingRequestsList()
 	{
-		incomingRequestsList = new ArrayList<Friend>();
+		incomingRequestsList = new ArrayList<PendingRequest>();
 	}
 	
 	public String toString()
 	{
 		String list = "";
-		for (Friend f : incomingRequestsList)
+		for (PendingRequest f : incomingRequestsList)
 		{
 			list += f.toString() + " ";
 		}
@@ -28,15 +28,14 @@ public class IncomingRequestsList extends DomainObject
 		return list;
 	}
 	
-	public ArrayList<Friend> getIncomingRequestsList()
+	public ArrayList<PendingRequest> getIncomingRequestsList()
 	{
 		return incomingRequestsList;
 	}
 
-	public void addIncomingRequest(Friend friend)
+	public void addIncomingRequest(PendingRequest pendingFriend)
 	{
-		markDirty();
-		incomingRequestsList.add(friend);
+		incomingRequestsList.add(pendingFriend);
 	}
 	
 	public boolean removeRequest(Friend friend)

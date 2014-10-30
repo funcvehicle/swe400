@@ -7,145 +7,135 @@ import gateway.KeyGateway;
 import gateway.PendingFriendGateway;
 import gateway.PersonGateway;
 import domainModel.DomainObject;
-import domainModel.PendingFriend;
 import domainModel.IncomingRequestsList;
 import domainModel.OutgoingRequestsList;
+import domainModel.PendingRequest;
 
 public class PendingFriendMapper implements Mapper
 {
-	PendingFriendGateway gate;
-	PersonGateway personGate;
-	KeyGateway keyGen;
-	
+	PendingFriendGateway	pendingFriendGate;
+	PersonGateway			personGate;
+	KeyGateway				keyGen;
+
 	/**
 	 * Constructor
+	 * 
 	 * @param gate
 	 */
 	public PendingFriendMapper(PendingFriendGateway gate)
 	{
 		gate = new PendingFriendGateway();
 		personGate = new PersonGateway();
+		keyGen = new KeyGateway();
 	}
 	
 	/**
-	 * Returns a list of all incoming requests
-	 * for one individual
+	 * Create a new pending request with a valid id
+	 * @param inquirerId
+	 * @param recipientId
+	 * @param displayName
+	 * @return
+	 */
+	public PendingRequest create(long inquirerId, long recipientId, String displayName)
+	{
+		long id = keyGen.generateKey();
+		PendingRequest request = new PendingRequest(inquirerId, recipientId, id, displayName);
+		return request;
+	}
+
+	/**
+	 * Returns a list of all incoming requests for one individual
+	 * 
 	 * @param myId
 	 * @return
 	 */
 	public IncomingRequestsList findIncomingRequests(Long myId)
 	{
 		IncomingRequestsList list = new IncomingRequestsList();
-		try {
-			ResultSet myList = gate.findIncoming(myId);
+		
+		try
+		{
+			ResultSet myList = pendingFriendGate.findIncoming(myId);
+			
 			while (myList.next() == true)
 			{
-				long pendingRelationshipId = myList.getLong("id");
-				PendingFriend pendingFriend = findInquirer(pendingRelationshipId);
+				long inquirerId = myList.getLong("inquirerId");
+				long relationId = myList.getLong("id");
+				ResultSet inquirer = personGate.find(inquirerId);
+				inquirer.next();
+				String inquirerName = inquirer.getString("displayName");
+				PendingRequest pendingFriend = new PendingRequest(inquirerId, myId, relationId, inquirerName);
 				list.addIncomingRequest(pendingFriend);
 			}
-			return list;
 		}
 		catch (SQLException e)
 		{
-			//TODO
+			// TODO
 			e.printStackTrace();
-			return null;
+			list = null;
 		}
-	}
-	
-	/**
-	 * Finds the person who requested me
-	 * @param pendingRelationshipId
-	 * @return
-	 */
-	private Friend findInquirer(long pendingRelationshipId)
-	{
-		try {
-		ResultSet record = gate.findIncoming(pendingRelationshipId);
-		long id = record.getLong("inquirerId");
-		ResultSet personRecord = personGate.find(id);
-		String displayName = personRecord.getString("displayName");
-		PendingFriend pendingFriend = new PendingFriend(displayName, id);
-		return pendingFriend;
-		} catch (SQLException e)
-		{
-			e.printStackTrace();
-			return null;
-		}
+		
+		return list;
 	}
 
 	/**
-	 * Returns a list of all outgoing requests
-	 * for one individual
+	 * Returns a list of all outgoing requests for one individual
+	 * 
 	 * @param myId
 	 * @return
 	 */
 	public OutgoingRequestsList findOutgoingRequests(Long myId)
 	{
 		OutgoingRequestsList list = new OutgoingRequestsList();
-		try {
-			ResultSet myList = gate.findOutgoing(myId);
+		try
+		{
+			ResultSet myList = pendingFriendGate.findOutgoing(myId);
 			while (myList.next() == true)
 			{
 				long pendingRelationshipId = myList.getLong("id");
-				PendingFriend pendingFriend = findRecipient(pendingRelationshipId);
+				long recipientId = myList.getLong("recipientId");
+				ResultSet recipient = personGate.find("recipientId");
+				recipient.next();
+				String recipientName = recipient.getString("displayName");
+				PendingRequest pendingFriend = new PendingRequest(myId, recipientId, pendingRelationshipId, recipientName);
 				list.addPerson(pendingFriend);
 			}
 			return list;
 		}
 		catch (SQLException e)
 		{
-			//TODO
+			// TODO
 			e.printStackTrace();
 			return null;
 		}
 	}
-	
+
 	/**
-	 * Finds the person whom I requested
-	 * @param pendingRelationshipId
-	 * @return
+	 * Insert a new record representing this object into the table.
 	 */
-	private Friend findRecipient(long pendingRelationshipId)
-	{
-		try {
-		ResultSet record = gate.findOutgoing(pendingRelationshipId);
-		long id = record.getLong("inquirerId");
-		ResultSet personRecord = personGate.find(id);
-		String displayName = personRecord.getString("displayName");
-		PendingFriend pendingFriend = new PendingFriend(displayName, id);
-		return pendingFriend;
-		} catch (SQLException e)
-		{
-			e.printStackTrace();
-			return null;
-		}
-	}
-	
 	@Override
-	public void insert(DomainObject object)
+	public void insert(DomainObject o)
 	{
-//		Friend pendingFriend = (Friend) o;
-//		String displayName = pendingFriend.getDisplayName();
-//		long id = pendingFriend.getId();
-//		gate.insert(id, displayName);
+		long inquirerId = ((PendingRequest) o).getInquirerId();
+		long recipientId = ((PendingRequest) o).getRecipientId();
+		long id = ((PendingRequest) o).getId();
 		
+		pendingFriendGate.insert(inquirerId, recipientId, id);
 	}
 
 	@Override
 	public void update(DomainObject o)
 	{
-		// Should do nothing
-		
+		// Nothing here! Keep it that way.
 	}
 
+	/**
+	 * Delete the record with the object's given id.
+	 */
 	@Override
 	public void delete(DomainObject o)
 	{
-//		Friend pendingFriend = (Friend) o;
-//		long id = pendingFriend.getId();
-//		gate.delete(id);
+		pendingFriendGate.delete(o.getId());
 	}
 
 }
