@@ -11,9 +11,6 @@ import domainModel.Friend;
 import domainModel.FriendList;
 import domainModel.Person;
 
-/*
- * Author: Hayden Cook
- */
 public class FriendMapper implements Mapper
 {
 	private FriendGateway friendGate;
