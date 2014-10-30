@@ -21,7 +21,7 @@ import domainModel.Person;
 public class CommandToGetPendingIncomingFriendList implements Command
 {
 
-	private int userID;
+	private long userID;
 	private ArrayList<Friend> incomingFriendsList;
 
 	/**
@@ -46,9 +46,11 @@ public class CommandToGetPendingIncomingFriendList implements Command
 		PersonMapper mapper = (PersonMapper) mapperRegistry.getMapper(Person.class);
 		PendingFriendMapper pfMapper = (PendingFriendMapper) mapperRegistry.getMapper(PendingRequest.class);
 		Person person = mapper.find(userID);
+		
 		IncomingRequestsList incomingRequestsList = pfMapper.findIncomingRequests(person.getId());
 		ArrayList<PendingRequest> pendingRequests = incomingRequestsList.getIncomingRequestsList();
 		incomingFriendsList = new ArrayList<Friend>();
+		
 		for (PendingRequest pr : pendingRequests)
 		{
 			Friend friend = new Friend(pr.getDisplayName(), pr.getInquirerId());

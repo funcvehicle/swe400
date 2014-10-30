@@ -2,6 +2,7 @@ package commands;
 
 import java.util.ArrayList;
 
+import mapper.FriendMapper;
 import mapper.MapperRegistry;
 import mapper.PersonMapper;
 import domainModel.Friend;
@@ -17,7 +18,7 @@ import domainModel.Person;
 public class CommandToRetrieveFriendList implements Command
 {
 
-	private int userID;
+	private long userID;
 	private ArrayList<Friend> friends;
 
 	/**
@@ -38,7 +39,9 @@ public class CommandToRetrieveFriendList implements Command
 	{
 		MapperRegistry mapperRegistry = MapperRegistry.getCurrent();
 		PersonMapper mapper = (PersonMapper) mapperRegistry.getMapper(Person.class);
+		FriendMapper fm = (FriendMapper) mapperRegistry.getMapper(Friend.class);
 		Person person = mapper.find(userID);
+		person.setFriendList(fm.findFriends(userID));
 		friends = person.getFriendList().getListOfFriends();
 	}
 

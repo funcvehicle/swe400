@@ -55,11 +55,17 @@ public class FriendMapper implements Mapper
 		try 
 		{
 			long id = resultSet.getLong("friendId");
+			ResultSet personResultSet;
 			if (id == myId)
 			{
 				id = resultSet.getLong("personId");
+				personResultSet = personGate.find(resultSet.getLong("personId"));
 			}
-			ResultSet personResultSet = personGate.find(resultSet.getLong("friendId"));
+			else
+			{
+				personResultSet = personGate.find(resultSet.getLong("friendId"));
+			}
+			
 			personResultSet.next();
 			String displayName = personResultSet.getString("displayName");
 			Friend friend = new Friend(displayName, id, resultSet.getLong("id"));
