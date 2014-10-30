@@ -38,7 +38,7 @@ public class FriendMapper implements Mapper
 			ResultSet myList = friendGate.find(myId);
 			while (myList.next() == true)
 			{
-				Friend friend = findFriend(myList);
+				Friend friend = findFriend(myList, myId);
 				list.addFriend(friend);
 			}
 			return list;
@@ -50,11 +50,15 @@ public class FriendMapper implements Mapper
 	}
 	
 	
-	private Friend findFriend(ResultSet resultSet)
+	private Friend findFriend(ResultSet resultSet, long myId)
 	{
 		try 
 		{
 			long id = resultSet.getLong("friendId");
+			if (id == myId)
+			{
+				id = resultSet.getLong("personId");
+			}
 			ResultSet personResultSet = personGate.find(resultSet.getLong("friendId"));
 			personResultSet.next();
 			String displayName = personResultSet.getString("displayName");
