@@ -24,7 +24,7 @@ public class PendingFriendMapper implements Mapper
 	 */
 	public PendingFriendMapper(PendingFriendGateway gate)
 	{
-		gate = new PendingFriendGateway();
+		pendingFriendGate = gate;
 		personGate = new PersonGateway();
 		keyGen = new KeyGateway();
 	}
@@ -39,7 +39,7 @@ public class PendingFriendMapper implements Mapper
 	public PendingRequest create(long inquirerId, long recipientId, String displayName)
 	{
 		long id = keyGen.generateKey();
-		PendingRequest request = new PendingRequest(inquirerId, recipientId, id, displayName);
+		PendingRequest request = PendingRequest.createNewPendingRequest(inquirerId, recipientId, id, displayName);
 		return request;
 	}
 
@@ -119,6 +119,11 @@ public class PendingFriendMapper implements Mapper
 		long inquirerId = ((PendingRequest) o).getInquirerId();
 		long recipientId = ((PendingRequest) o).getRecipientId();
 		long id = ((PendingRequest) o).getId();
+		
+		if (pendingFriendGate == null)
+		{
+			System.out.println("fuck");
+		}
 		
 		pendingFriendGate.insert(inquirerId, recipientId, id);
 	}

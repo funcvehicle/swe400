@@ -12,10 +12,10 @@ public class PendingRequest extends DomainObject
 		this.inquirerId = inquirerId;
 		this.recipientId = recipientId;
 		this.displayName = displayName;
+		id = relationId;
 	}
 
-	public static PendingRequest createNewPendingRequest(long inquirerId, long recipientId, long relationId, String displayName,
-			String recipientDisplayName)
+	public static PendingRequest createNewPendingRequest(long inquirerId, long recipientId, long relationId, String displayName)
 	{
 		PendingRequest r = new PendingRequest(inquirerId, recipientId, relationId, displayName);
 		r.markNew();

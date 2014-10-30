@@ -38,6 +38,21 @@ public class Person extends DomainObject
 		return p;
 	}
 	
+	public void setFriendList(FriendList f)
+	{
+		myFriends = f;
+	}
+	
+	public void setOutgoingRequests(OutgoingRequestsList l)
+	{
+		outgoingRequests = l;
+	}
+	
+	public void setIncomingRequests(IncomingRequestsList l)
+	{
+		incomingRequests = l;
+	}
+	
 	/**
 	 * Marks this person as deleted with the unit of work
 	 */
@@ -133,6 +148,7 @@ public class Person extends DomainObject
 		{
 			return true;
 		}
+		
 		return false;
 	}
 	
