@@ -77,7 +77,7 @@ public class PendingFriendMapper implements Mapper
 		
 		return list;
 	}
-
+	
 	/**
 	 * Returns a list of all outgoing requests for one individual
 	 * 

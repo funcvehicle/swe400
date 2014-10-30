@@ -5,6 +5,7 @@ import mapper.MapperRegistry;
 import mapper.PendingFriendMapper;
 import mapper.PersonMapper;
 import domainModel.Friend;
+import domainModel.OutgoingRequestsList;
 import domainModel.PendingRequest;
 import domainModel.Person;
 
@@ -16,7 +17,7 @@ import domainModel.Person;
 public class CommandToMakeFriendRequest implements Command
 {
 
-	private int userIDOfRequester;
+	private long userIDOfRequester;
 	private String userNameOfRequestee;
 
 
@@ -48,7 +49,17 @@ public class CommandToMakeFriendRequest implements Command
 		
 		PendingRequest request = pfm.create(inquirer.getId(), recipient.getId(), recipient.getDisplayName());
 		
-		inquirer.requestFriend(request);
+		OutgoingRequestsList ogList = pfm.findOutgoingRequests(userIDOfRequester);
+		boolean valid = true;
+		for (PendingRequest pr : ogList.getOutgoingRequestsList())
+		{
+			if (recipient.getId() == pr.getId())
+				valid = false;
+		}
+		if (recipient.getId() == inquirer.getId())
+			valid = false;
+		if (valid)
+			inquirer.requestFriend(request);
 	}
 
 	/**
