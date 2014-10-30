@@ -78,9 +78,9 @@ public class PendingFriendMapper implements Mapper
 		return list;
 	}
 	
-	public long findIncomingRelationshipId(long requesterId, long requesteeId)
+	public PendingRequest findIncomingRelationshipId(long requesterId, long requesteeId)
 	{
-		long id = 0;
+		PendingRequest pendingRequest = null;
 		try
 		{
 			ResultSet myList = pendingFriendGate.findIncoming(requesteeId);
@@ -88,14 +88,15 @@ public class PendingFriendMapper implements Mapper
 			{
 				if (requesterId == myList.getLong("inquirerId"))
 				{
-					id = myList.getLong("id");
+					long id = myList.getLong("id");
+					pendingRequest = new PendingRequest(requesterId, requesteeId, id, "");
 				}
 			}
 		} catch (SQLException e)
 		{
 			e.printStackTrace();
 		}
-		return id;
+		return pendingRequest;
 	}
 	
 	/**
