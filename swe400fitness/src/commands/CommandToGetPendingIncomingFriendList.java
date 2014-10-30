@@ -3,8 +3,10 @@ package commands;
 import java.util.ArrayList;
 
 import mapper.MapperRegistry;
+import mapper.PendingFriendMapper;
 import mapper.PersonMapper;
 import domainModel.Friend;
+import domainModel.PendingRequest;
 import domainModel.Person;
 
 /**
@@ -41,7 +43,10 @@ public class CommandToGetPendingIncomingFriendList implements Command
 	{
 		MapperRegistry mapperRegistry = MapperRegistry.getCurrent();
 		PersonMapper mapper = (PersonMapper) mapperRegistry.getMapper(Person.class);
+		PendingFriendMapper pfMapper = (PendingFriendMapper) mapperRegistry.getMapper(PendingRequest.class);
 		Person person = mapper.find(userID);
+		
+		
 		incomingFriendsList = person.getIncomingRequests().getIncomingRequestsList();
 	}
 

@@ -121,11 +121,12 @@ public class Person extends DomainObject
 	 * Accept an incoming friend request.
 	 * @param friendAccepted
 	 */
-	public boolean acceptRequest(Friend friendAccepted)
+	public boolean acceptRequest(PendingRequest pendingRequest)
 	{
-		myFriends.addFriend(friendAccepted);
-		boolean mySuccess = incomingRequests.removeRequest(friendAccepted);
-				
+		Friend friend = new Friend(pendingRequest.getDisplayName(), pendingRequest.getInquirerId());
+		myFriends.addFriend(friend);
+		boolean mySuccess = incomingRequests.removeRequest(pendingRequest);
+		
 		//friendAccepted.myFriends.addFriend(this.asFriend());
 		//boolean theirSuccess = friendAccepted.outgoingRequests.removeRequest(this.asFriend());
 		if (mySuccess /*&& theirSuccess*/ == true)
@@ -137,12 +138,13 @@ public class Person extends DomainObject
 	
 	/**
 	 * Reject an incoming friend request
-	 * @param requestor
+	 * @param pendingRequest
 	 * @return
 	 */
-	public boolean rejectRequest(Friend requestor)
+	public boolean rejectRequest(PendingRequest pendingRequest)
 	{
-		boolean mySuccess = incomingRequests.removeRequest(requestor);	
+		boolean mySuccess = incomingRequests.removeRequest(pendingRequest);
+		
 		//boolean theirSuccess = requestor.outgoingRequests.removeRequest(this.asFriend());
 		
 		if (mySuccess /*&& theirSuccess*/ == true)

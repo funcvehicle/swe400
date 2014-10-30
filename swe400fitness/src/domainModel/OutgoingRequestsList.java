@@ -40,12 +40,11 @@ public class OutgoingRequestsList extends DomainObject
 		outgoingRequestsList.add(pendingFriend);
 	}
 
-	public boolean removeRequest(Friend friend)
+	public boolean removeRequest(PendingRequest pendingRequest)
 	{
-		markDirty();
 		for (int i = 0; i < outgoingRequestsList.size(); i++)
 		{
-			if (outgoingRequestsList.get(i).getId() == (friend.getId()))
+			if (outgoingRequestsList.get(i).getId() == (pendingRequest.getId()))
 			{
 				outgoingRequestsList.remove(i);
 				return true;

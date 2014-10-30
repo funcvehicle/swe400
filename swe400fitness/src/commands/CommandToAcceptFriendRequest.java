@@ -1,9 +1,11 @@
 package commands;
 
 import domainModel.Friend;
+import domainModel.PendingRequest;
 import domainModel.Person;
 import mapper.FriendMapper;
 import mapper.MapperRegistry;
+import mapper.PendingFriendMapper;
 import mapper.PersonMapper;
 
 /**
@@ -39,11 +41,11 @@ public class CommandToAcceptFriendRequest implements Command
 	{
 		MapperRegistry mapperRegistry = MapperRegistry.getCurrent();
 		PersonMapper pMapper = (PersonMapper) mapperRegistry.getMapper(Person.class);
-		FriendMapper fMapper = (FriendMapper) mapperRegistry.getMapper(Friend.class);
+		PendingFriendMapper pfMapper = (PendingFriendMapper) mapperRegistry.getMapper(PendingRequest.class);
 		Person requestee = pMapper.find(userIDOfRequestee);
 		Person requester = pMapper.find(userNameOfRequester);
-		Friend friend = fMapper.create(requester.getDisplayName(), requester.getId(), requestee.getId());
-		requestee.acceptRequest(friend);
+		PendingRequest pendingRequest = pfMapper.create(requester.getId(), requestee.getId(), requester.getDisplayName());
+		requestee.acceptRequest(pendingRequest);
 	}
 
 	/**
