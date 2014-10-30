@@ -1,7 +1,11 @@
 package commands;
 
+import mapper.FriendMapper;
 import mapper.MapperRegistry;
+import mapper.PendingFriendMapper;
 import mapper.PersonMapper;
+import domainModel.Friend;
+import domainModel.PendingRequest;
 import domainModel.Person;
 
 /**
@@ -12,7 +16,7 @@ import domainModel.Person;
 public class CommandToUnFriend implements Command
 {
 
-	private int userIDOfRequester;
+	private long userIDOfRequester;
 	private String userNameOfRequestee;
 
 
@@ -36,9 +40,30 @@ public class CommandToUnFriend implements Command
 	{
 		MapperRegistry mapperRegistry = MapperRegistry.getCurrent();
 		PersonMapper mapper = (PersonMapper) mapperRegistry.getMapper(Person.class);
-		Person requester = mapper.find(userIDOfRequester);
-		Person requestee = mapper.find(userNameOfRequestee);
-		requestee.rejectRequest(requester);
+		FriendMapper fm = (FriendMapper) mapperRegistry.getMapper(Friend.class);
+		
+		Person me = mapper.find(userIDOfRequester);
+		Person myFriend = mapper.find(userNameOfRequestee);
+		
+		Friend friendship = null;
+		
+		for (Friend friend : fm.findFriends(userIDOfRequester).getListOfFriends())
+		{
+			if (friend.getId() == myFriend.getId())
+			{
+				friendship = friend;
+			}
+		}
+		
+		if (friendship != null)
+		{
+			fm.delete(friendship);
+		}
+		
+		else
+		{
+			System.err.println("Could not unfriend " + userNameOfRequestee + ", user is not a friend of " + me.getDisplayName());
+		}
 	}
 
 	/**

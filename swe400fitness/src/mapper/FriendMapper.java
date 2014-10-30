@@ -97,7 +97,5 @@ public class FriendMapper implements Mapper
 		Friend friend = (Friend) object;
 		friendGate.create(friend.getRelationshipId(), friend.getCurrentUserId(), friend.getId());
 	}
-	
-	
 }
 
