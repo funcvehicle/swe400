@@ -29,7 +29,6 @@ public class CommandToAcceptFriendRequest implements Command
 	{
 		this.userIDOfRequestee = userIDOfRequestee;
 		this.userNameOfRequester = userNameOfRequester;
-		
 	}
 	
 	/**
@@ -42,8 +41,11 @@ public class CommandToAcceptFriendRequest implements Command
 		MapperRegistry mapperRegistry = MapperRegistry.getCurrent();
 		PersonMapper pMapper = (PersonMapper) mapperRegistry.getMapper(Person.class);
 		PendingFriendMapper pfMapper = (PendingFriendMapper) mapperRegistry.getMapper(PendingRequest.class);
+		
 		Person requestee = pMapper.find(userIDOfRequestee);
+		requestee.
 		Person requester = pMapper.find(userNameOfRequester);
+		
 		PendingRequest pendingRequest = pfMapper.create(requester.getId(), requestee.getId(), requester.getDisplayName());
 		requestee.acceptRequest(pendingRequest);
 	}

@@ -106,6 +106,7 @@ public class PendingFriendGateway extends Gateway
 		catch (SQLException e)
 		{
 			result = SQLEnum.FAILED_SQL_ERROR;
+			e.printStackTrace();
 		}
 		
 		closeConnection();
@@ -134,6 +135,7 @@ public class PendingFriendGateway extends Gateway
 		catch (SQLException e)
 		{
 			result = SQLEnum.FAILED_SQL_ERROR;
+			e.printStackTrace();
 		}
 		
 		closeConnection();

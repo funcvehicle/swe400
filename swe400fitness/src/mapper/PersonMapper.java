@@ -100,10 +100,10 @@ public class PersonMapper implements Mapper
 			long id = rs.getLong("id");
 			userName = rs.getString("userName");
 			displayName = rs.getString("displayName");
-
 			password = rs.getString("password");
 			Person result = new Person(userName, displayName, password, id);
 			result.setId(id);
+			
 			return result;
 		}
 		catch (SQLException e)

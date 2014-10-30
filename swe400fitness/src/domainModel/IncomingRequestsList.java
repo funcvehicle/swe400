@@ -40,6 +40,7 @@ public class IncomingRequestsList extends DomainObject
 	
 	public boolean removeRequest(PendingRequest pendingRequest)
 	{
+		pendingRequest.markDeleted();
 		for (int i = 0; i < incomingRequestsList.size(); i++)
 		{
 			if (incomingRequestsList.get(i).getId() == (pendingRequest.getId()))

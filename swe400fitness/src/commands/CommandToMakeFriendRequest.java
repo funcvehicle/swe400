@@ -30,7 +30,6 @@ public class CommandToMakeFriendRequest implements Command
 	{
 		this.userIDOfRequester = userIDOfRequester;
 		this.userNameOfRequestee = userNameOfRequestee;
-		
 	}
 	
 	/**
