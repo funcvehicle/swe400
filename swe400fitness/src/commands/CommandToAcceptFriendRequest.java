@@ -49,8 +49,18 @@ public class CommandToAcceptFriendRequest implements Command
 		
 		fm.create(requester.getDisplayName(), requester.getId(), userIDOfRequestee);
 		
-		PendingRequest pendingRequest = pfMapper.create(requester.getId(), requestee.getId(), requester.getDisplayName());
-		requestee.acceptRequest(pendingRequest);
+		PendingRequest pendingRequest = pfMapper.findIncomingRelationshipId(requester.getId(), requestee.getId());
+		
+		if (pendingRequest != null)
+		{
+			requestee.acceptRequest(pendingRequest);
+			pendingRequest.deleteRequest();
+		}
+		
+		else
+		{
+			System.err.println("ERROR: request from " + userNameOfRequester + " does not exist, cannot accept");
+		}
 	}
 
 	/**
@@ -72,5 +82,4 @@ public class CommandToAcceptFriendRequest implements Command
 	{
 		return userIDOfRequestee;
 	}
-
 }

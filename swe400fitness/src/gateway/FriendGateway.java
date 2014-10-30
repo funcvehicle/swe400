@@ -42,7 +42,6 @@ public class FriendGateway extends Gateway
 		{
 			try
 			{
-				System.out.println(relationID + "," + personID + "," + friendID + ");");
 				Statement insert = (Statement) connection.createStatement();
 				insert.executeUpdate(insertStatement + personID + "," + friendID + "," + relationID + ");");
 			}

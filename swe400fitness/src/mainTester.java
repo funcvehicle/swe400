@@ -32,8 +32,12 @@ public class mainTester
 //		
 //		persist.execute();
 		
-		CommandToAcceptFriendRequest acceptTed = new CommandToAcceptFriendRequest(2, "Ted");
-		acceptTed.execute();
+//		CommandToAcceptFriendRequest acceptTed = new CommandToAcceptFriendRequest(2, "Ted");
+//		acceptTed.execute();
+//		persist.execute();
+		
+		CommandToUnFriend unfriendTed = new CommandToUnFriend(2, "Ted");
+		unfriendTed.execute();
 		persist.execute();
 	}
 }
