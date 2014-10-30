@@ -10,27 +10,27 @@ public class Friend extends DomainObject
 	private long reationshipId;
 	private long currentUserId;
 	
-	public Friend(String nameDisplay, long id)
+	public Friend(String nameDisplay, long friendId)
 	{
 		displayName = nameDisplay;
-		this.id = id;
+		this.id = friendId;
 	}
 	
-	public Friend(String nameDisplay, long id, long relationshipId)
+	public Friend(String nameDisplay, long friendId, long relationshipId)
 	{
-		this(nameDisplay, relationshipId);
+		this(nameDisplay, friendId);
 		this.reationshipId = relationshipId;
 	}
 	
-	public Friend(String nameDisplay, long id, long relationshipId, long currentUserId)
+	public Friend(String nameDisplay, long friendId, long relationshipId, long currentUserId)
 	{
-		this(nameDisplay, currentUserId, relationshipId);
+		this(nameDisplay, friendId, relationshipId);
 		this.currentUserId = currentUserId;
 	}
 	
-	public static Friend createNewFriend(String displayName, long id, long relationshipId, long currentUserId)
+	public static Friend createNewFriend(String displayName, long friendId, long relationshipId, long currentUserId)
 	{
-		Friend f = new Friend(displayName, id, relationshipId, currentUserId);
+		Friend f = new Friend(displayName, friendId, relationshipId, currentUserId);
 		f.markNew();
 		return f;
 	}

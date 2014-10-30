@@ -146,6 +146,7 @@ public class Person extends DomainObject
 		//boolean theirSuccess = friendAccepted.outgoingRequests.removeRequest(this.asFriend());
 		if (mySuccess /*&& theirSuccess*/ == true)
 		{
+			pendingRequest.markDeleted();
 			return true;
 		}
 		

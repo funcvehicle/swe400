@@ -34,5 +34,6 @@ public class mainTester
 		
 		CommandToAcceptFriendRequest acceptTed = new CommandToAcceptFriendRequest(2, "Ted");
 		acceptTed.execute();
+		persist.execute();
 	}
 }

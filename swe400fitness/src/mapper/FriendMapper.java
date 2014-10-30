@@ -95,6 +95,7 @@ public class FriendMapper implements Mapper
 	public void insert(DomainObject object) 
 	{
 		Friend friend = (Friend) object;
+		//System.out.println(friend.getRelationshipId() + " " + friend.getCurrentUserId() + " " + friend.getId());
 		friendGate.create(friend.getRelationshipId(), friend.getCurrentUserId(), friend.getId());
 	}
 }

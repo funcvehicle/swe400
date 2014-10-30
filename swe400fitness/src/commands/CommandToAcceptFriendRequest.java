@@ -41,10 +41,13 @@ public class CommandToAcceptFriendRequest implements Command
 		MapperRegistry mapperRegistry = MapperRegistry.getCurrent();
 		PersonMapper pMapper = (PersonMapper) mapperRegistry.getMapper(Person.class);
 		PendingFriendMapper pfMapper = (PendingFriendMapper) mapperRegistry.getMapper(PendingRequest.class);
+		FriendMapper fm = (FriendMapper) mapperRegistry.getMapper(Friend.class);
 		
 		Person requestee = pMapper.find(userIDOfRequestee);
 		requestee.setIncomingRequests(pfMapper.findIncomingRequests(userIDOfRequestee));
 		Person requester = pMapper.find(userNameOfRequester);
+		
+		fm.create(requester.getDisplayName(), requester.getId(), userIDOfRequestee);
 		
 		PendingRequest pendingRequest = pfMapper.create(requester.getId(), requestee.getId(), requester.getDisplayName());
 		requestee.acceptRequest(pendingRequest);
