@@ -32,7 +32,6 @@ public class Person extends DomainObject
 	 */
 	public static Person createNewPerson(String userName, String displayName, String password)
 	{
-		
 		Person p = new Person(userName, displayName, password);
 		p.markNew();
 		return p;

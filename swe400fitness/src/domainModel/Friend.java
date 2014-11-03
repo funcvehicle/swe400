@@ -7,31 +7,35 @@ package domainModel;
 public class Friend extends DomainObject
 {
 	private String displayName;
-	private long reationshipId;
+	private long friendId;
 	private long currentUserId;
 	
-	public Friend(String nameDisplay, long friendId)
+	public Friend(String nameDisplay, long friendId, long currentUserId, long id)
 	{
-		displayName = nameDisplay;
-		this.id = friendId;
-	}
-	
-	public Friend(String nameDisplay, long friendId, long relationshipId)
-	{
-		this(nameDisplay, friendId);
-		this.reationshipId = relationshipId;
-	}
-	
-	public Friend(String nameDisplay, long friendId, long relationshipId, long currentUserId)
-	{
-		this(nameDisplay, friendId, relationshipId);
+		this.id = id;
+		this.displayName = nameDisplay;
 		this.currentUserId = currentUserId;
+		this.friendId = friendId;
+		
 	}
 	
-	public static Friend createNewFriend(String displayName, long friendId, long relationshipId, long currentUserId)
+	public Friend(String nameDisplay, long friendId, long currentUserId)
 	{
-		Friend f = new Friend(displayName, friendId, relationshipId, currentUserId);
+		
+	}
+	
+	/**
+	 * Create a new friend and mark it as new with the unit of work.
+	 * @param displayName the friend's display name
+	 * @param friendId the friend's id
+	 * @param currentUserId the user who this friend is a friend of.
+	 * @return a new friend object without an id
+	 */
+	public static Friend createNewFriend(String displayName, long friendId, long currentUserId)
+	{
+		Friend f = new Friend(displayName, friendId, currentUserId);
 		f.markNew();
+		
 		return f;
 	}
 
@@ -43,11 +47,6 @@ public class Friend extends DomainObject
 	public String getDisplayName()
 	{
 		return displayName;
-	}
-	
-	public long getRelationshipId()
-	{
-		return reationshipId;
 	}
 	
 	public long getCurrentUserId()

@@ -60,32 +60,6 @@ public class UnitOfWork
 		current.set(u);
 	}
 
-	// public DomainObject searchMemory(Class<? extends DomainObject> c, long
-	// id)
-	// {
-	// DomainObject result = null;
-	//
-	// for (DomainObject o : newObjects)
-	// {
-	// if (o.getId() == id)
-	// result = o;
-	// }
-	//
-	// for (DomainObject o : dirtyObjects)
-	// {
-	// if (o.getId() == id)
-	// result = o;
-	// }
-	//
-	// for (DomainObject o : deletedObjects)
-	// {
-	// if (o.getId() == id)
-	// result = o;
-	// }
-	//
-	// return result;
-	// }
-
 	/**
 	 * Add a new uncommitted in-memory object to the new objects array
 	 * 
@@ -127,6 +101,10 @@ public class UnitOfWork
 		}
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public boolean commit()
 	{
 		boolean success;
@@ -170,7 +148,11 @@ public class UnitOfWork
 
 		return success;
 	}
-
+	
+	/**
+	 * Calls the mapper's update method for all objects in the dirty list
+	 * @return whether the records were successfully updated
+	 */
 	public boolean updateDirty()
 	{
 		boolean success = true;
@@ -186,6 +168,10 @@ public class UnitOfWork
 		return success;
 	}
 
+	/**
+	 * Calls the mapper's delete method for all objects in the deleted list.
+	 * @return
+	 */
 	public boolean removeDeleted()
 	{
 		boolean success = true;
@@ -216,8 +202,8 @@ public class UnitOfWork
 	
 	/**
 	 * Remove specific objects from the target arraylist.
-	 * @param source
-	 * @param target
+	 * @param source the objects you want to remove
+	 * @param target the list to remove from
 	 */
 	private void removeFrom(ArrayList<DomainObject> source, ArrayList<DomainObject> target)
 	{

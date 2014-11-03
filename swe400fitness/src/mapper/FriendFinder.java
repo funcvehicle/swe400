@@ -1,6 +1,9 @@
 package mapper;
 
-public class FriendFinder
-{
+import domainModel.Friend;
 
+public interface FriendFinder
+{
+	public Friend find(long id);
+	
 }

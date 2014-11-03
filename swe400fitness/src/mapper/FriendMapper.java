@@ -11,24 +11,11 @@ import domainModel.Friend;
 import domainModel.FriendList;
 import domainModel.Person;
 
-public class FriendMapper implements Mapper
+public class FriendMapper implements FriendFinder, Mapper
 {
-	private FriendGateway friendGate;
-	private PersonGateway personGate;
-	private KeyGateway keyGate;
-	public FriendMapper(FriendGateway friendGate, PersonGateway personGate)
-	{
-		this.friendGate = friendGate;
-		this.personGate = personGate;
-		this.keyGate = new KeyGateway();
-	}
-	
-	public Friend create(String displayName, long id, long currentUserId)
-	{
-		long relationshipId = keyGate.generateKey();
-		Friend f = Friend.createNewFriend(displayName, id, relationshipId, currentUserId);
-		return f;
-	}
+	private FriendGateway friendGate = new FriendGateway();
+	private PersonGateway personGate = new PersonGateway();
+	private KeyGateway keyGate = new KeyGateway();
 	
 	public FriendList findFriends(Long myId)
 	{
@@ -80,31 +67,60 @@ public class FriendMapper implements Mapper
 	@Override
 	public void update(DomainObject object)
 	{
-		//TODO Should do nothing
+		//Should do nothing
 	}
 	
+	/**
+	 * Insert a friend object as a record in the database
+	 * @param person the 
+	 * @param friend
+	 */
 	public void insert(DomainObject person, DomainObject friend)
 	{
+		long id = keyGate.generateKey();
 		Friend fFriend = (Friend) friend;
 		Person pPerson = (Person) person;
 		long personID = pPerson.getId();
-		long FriendID = fFriend.getId();
-		friendGate.create(keyGate.generateKey(),FriendID, personID);
+		long friendID = fFriend.getId();
+		
+		friendGate.create(id, friendID, personID);
 	}
 	
+	/**
+	 * Delete a friend record based on the friend object's id
+	 */
 	@Override
 	public void delete(DomainObject object)
 	{
 		Friend friend = (Friend) object;
-		long id = friend.getRelationshipId();
+		long id = friend.getId();
+		
 		friendGate.delete(id);
 	}
 
+//	@Override
+//	public void insert(DomainObject object) 
+//	{
+//		Friend friend = (Friend) object;
+//		friendGate.create(friend.getId(), friend.getCurrentUserId(), friend.getId());
+//	}
+
+
 	@Override
-	public void insert(DomainObject object) 
+	public Friend find(long id)
 	{
-		Friend friend = (Friend) object;
-		friendGate.create(friend.getRelationshipId(), friend.getCurrentUserId(), friend.getId());
+		ResultSet record = friendGate.find(id);
+		Friend friend = new Friend(null, id);
+		
+		return friend;
+	}
+
+
+	@Override
+	public void insert(DomainObject o)
+	{
+		// TODO Auto-generated method stub
+		
 	}
 }
 

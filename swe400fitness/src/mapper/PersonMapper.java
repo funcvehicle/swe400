@@ -14,30 +14,15 @@ import domainModel.Person;
  * @author Connor Fox
  * 
  */
-public class PersonMapper implements Mapper
+public class PersonMapper implements PersonFinder, Mapper
 {
 	PersonGateway	gate;
 	KeyGateway		keyGen;
 
-	public PersonMapper(PersonGateway gate)
+	public PersonMapper()
 	{
-		this.gate = gate;
+		this.gate = new PersonGateway();
 		keyGen = new KeyGateway();
-	}
-
-	/**
-	 * Create a new person and fetch an id for him/her
-	 * 
-	 * @param userName
-	 * @param password
-	 * @param displayName
-	 * @return
-	 */
-	public Person create(String userName, String password, String displayName)
-	{
-		long id = keyGen.generateKey();
-		Person p = Person.createNewPerson(userName, displayName, password, id);
-		return p;
 	}
 
 	/**
@@ -101,7 +86,7 @@ public class PersonMapper implements Mapper
 			userName = rs.getString("userName");
 			displayName = rs.getString("displayName");
 			password = rs.getString("password");
-			Person result = new Person(userName, displayName, password, id);
+			Person result = new Person(userName, displayName, password);
 			result.setId(id);
 			
 			return result;
@@ -134,7 +119,7 @@ public class PersonMapper implements Mapper
 	public void insert(DomainObject o)
 	{
 		Person p = (Person) o;
-		long id = p.getId();
+		long id = keyGen.generateKey();
 		String userName = p.getUserName();
 		String password = p.getPassword();
 		String displayName = p.getDisplayName();
@@ -143,7 +128,7 @@ public class PersonMapper implements Mapper
 	}
 
 	/**
-	 * Delete the person from the people table --Should never be called.
+	 * Delete the person from the people table
 	 */
 	@Override
 	public void delete(DomainObject o)
