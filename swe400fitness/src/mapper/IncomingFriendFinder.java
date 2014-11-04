@@ -1,6 +1,8 @@
 package mapper;
 
-public class IncomingFriendFinder
-{
+import domainModel.IncomingRequestsList;
 
+public interface IncomingFriendFinder
+{
+	public IncomingRequestsList findRequests(long id);
 }

@@ -1,7 +1,6 @@
 package unitOfWork;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import mapper.Mapper;
 import mapper.MapperRegistry;
@@ -21,12 +20,16 @@ public class UnitOfWork
 	protected ArrayList<DomainObject>		newObjects;
 	protected ArrayList<DomainObject>		dirtyObjects;
 	protected ArrayList<DomainObject>		deletedObjects;
+	
+	protected MapperRegistry registryOfMappers;
 
 	public UnitOfWork()
 	{
 		newObjects = new ArrayList<DomainObject>();
 		dirtyObjects = new ArrayList<DomainObject>();
 		deletedObjects = new ArrayList<DomainObject>();
+		
+		registryOfMappers = MapperRegistry.getCurrent();
 	}
 
 	/**
@@ -102,8 +105,8 @@ public class UnitOfWork
 	}
 
 	/**
-	 * 
-	 * @return
+	 * Commits the changes to the database
+	 * @return whether the commit was able to complete all actions successfully
 	 */
 	public boolean commit()
 	{
@@ -119,13 +122,13 @@ public class UnitOfWork
 	}
 
 	/**
-	 * @return
+	 * Calls on the object's mappers to insert records into the database
+	 * @return true if every insert was completed successfully
 	 */
 	public boolean insertNew()
 	{
 		boolean success = true;
 		Mapper mpr;
-		MapperRegistry mr = MapperRegistry.getCurrent();
 		ArrayList<DomainObject> toDelete = new ArrayList<DomainObject>();
 
 		// insert people first
@@ -133,7 +136,7 @@ public class UnitOfWork
 		{
 			if (o.getClass() == Person.class)
 			{
-				mpr = mr.getMapper(o.getClass());
+				mpr = registryOfMappers.getMapper(o.getClass());
 				mpr.insert(o);
 				toDelete.add(o);
 			}
@@ -142,7 +145,7 @@ public class UnitOfWork
 
 		for (DomainObject o : newObjects)
 		{
-			mpr = mr.getMapper(o.getClass());
+			mpr = registryOfMappers.getMapper(o.getClass());
 			mpr.insert(o);
 		}
 
@@ -157,11 +160,10 @@ public class UnitOfWork
 	{
 		boolean success = true;
 		Mapper mpr;
-		MapperRegistry mr = MapperRegistry.getCurrent();
 
 		for (DomainObject o : dirtyObjects)
 		{
-			mpr = mr.getMapper(o.getClass());
+			mpr = registryOfMappers.getMapper(o.getClass());
 			mpr.update(o);
 		}
 
@@ -175,16 +177,15 @@ public class UnitOfWork
 	public boolean removeDeleted()
 	{
 		boolean success = true;
-		MapperRegistry mr = MapperRegistry.getCurrent();
 		Mapper mpr;
 		ArrayList<DomainObject> toDelete = new ArrayList<DomainObject>();
 
-		// delete friend records first (foreign key on person)
+		// delete records that aren't a person first (foreign key on person)
 		for (DomainObject o : deletedObjects)
 		{
 			if (o.getClass() != Person.class)
 			{
-				mpr = mr.getMapper(o.getClass());
+				mpr = registryOfMappers.getMapper(o.getClass());
 				mpr.delete(o);
 				toDelete.add(o);
 			}
@@ -193,7 +194,7 @@ public class UnitOfWork
 
 		for (DomainObject o : deletedObjects)
 		{
-			mpr = mr.getMapper(o.getClass());
+			mpr = registryOfMappers.getMapper(o.getClass());
 			mpr.delete(o);
 		}
 

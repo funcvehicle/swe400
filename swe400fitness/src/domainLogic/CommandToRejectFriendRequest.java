@@ -1,4 +1,4 @@
-package commands;
+package domainLogic;
 
 import domainModel.Friend;
 import domainModel.PendingRequest;
@@ -46,7 +46,7 @@ public class CommandToRejectFriendRequest implements Command
 		requestee.setIncomingRequests(pfMapper.findIncomingRequests(userIDOfRequestee));
 		Person requester = pMapper.find(userNameOfRequester);
 		
-		fm.create(requester.getDisplayName(), requester.getId(), userIDOfRequestee);
+		fm.insert(requester.getDisplayName(), requester.getId(), userIDOfRequestee);
 		
 		PendingRequest pendingRequest = pfMapper.findIncomingRelationshipId(requester.getId(), requestee.getId());
 		

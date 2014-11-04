@@ -1,24 +1,24 @@
-package commands;
+package domainLogic;
 
 import unitOfWork.UnitOfWork;
 
 /**
- * Tells the system to save any pending changes
+ * Tells the system to cancel any pending changes
  * 
  * @author merlin
  *
  */
-public class CommandToPersistChanges implements Command
+public class CommandToCancelChanges implements Command
 {
+
 	/**
-	 * 
+	 * Cancels all tracked changes from the current thread's unit of work.
 	 * @see Command#execute()
 	 */
 	@Override
 	public void execute()
 	{
-		UnitOfWork work = UnitOfWork.getCurrent();
-		work.commit();
+		UnitOfWork.getCurrent().clearAll();
 	}
 
 	/**

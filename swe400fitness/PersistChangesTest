@@ -1,16 +1,16 @@
-CommandToCreateUser ryan pw1 ryanW; ryan:pw1:ryanW
-CommandToPersistChanges; 
-CommandToCreateUser frisbee pw2 circleflyer; frisbee:pw2:circleflyer;
+CommandToCreateUser jellyjiggler pw1 jellyjigglerW; jellyjiggler:pw1:jellyjigglerW
+CommandToCreateUser RandySavage pw2 circleflyer; RandySavage:pw2:circleflyer;
+
+*******************************************
+CommandToSelectUser jellyjiggler pw1;
+CommandToMakeFriendRequest <userID> RandySavage;
 CommandToPersistChanges;
-CommandToSelectUser ryan pw1;
-CommandToMakeFriendRequest <userID> frisbee;
+CommandToSelectUser RandySavage pw2;
+CommandToGetPendingIncomingFriendList <userID>; RandySavage
+CommandToAcceptFriendRequest <userID> jellyjiggler;
 CommandToPersistChanges;
-CommandToSelectUser henry pw2;
-CommandToGetPendingIncomingFriendList <userID>; fred
-CommandToAcceptFriendRequest <userID> fred;
+CommandToRetrieveFriendList <userID>; jellyjiggler
 CommandToPersistChanges;
-CommandToRetrieveFriendList <userID>; fred
-CommandToPersistChanges;
-CommandToSelectUser fred pw1;
-CommandToRetrieveFriendList <userID>; henry
+CommandToSelectUser jellyjiggler pw1;
+CommandToRetrieveFriendList <userID>; RandySavage
 CommandToPersistChanges;

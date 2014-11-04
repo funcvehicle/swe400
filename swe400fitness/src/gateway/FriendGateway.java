@@ -28,7 +28,7 @@ public class FriendGateway extends Gateway
 	 * @param friendID
 	 * @return SQLEnum
 	 */
-	public SQLEnum create(long relationID, long personID, long friendID)
+	public SQLEnum insert(long relationID, long personID, long friendID)
 	{
 		establishConnection();
 		connection = getConnection();
@@ -66,7 +66,7 @@ public class FriendGateway extends Gateway
 	 * @param userId
 	 * @return RecordSet of all friendships for a a given userId
 	 */
-	public CachedRowSet findAllFromUser(long userId)
+	public CachedRowSet findAllForUser(long userId)
 	{
 		establishConnection();
 		connection = getConnection();

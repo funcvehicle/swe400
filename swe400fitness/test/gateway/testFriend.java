@@ -21,7 +21,7 @@ public class testFriend {
 	public void testCreateFindExistsAndDelete() {
 		
 		//need to create the person first
-		assertFalse(friendGateway.create(0, 1, 2) == SQLEnum.FAILED_SQL_ERROR);
+		assertFalse(friendGateway.insert(0, 1, 2) == SQLEnum.FAILED_SQL_ERROR);
 		assertFalse(friendGateway.find(1) instanceof NullSet);
 		assertFalse(friendGateway.delete(0) == SQLEnum.FAILED_SQL_ERROR);
 	}
@@ -33,8 +33,8 @@ public class testFriend {
 	@Test
 	public void createAlreadyExists()
 	{
-		friendGateway.create(0, 1, 2);
-		assertTrue(friendGateway.create(0, 1, 2) == SQLEnum.EXISTS);
+		friendGateway.insert(0, 1, 2);
+		assertTrue(friendGateway.insert(0, 1, 2) == SQLEnum.EXISTS);
 	}
 
 }

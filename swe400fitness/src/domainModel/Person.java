@@ -24,6 +24,12 @@ public class Person extends DomainObject
 		myFriends = new FriendList();
 	}
 	
+	public Person(String userName, String displayName, String password, long id)
+	{
+		this(userName, displayName, password);
+		this.id = id;
+	}
+	
 	/**
 	 * Create a new person and register it as new with the unit of work
 	 * @param userName
@@ -127,7 +133,7 @@ public class Person extends DomainObject
 	 * Adds a person to my incoming requests.
 	 * @param friend
 	 */
-	public void addPersonToPending(PendingRequest friend)
+	public void addPersonToPending(Friend friend)
 	{
 		incomingRequests.addIncomingRequest(friend);
 	}
@@ -136,17 +142,18 @@ public class Person extends DomainObject
 	 * Accept an incoming friend request.
 	 * @param friendAccepted
 	 */
-	public boolean acceptRequest(PendingRequest pendingRequest)
+	public boolean acceptRequest(Friend request)
 	{
-		Friend friend = new Friend(pendingRequest.getDisplayName(), pendingRequest.getInquirerId());
-		myFriends.addFriend(friend);
-		boolean mySuccess = incomingRequests.removeRequest(pendingRequest);
+		myFriends.addFriend(request);
+		boolean mySuccess = incomingRequests.removeIncomingRequest(request);
+		outgoingRequests.removeRequest(request);
 		
 		//friendAccepted.myFriends.addFriend(this.asFriend());
 		//boolean theirSuccess = friendAccepted.outgoingRequests.removeRequest(this.asFriend());
 		if (mySuccess /*&& theirSuccess*/ == true)
 		{
-			pendingRequest.markDeleted();
+			//TODO fix this
+			request.markDeleted();
 			return true;
 		}
 		
@@ -160,7 +167,7 @@ public class Person extends DomainObject
 	 */
 	public boolean rejectRequest(PendingRequest pendingRequest)
 	{
-		boolean mySuccess = incomingRequests.removeRequest(pendingRequest);
+		boolean mySuccess = incomingRequests.removeIncomingRequest(pendingRequest);
 		
 		//boolean theirSuccess = requestor.outgoingRequests.removeRequest(this.asFriend());
 		
@@ -179,7 +186,7 @@ public class Person extends DomainObject
 	public boolean removeFriend(Friend friend)
 	{
 		boolean mySuccess = myFriends.unFriend(friend);
-		//boolean theirSuccess = friend.myFriends.unFriend(this.asFriend());
+		
 		if (mySuccess /*&& theirSuccess*/ == true)
 		{
 			return true;

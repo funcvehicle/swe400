@@ -1,22 +1,22 @@
-CommandToCreateUser user0 pw1 user0; user0:pw1:user0
+CommandToCreatestormtrooper stormtrooper0 pw1 stormtrooper0; stormtrooper0:pw1:stormtrooper0
 CommandToPersistChanges;
-CommandToCreateUser user1 pw1 user1; user1:pw1:user1
+CommandToCreatestormtrooper stormtrooper1 pw1 stormtrooper1; stormtrooper1:pw1:stormtrooper1
 CommandToPersistChanges;
-CommandToCreateUser user2 pw1 user2; user2:pw1:user2
+CommandToCreatestormtrooper stormtrooper2 pw1 stormtrooper2; stormtrooper2:pw1:stormtrooper2
 CommandToPersistChanges;
-CommandToCreateUser user3 pw1 user3; user3:pw1:user3
+CommandToCreatestormtrooper stormtrooper3 pw1 stormtrooper3; stormtrooper3:pw1:stormtrooper3
 CommandToPersistChanges;
-CommandToCreateUser user4 pw1 user4; user4:pw1:user4
+CommandToCreatestormtrooper stormtrooper4 pw1 stormtrooper4; stormtrooper4:pw1:stormtrooper4
 CommandToPersistChanges;
-CommandToCreateUser user5 pw1 user5; user5:pw1:user5
+CommandToCreatestormtrooper stormtrooper5 pw1 stormtrooper5; stormtrooper5:pw1:stormtrooper5
 CommandToPersistChanges;
-CommandToCreateUser user6 pw1 user6; user6:pw1:user6
+CommandToCreatestormtrooper stormtrooper6 pw1 stormtrooper6; stormtrooper6:pw1:stormtrooper6
 CommandToPersistChanges;
-CommandToCreateUser user7 pw1 user7; user7:pw1:user7
+CommandToCreatestormtrooper stormtrooper7 pw1 stormtrooper7; stormtrooper7:pw1:stormtrooper7
 CommandToPersistChanges;
-CommandToCreateUser user8 pw1 user8; user8:pw1:user8
+CommandToCreatestormtrooper stormtrooper8 pw1 stormtrooper8; stormtrooper8:pw1:stormtrooper8
 CommandToPersistChanges;
-CommandToCreateUser user9 pw1 user9; user9:pw1:user9
+CommandToCreatestormtrooper stormtrooper9 pw1 stormtrooper9; stormtrooper9:pw1:stormtrooper9
 CommandToPersistChanges;
-CommandToCreateUser user10 pw1 user10; user10:pw1:user10
+CommandToCreatestormtrooper stormtrooper10 pw1 stormtrooper10; stormtrooper10:pw1:stormtrooper10
 CommandToPersistChanges;

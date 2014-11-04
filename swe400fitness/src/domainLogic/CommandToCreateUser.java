@@ -1,5 +1,6 @@
-package commands;
+package domainLogic;
 
+import mapper.FinderRegistry;
 import mapper.MapperRegistry;
 import mapper.PersonMapper;
 import unitOfWork.UnitOfWork;
@@ -60,8 +61,15 @@ public class CommandToCreateUser implements Command
 	@Override
 	public void execute()
 	{
-		Person.createNewPerson(userName, displayName, password);
-		UnitOfWork.getCurrent().commit();
+		if (FinderRegistry.personFinder().find(userName) == null)
+		{
+			Person.createNewPerson(userName, displayName, password);
+			UnitOfWork.getCurrent().commit();
+		}
+		else
+		{
+			System.err.println("ERROR: Cannot create user " + userName + " because username already exists in DB!");
+		}
 	}
 
 	/**

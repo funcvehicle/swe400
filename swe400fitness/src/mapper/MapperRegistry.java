@@ -28,7 +28,7 @@ public class MapperRegistry
 	{
 		pm = new PersonMapper();
 		fm = new FriendMapper();
-		pfm = new PendingFriendMapper(new PendingFriendGateway());
+		pfm = new PendingFriendMapper();
 	}
 	
 	public static MapperRegistry getCurrent()

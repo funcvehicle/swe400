@@ -1,16 +1,18 @@
-CommandToCreateUser jane pw1 jane1234; jane:pw1:jane1234 
-CommandToCreateUser sally pw2 sally5678; sally:pw2:sally5678
-CommandToSelectUser jane pw1;
-CommandToMakeFriendRequest <userID> sally;
+CommandToCreateUser SanicTheHodgehege pw1 SanicTheHodgehege1234; SanicTheHodgehege:pw1:SanicTheHodgehege1234 
+CommandToCreateUser Vorpidile pw2 Vorpidile5678; Vorpidile:pw2:Vorpidile5678
+
+*******************************************FIXED
+CommandToSelectUser SanicTheHodgehege pw1;
+CommandToMakeFriendRequest <userID> Vorpidile;
 CommandToPersistChanges;
-CommandToSelectUser sally pw2;
-CommandToGetPendingIncomingFriendList <userID>; jane
-CommandToAcceptFriendRequest <userID> jane;
+CommandToSelectUser Vorpidile pw2;
+CommandToGetPendingIncomingFriendList <userID>; SanicTheHodgehege
+CommandToAcceptFriendRequest <userID> SanicTheHodgehege;
 CommandToPersistChanges;
-CommandToSelectUser jane pw1;
-CommandToRetrieveFriendList <userID>; sally
-CommandToUnFriend <userID> sally;
+CommandToSelectUser SanicTheHodgehege pw1;
+CommandToRetrieveFriendList <userID>; Vorpidile
+CommandToUnFriend <userID> Vorpidile;
 CommandToPersistChanges;
 CommandToRetrieveFriendList <userID>;
-CommandToSelectUser sally pw2;
+CommandToSelectUser Vorpidile pw2;
 CommandToRetrieveFriendList <userID>;

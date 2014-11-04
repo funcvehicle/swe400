@@ -1,16 +1,23 @@
-CommandToCreateUser jane pw1 jane1234; jane:pw1:jane1234
-CommandToCreateUser sally pw2 sally5678; sally:pw2:sally5678
-CommandToSelectUser jane pw1;
-CommandToMakeFriendRequest <userID> sally;
+CommandToCreateUser Thrall pw1 Thrall1234; Thrall:pw1:Thrall1234
+CommandToCreateUser GhengisKhan pw2 GhengisKhan5678; GhengisKhan:pw2:GhengisKhan5678
+
+
+CommandToSelectUser Thrall pw1;
+CommandToMakeFriendRequest <userID> GhengisKhan;
 CommandToPersistChanges;
-CommandToSelectUser sally pw1;
-CommandToMakeFriendRequest <userID> jane;
+
+CommandToSelectUser GhengisKhan pw1;
+CommandToMakeFriendRequest <userID> Thrall;
 CommandToPersistChanges;
+
 CommandToGetPendingOutgoingFriendList <userID>;
 CommandToGetPendingIncomingFriendList <userID>;
-CommandToSelectUser jane pw1;
-CommandToAcceptFriendRequest <userID> sally;
+CommandToSelectUser Thrall pw1;
+CommandToAcceptFriendRequest <userID> GhengisKhan;
 CommandToPersistChanges;
+
 CommandToRetrieveFriendList <userID>;
-CommandToSelectUser sally pw1;
+CommandToSelectUser GhengisKhan pw1;
 CommandToRetrieveFriendList <userID>;
+
+CommandToUnFriend <userID> Thrall;

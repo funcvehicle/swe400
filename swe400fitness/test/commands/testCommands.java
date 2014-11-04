@@ -9,10 +9,10 @@ import mockClasses.MockUnitOfWork;
 import org.junit.Before;
 import org.junit.Test;
 
-import commands.Command;
-import commands.CommandToCreateUser;
-import commands.CommandToSelectUser;
 
+import domainLogic.Command;
+import domainLogic.CommandToCreateUser;
+import domainLogic.CommandToSelectUser;
 import domainModel.Person;
 
 public class testCommands 

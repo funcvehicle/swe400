@@ -3,10 +3,14 @@ package mapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import gateway.FriendGateway;
 import gateway.KeyGateway;
-import gateway.NullSet;
+import gateway.PendingFriendGateway;
 import gateway.PersonGateway;
 import domainModel.DomainObject;
+import domainModel.FriendList;
+import domainModel.IncomingRequestsList;
+import domainModel.OutgoingRequestsList;
 import domainModel.Person;
 
 /**
@@ -16,12 +20,16 @@ import domainModel.Person;
  */
 public class PersonMapper implements PersonFinder, Mapper
 {
-	PersonGateway	gate;
+	PersonGateway	personGate;
+	FriendGateway 	friendGate;
+	PendingFriendGateway pendingFriendGate;
 	KeyGateway		keyGen;
 
 	public PersonMapper()
 	{
-		this.gate = new PersonGateway();
+		this.personGate = new PersonGateway();
+		this.friendGate = new FriendGateway();
+		this.pendingFriendGate = new PendingFriendGateway();
 		keyGen = new KeyGateway();
 	}
 
@@ -33,7 +41,7 @@ public class PersonMapper implements PersonFinder, Mapper
 	 */
 	public Person find(long id)
 	{
-		ResultSet rs = gate.find(id);
+		ResultSet rs = personGate.find(id);
 
 		try
 		{
@@ -50,13 +58,12 @@ public class PersonMapper implements PersonFinder, Mapper
 
 	/**
 	 * Find a person with the given username.
-	 * 
 	 * @param username
 	 * @return
 	 */
 	public Person find(String username)
 	{
-		ResultSet rs = gate.find(username);
+		ResultSet rs = personGate.find(username);
 
 		try
 		{
@@ -89,6 +96,15 @@ public class PersonMapper implements PersonFinder, Mapper
 			Person result = new Person(userName, displayName, password);
 			result.setId(id);
 			
+			//load the various friend lists
+			FriendList myFriends = FinderRegistry.friendFinder().findFriends(id);
+			IncomingRequestsList myIncoming = FinderRegistry.incomingFriendFinder().findRequests(id);
+			OutgoingRequestsList myOutgoing = FinderRegistry.outgoingFriendFinder().findRequests(id);
+			
+			result.setFriendList(myFriends);
+			result.setIncomingRequests(myIncoming);
+			result.setOutgoingRequests(myOutgoing);
+			
 			return result;
 		}
 		catch (SQLException e)
@@ -109,7 +125,8 @@ public class PersonMapper implements PersonFinder, Mapper
 		String password = p.getPassword();
 		String displayName = p.getDisplayName();
 		long id = p.getId();
-		gate.update(id, userName, password, displayName);
+		
+		personGate.update(id, userName, password, displayName);
 	}
 
 	/**
@@ -124,7 +141,7 @@ public class PersonMapper implements PersonFinder, Mapper
 		String password = p.getPassword();
 		String displayName = p.getDisplayName();
 
-		gate.insert(id, userName, displayName, password);
+		personGate.insert(id, userName, displayName, password);
 	}
 
 	/**
@@ -136,6 +153,6 @@ public class PersonMapper implements PersonFinder, Mapper
 		Person p = (Person) o;
 		long id = p.getId();
 
-		gate.delete(id);
+		personGate.delete(id);
 	}
 }

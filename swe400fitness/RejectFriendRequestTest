@@ -1,15 +1,16 @@
-CommandToCreateUser ethan password finerminer; ethan:password:finerminer
-CommandToCreateUser ryan pw2 rweav; ryan:pw2:rweav
-CommandToSelectUser ryan pw2;
-CommandToMakeFriendRequest <userID> ethan;
-CommandToGetPendingOutgoingFriendList <userID>; ethan
+CommandToCreateUser Morbo password finerminer; Morbo:password:finerminer
+CommandToCreateUser fartblaster pw2 rweav; fartblaster:pw2:rweav
+
+CommandToSelectUser fartblaster pw2;
+CommandToMakeFriendRequest <userID> Morbo;
+CommandToGetPendingOutgoingFriendList <userID>; Morbo
 CommandToPersistChanges;
-CommandToSelectUser ethan password;
-CommandToGetPendingIncomingFriendList <userID>; ryan
-CommandToRejectFriendRequest <userID> ryan;
+CommandToSelectUser Morbo password;
+CommandToGetPendingIncomingFriendList <userID>; fartblaster
+CommandToRejectFriendRequest <userID> fartblaster;
 CommandToGetPendingIncomingFriendList <userID>;
 CommandToRetrieveFriendList <userID>;
 CommandToPersistChanges;
-CommandToSelectUser ryan pw2;
+CommandToSelectUser fartblaster pw2;
 CommandToGetPendingOutgoingFriendList <userID>;
 CommandToRetrieveFriendList <userID>;

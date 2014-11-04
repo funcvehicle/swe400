@@ -29,6 +29,7 @@ public class FriendList extends DomainObject
 	
 	public boolean addFriend(Friend friend)
 	{
+		friend.markNew();
 		return listOfFriends.add(friend);
 	}
 	

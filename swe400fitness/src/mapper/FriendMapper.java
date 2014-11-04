@@ -17,19 +17,21 @@ public class FriendMapper implements FriendFinder, Mapper
 	private PersonGateway personGate = new PersonGateway();
 	private KeyGateway keyGate = new KeyGateway();
 	
+	@Override
 	public FriendList findFriends(Long myId)
 	{
 		FriendList list = new FriendList();
 		try 
 		{			
-			ResultSet myList = friendGate.find(myId);
+			ResultSet myList = friendGate.findAllForUser(myId);
 			while (myList.next() == true)
 			{
 				Friend friend = findFriend(myList, myId);
 				list.addFriend(friend);
 			}
 			return list;
-		} catch (SQLException e)
+		} 
+		catch (SQLException e)
 		{
 			e.printStackTrace();
 			return null;
@@ -83,7 +85,7 @@ public class FriendMapper implements FriendFinder, Mapper
 		long personID = pPerson.getId();
 		long friendID = fFriend.getId();
 		
-		friendGate.create(id, friendID, personID);
+		friendGate.insert(id, friendID, personID);
 	}
 	
 	/**
@@ -98,12 +100,12 @@ public class FriendMapper implements FriendFinder, Mapper
 		friendGate.delete(id);
 	}
 
-//	@Override
-//	public void insert(DomainObject object) 
-//	{
-//		Friend friend = (Friend) object;
-//		friendGate.create(friend.getId(), friend.getCurrentUserId(), friend.getId());
-//	}
+	@Override
+	public void insert(DomainObject object) 
+	{
+		Friend friend = (Friend) object;
+		friendGate.insert(friend.getId(), friend.getCurrentUserId(), friend.getId());
+	}
 
 
 	@Override
@@ -113,14 +115,6 @@ public class FriendMapper implements FriendFinder, Mapper
 		Friend friend = new Friend(null, id);
 		
 		return friend;
-	}
-
-
-	@Override
-	public void insert(DomainObject o)
-	{
-		// TODO Auto-generated method stub
-		
 	}
 }
 

@@ -1,4 +1,4 @@
-package commands;
+package domainLogic;
 
 import domainModel.Person;
 import mapper.MapperRegistry;

@@ -10,17 +10,17 @@ import java.util.ArrayList;
  */
 public class IncomingRequestsList extends DomainObject
 {
-	private ArrayList<PendingRequest> incomingRequestsList;
+	private ArrayList<Friend> incomingRequestsList;
 
 	public IncomingRequestsList()
 	{
-		incomingRequestsList = new ArrayList<PendingRequest>();
+		incomingRequestsList = new ArrayList<Friend>();
 	}
 	
 	public String toString()
 	{
 		String list = "";
-		for (PendingRequest f : incomingRequestsList)
+		for (Friend f : incomingRequestsList)
 		{
 			list += f.toString() + " ";
 		}
@@ -28,22 +28,22 @@ public class IncomingRequestsList extends DomainObject
 		return list;
 	}
 	
-	public ArrayList<PendingRequest> getIncomingRequestsList()
+	public ArrayList<Friend> getIncomingRequestsList()
 	{
 		return incomingRequestsList;
 	}
 
-	public void addIncomingRequest(PendingRequest pendingFriend)
+	public void addIncomingRequest(Friend request)
 	{
-		incomingRequestsList.add(pendingFriend);
+		incomingRequestsList.add(request);
 	}
 	
-	public boolean removeRequest(PendingRequest pendingRequest)
+	public boolean removeIncomingRequest(Friend request)
 	{
-		pendingRequest.markDeleted();
+		request.markDeleted();
 		for (int i = 0; i < incomingRequestsList.size(); i++)
 		{
-			if (incomingRequestsList.get(i).getId() == (pendingRequest.getId()))
+			if (incomingRequestsList.get(i).getId() == (request.getId()))
 			{
 				incomingRequestsList.remove(i);
 				return true;

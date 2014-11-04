@@ -46,7 +46,7 @@ public class testPerson
 		Person personTwo = new Person("hisUsername", "Him", "pw", 1);
 		personOne.requestFriend(personTwo);
 		
-		assertTrue(personTwo.rejectRequest(personOne));
+		assertTrue(personTwo.removeIncomingRequest(personOne));
 	}
 	
 	@Test

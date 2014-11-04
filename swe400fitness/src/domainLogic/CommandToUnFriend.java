@@ -1,4 +1,4 @@
-package commands;
+package domainLogic;
 
 import mapper.FriendMapper;
 import mapper.MapperRegistry;
