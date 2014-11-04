@@ -11,19 +11,19 @@ import com.sun.rowset.CachedRowSetImpl;
 import domainModel.Friend;
 import domainModel.FriendList;
 import gateway.FriendGateway;
+import gateway.PendingFriendGateway;
 import gateway.SQLEnum;
 
-public class MockFriendGateway extends FriendGateway
+public class MockPendingFriendGateway extends PendingFriendGateway
 {
 	FriendList list;
 	Friend friend;
 	
-	public MockFriendGateway()
+	public MockPendingFriendGateway()
 	{
 		list = new FriendList();
 	}
 	
-	@Override
 	public SQLEnum create(long relationID, long personID, long friendID)
 	{
 		String name = "Guy";
