@@ -1,8 +1,6 @@
 package domainLogic;
 
 import mapper.FinderRegistry;
-import mapper.MapperRegistry;
-import mapper.PersonMapper;
 import unitOfWork.UnitOfWork;
 import domainModel.Person;
 
@@ -10,7 +8,7 @@ import domainModel.Person;
 /**
  * Creates a new user in the system
  * @author merlin
- *
+ * @author Connor Fox
  */
 public class CommandToCreateUser implements Command
 {
@@ -31,30 +29,6 @@ public class CommandToCreateUser implements Command
 		this.displayName = displayName;
 	}
 	
-	
-//	/**
-//	 * @see Command#execute()
-//	 */
-//	@Override
-//	public void execute()
-//	{
-//		MapperRegistry mr = MapperRegistry.getCurrent();
-//		PersonMapper pm = (PersonMapper) mr.getMapper(Person.class);
-//		
-//		//Check that the user does not already exist in database 
-//		if (pm.find(userName) == null)
-//		{
-//			pm.create(userName, password, displayName);
-//			UnitOfWork.getCurrent().commit();
-//		}
-//		
-//		else
-//		{
-//			System.err.println("ERROR: Cannot create user " + userName + " because username already exists in DB!");
-//			System.err.println("CommandToCreateUser " + userName + " failed!");
-//		}
-//	}
-	
 	/**
 	 * @see Command#execute()
 	 */
@@ -68,7 +42,7 @@ public class CommandToCreateUser implements Command
 		}
 		else
 		{
-			System.err.println("ERROR: Cannot create user " + userName + " because username already exists in DB!");
+			System.err.println("Cannot create user " + userName + ": username unavailable!");
 		}
 	}
 
@@ -80,24 +54,18 @@ public class CommandToCreateUser implements Command
 	@Override
 	public Person getResult()
 	{
-		MapperRegistry mr = MapperRegistry.getCurrent();
-		PersonMapper pm = (PersonMapper) mr.getMapper(Person.class);
-		
-		return pm.find(userName);
+		return FinderRegistry.personFinder().find(userName);
 	}
-
 
 	public String getUserName()
 	{
 		return userName;
 	}
 
-
 	public String getPassword()
 	{
 		return password;
 	}
-
 
 	public String getDisplayName()
 	{

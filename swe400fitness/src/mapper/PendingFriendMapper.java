@@ -9,11 +9,12 @@ import gateway.KeyGateway;
 import gateway.PendingFriendGateway;
 import gateway.PersonGateway;
 import domainModel.DomainObject;
+import domainModel.Friend;
 import domainModel.IncomingRequestsList;
 import domainModel.OutgoingRequestsList;
 import domainModel.PendingRequest;
 
-public class PendingFriendMapper implements Mapper
+public class PendingFriendMapper implements IncomingFriendFinder, OutgoingFriendFinder, Mapper
 {
 	PendingFriendGateway	pendingFriendGate;
 	PersonGateway			personGate;
@@ -24,25 +25,11 @@ public class PendingFriendMapper implements Mapper
 	 * 
 	 * @param gate
 	 */
-	public PendingFriendMapper(PendingFriendGateway gate)
+	public PendingFriendMapper()
 	{
-		pendingFriendGate = gate;
+		pendingFriendGate = new PendingFriendGateway();
 		personGate = new PersonGateway();
 		keyGen = new KeyGateway();
-	}
-	
-	/**
-	 * Create a new pending request with a valid id
-	 * @param inquirerId
-	 * @param recipientId
-	 * @param displayName
-	 * @return
-	 */
-	public PendingRequest create(long inquirerId, long recipientId, String displayName)
-	{
-		long id = keyGen.generateKey();
-		PendingRequest request = PendingRequest.createNewPendingRequest(inquirerId, recipientId, id, displayName);
-		return request;
 	}
 
 	/**
@@ -61,13 +48,14 @@ public class PendingFriendMapper implements Mapper
 			
 			while (myList.next() == true)
 			{
+				//TODO
 				long inquirerId = myList.getLong("inquirerId");
 				long relationId = myList.getLong("id");
 				ResultSet inquirer = personGate.find(inquirerId);
 				inquirer.next();
 				String inquirerName = inquirer.getString("displayName");
-				PendingRequest pendingFriend = new PendingRequest(inquirerId, myId, relationId, inquirerName);
-				list.addIncomingRequest(pendingFriend);
+				Friend request = new Friend(inquirerName, myId, relationId, inquirerId);
+				list.addIncomingRequest(request);
 			}
 		}
 		catch (SQLException e)
@@ -162,14 +150,9 @@ public class PendingFriendMapper implements Mapper
 	@Override
 	public void insert(DomainObject o)
 	{
-		long inquirerId = ((PendingRequest) o).getInquirerId();
-		long recipientId = ((PendingRequest) o).getRecipientId();
-		long id = ((PendingRequest) o).getId();
-		
-		if (pendingFriendGate == null)
-		{
-			System.out.println("fuck");
-		}
+		long inquirerId = ((Friend) o).getInquirerId();
+		long recipientId = ((Friend) o).getRecipientId();
+		long id = ((Friend) o).getId();
 		
 		pendingFriendGate.insert(inquirerId, recipientId, id);
 	}

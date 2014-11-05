@@ -93,7 +93,7 @@ public class FriendGateway extends Gateway
 	
 	/**
 	 * Find a single friend record
-	 * TODO
+	 * TODO change to relation id
 	 * @param userId
 	 * @return RecordSet of all friendships for a a given userId
 	 */

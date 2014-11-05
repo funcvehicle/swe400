@@ -2,33 +2,29 @@ package domainLogic;
 
 import java.util.ArrayList;
 
-import mapper.MapperRegistry;
-import mapper.PendingFriendMapper;
-import mapper.PersonMapper;
+import mapper.FinderRegistry;
+import mapper.OutgoingFriendFinder;
 import domainModel.Friend;
 import domainModel.OutgoingRequestsList;
-import domainModel.PendingRequest;
-import domainModel.Person;
 
 /**
- * Cause the list of pending friend requests from this user to other users to be fetched
- * from the domain model (may or may not cause reading from the DB depending on
- * the state of the domain model)
+ * Cause the list of pending friend requests from this user to other users to be
+ * fetched from the domain model (may or may not cause reading from the DB
+ * depending on the state of the domain model)
  * 
  * @author merlin
- *
+ * 
  */
 public class CommandToGetPendingOutgoingFriendList implements Command
 {
 
-	private long userID;
-	private ArrayList<Friend> outgoingFriendsList;
+	private long				userID;
+	private ArrayList<Friend>	outgoingFriendsList;
 
 	/**
 	 * The userID of the current user
 	 * 
-	 * @param userID
-	 *            unique
+	 * @param userID unique
 	 */
 	public CommandToGetPendingOutgoingFriendList(long userID)
 	{
@@ -37,24 +33,15 @@ public class CommandToGetPendingOutgoingFriendList implements Command
 	}
 
 	/**
-	 * 
+	 * Find all outgoing friend requests from a given user
 	 * @see Command#execute()
 	 */
 	@Override
 	public void execute()
 	{
-		MapperRegistry mapperRegistry = MapperRegistry.getCurrent();
-		PendingFriendMapper pfMapper = (PendingFriendMapper) mapperRegistry.getMapper(PendingRequest.class);
-		
-		OutgoingRequestsList outgoingRequestsList = pfMapper.findOutgoingRequests(userID);
-		ArrayList<PendingRequest> pendingFriends = outgoingRequestsList.getOutgoingRequestsList();
-		outgoingFriendsList = new ArrayList<Friend>();
-		
-		for (PendingRequest pf : pendingFriends)
-		{
-			Friend friend = new Friend(pf.getDisplayName(), pf.getRecipientId());
-			outgoingFriendsList.add(friend);
-		}
+		OutgoingFriendFinder finder = FinderRegistry.outgoingFriendFinder();
+		OutgoingRequestsList outgoingRequestsList = finder.findOutgoingRequests(userID);
+		outgoingFriendsList = outgoingRequestsList.getOutgoingRequestsList();
 	}
 
 	/**

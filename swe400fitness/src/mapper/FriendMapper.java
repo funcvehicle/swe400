@@ -107,12 +107,13 @@ public class FriendMapper implements FriendFinder, Mapper
 		friendGate.insert(friend.getId(), friend.getCurrentUserId(), friend.getId());
 	}
 
-
 	@Override
-	public Friend find(long id)
+	public Friend find(long relationId)
 	{
-		ResultSet record = friendGate.find(id);
-		Friend friend = new Friend(null, id);
+		ResultSet record = friendGate.find(relationId);
+		long friendId = record.getLong("id");
+		long 
+		Friend friend = new Friend(null, relationId);
 		
 		return friend;
 	}

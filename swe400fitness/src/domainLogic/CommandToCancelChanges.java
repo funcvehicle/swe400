@@ -6,11 +6,10 @@ import unitOfWork.UnitOfWork;
  * Tells the system to cancel any pending changes
  * 
  * @author merlin
- *
+ * @author Connor Fox
  */
 public class CommandToCancelChanges implements Command
 {
-
 	/**
 	 * Cancels all tracked changes from the current thread's unit of work.
 	 * @see Command#execute()

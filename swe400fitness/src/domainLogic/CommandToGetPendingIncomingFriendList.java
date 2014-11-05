@@ -2,13 +2,10 @@ package domainLogic;
 
 import java.util.ArrayList;
 
-import mapper.MapperRegistry;
-import mapper.PendingFriendMapper;
-import mapper.PersonMapper;
+import mapper.FinderRegistry;
+import mapper.IncomingFriendFinder;
 import domainModel.Friend;
 import domainModel.IncomingRequestsList;
-import domainModel.PendingRequest;
-import domainModel.Person;
 
 /**
  * Cause the list of friend requests from other user to this user to be fetched
@@ -16,19 +13,17 @@ import domainModel.Person;
  * the state of the domain model)
  * 
  * @author merlin
- *
+ * 
  */
 public class CommandToGetPendingIncomingFriendList implements Command
 {
 
-	private long userID;
-	private ArrayList<Friend> incomingFriendsList;
+	private long				userID;
+	private ArrayList<Friend>	incomingFriendsList;
 
 	/**
 	 * The userID of the current user
-	 * 
-	 * @param userID
-	 *            unique
+	 * @param userID unique
 	 */
 	public CommandToGetPendingIncomingFriendList(long userID)
 	{
@@ -36,25 +31,16 @@ public class CommandToGetPendingIncomingFriendList implements Command
 	}
 
 	/**
+	 * Find and set all incoming friend requests for a user.
 	 * 
 	 * @see Command#execute()
 	 */
 	@Override
 	public void execute()
 	{
-		MapperRegistry mapperRegistry = MapperRegistry.getCurrent();
-		PersonMapper mapper = (PersonMapper) mapperRegistry.getMapper(Person.class);
-		PendingFriendMapper pfMapper = (PendingFriendMapper) mapperRegistry.getMapper(PendingRequest.class);
-		
-		IncomingRequestsList incomingRequestsList = pfMapper.findIncomingRequests(userID);
-		ArrayList<PendingRequest> pendingRequests = incomingRequestsList.getIncomingRequestsList();
-		incomingFriendsList = new ArrayList<Friend>();
-		
-		for (PendingRequest pr : pendingRequests)
-		{
-			Friend friend = new Friend(pr.getDisplayName(), pr.getInquirerId());
-			incomingFriendsList.add(friend);
-		}
+		IncomingFriendFinder finder = FinderRegistry.incomingFriendFinder();
+		IncomingRequestsList incomingRequestsList = finder.findIncomingRequests(userID);
+		incomingFriendsList = incomingRequestsList.getIncomingRequestsList();
 	}
 
 	/**

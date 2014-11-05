@@ -9,19 +9,19 @@ import java.util.ArrayList;
  * @author Emily Maust, Olivia Pompa
  */
 
-public class OutgoingRequestsList extends DomainObject
+public class OutgoingRequestsList
 {
-	private ArrayList<PendingRequest> outgoingRequestsList;
+	private ArrayList<Friend> outgoingRequestsList;
 
 	public OutgoingRequestsList()
 	{
-		outgoingRequestsList = new ArrayList<PendingRequest>();
+		outgoingRequestsList = new ArrayList<Friend>();
 	}
 	
 	public String toString()
 	{
 		String list = "";
-		for (PendingRequest f : outgoingRequestsList)
+		for (Friend f : outgoingRequestsList)
 		{
 			list += f.toString() + " ";
 		}
@@ -29,22 +29,22 @@ public class OutgoingRequestsList extends DomainObject
 		return list;
 	}
 	
-	public ArrayList<PendingRequest> getOutgoingRequestsList()
+	public ArrayList<Friend> getOutgoingRequestsList()
 	{
 		return outgoingRequestsList;
 	}
 
-	public void addPerson(PendingRequest pendingFriend)
+	public void addOutgoingRequest(Friend pendingFriend)
 	{
 		outgoingRequestsList.add(pendingFriend);
 	}
 
-	public boolean removeRequest(Friend request)
+	public boolean removeOutgoingRequest(Friend request)
 	{
 		request.markDeleted();
 		for (int i = 0; i < outgoingRequestsList.size(); i++)
 		{
-			if (outgoingRequestsList.get(i).getId() == (request.getId()))
+			if (outgoingRequestsList.get(i).getRelationId() == (request.getRelationId()))
 			{
 				outgoingRequestsList.remove(i);
 				return true;

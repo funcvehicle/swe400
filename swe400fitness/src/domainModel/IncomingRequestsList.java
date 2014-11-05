@@ -3,12 +3,9 @@ package domainModel;
 import java.util.ArrayList;
 
 /**
- * This will change - be merged with Outgoing Requests
- * 
- * You accept their request
  * @author Emily Maust, Olivia Pompa
  */
-public class IncomingRequestsList extends DomainObject
+public class IncomingRequestsList
 {
 	private ArrayList<Friend> incomingRequestsList;
 
@@ -38,12 +35,33 @@ public class IncomingRequestsList extends DomainObject
 		incomingRequestsList.add(request);
 	}
 	
+	/**
+	 * find the friend that corresponds to the given user id.
+	 * @param userId 
+	 * @return the friend with the given 
+	 */
+	public Friend findId(long userId)
+	{
+		Friend friend = null;
+		
+		for (Friend f : incomingRequestsList)
+		{
+			if (f.getId() == userId)
+			{
+				friend = f;
+				break;
+			}
+		}
+		
+		return friend;
+	}
+	
 	public boolean removeIncomingRequest(Friend request)
 	{
 		request.markDeleted();
 		for (int i = 0; i < incomingRequestsList.size(); i++)
 		{
-			if (incomingRequestsList.get(i).getId() == (request.getId()))
+			if (incomingRequestsList.get(i).getRelationId() == (request.getRelationId()))
 			{
 				incomingRequestsList.remove(i);
 				return true;
