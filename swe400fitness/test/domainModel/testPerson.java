@@ -9,54 +9,80 @@ import unitOfWork.UnitOfWork;
 
 public class testPerson
 {
+	private int id;
+	
 	@Before
 	public void init()
 	{
 		UnitOfWork.newCurrent();
 	}
 	
-	@Test
-	public void testRequestAFriend()
+	public long nextId()
 	{
-		
-		Person personOne = new Person("myUsername", "Me", "pw", 0);
-		Person personTwo = new Person("hisUsername", "Him", "pw", 1);
-		PendingRequest request = new PendingRequest(personOne.getId(), personTwo.getId(), 0, "");
-		personOne.requestFriend(request);
-		assertEquals("Me", personTwo.getIncomingRequests().getIncomingRequestsList().get(0).getDisplayName());
-		assertEquals("Him", personOne.getOutgoingRequests().getOutgoingRequestsList().get(0).getDisplayName());
+		long curr = id;
+		id++;
+		return curr;
 	}
 	
 	@Test
-	public void testAcceptingAFriend()
+	public void TestMakingAPerson()
 	{
-		Person personOne = new Person("myUsername", "Me", "pw", 0);
-		Person personTwo = new Person("hisUsername", "Him", "pw", 1);
-		personOne.requestFriend(personTwo);
-
-		assertTrue(personTwo.acceptRequest(personOne));
-		assertEquals("Me", personTwo.getFriendList().getListOfFriends().get(0).getDisplayName());
-		assertEquals("Him", personOne.getFriendList().getListOfFriends().get(0).getDisplayName());
+		Person p1 = new Person("cooldude5", "Jon", "pw", nextId());
+		assertEquals(0, p1.id);
+		assertEquals("cooldude5", p1.getUserName());
+		assertEquals("Jon", p1.getDisplayName());
+		assertEquals("pw", p1.getPassword());
 	}
 	
 	@Test
-	public void testRejectARequest()
+	public void testMakingFriendRequest()
 	{
-		Person personOne = new Person("myUsername", "Me", "pw", 0);
-		Person personTwo = new Person("hisUsername", "Him", "pw", 1);
-		personOne.requestFriend(personTwo);
-		
-		assertTrue(personTwo.rejectRequest(personOne));
+		Person jonny = new Person("cooldude5", "Jonny", "jonnyspw", nextId());
+		Person mo = new Person("blackpanda7", "Mo", "pw", nextId());
+		long jonnyId = jonny.id;
+		long moId = mo.id;
+		PendingRequest request = new PendingRequest(jonnyId, moId, nextId(), mo.getDisplayName());
+		jonny.requestFriend(request);
+		assertEquals("Mo", jonny.getOutgoingRequests().getOutgoingRequestsList().get(0).getDisplayName());
 	}
 	
 	@Test
-	public void testRemoveFriend()
+	public void testAcceptingFriendRequest()
 	{
-		Person personOne = new Person("myUsername", "Me", "pw", 0);
-		Person personTwo = new Person("hisUsername", "Him", "pw", 1);
-		personOne.requestFriend(personTwo);
-		personTwo.acceptRequest(personOne);
-		
-		assertTrue(personOne.removeFriend(personTwo));
+		Person jonny = new Person("cooldude5", "Jonny", "jonnyspw", nextId());
+		Person mo = new Person("blackpanda7", "Mo", "pw", nextId());
+		long jonnyId = jonny.id;
+		long moId = mo.id;
+		IncomingRequestsList incomingRequestsList = new IncomingRequestsList();
+		PendingRequest request = new PendingRequest(jonnyId, moId, nextId(), mo.getDisplayName());
+		incomingRequestsList.addIncomingRequest(request);
+		mo.setIncomingRequests(incomingRequestsList);
+		mo.acceptRequest(request);
+		assertTrue(mo.getIncomingRequests().getIncomingRequestsList().isEmpty());
+	}
+	
+	@Test
+	public void testRejectingAFriend()
+	{
+		Person jonny = new Person("cooldude5", "Jonny", "jonnyspw", nextId());
+		Person mo = new Person("blackpanda7", "Mo", "pw", nextId());
+		long jonnyId = jonny.id;
+		long moId = mo.id;
+		IncomingRequestsList incomingRequestsList = new IncomingRequestsList();
+		PendingRequest request = new PendingRequest(jonnyId, moId, nextId(), mo.getDisplayName());
+		incomingRequestsList.addIncomingRequest(request);
+		mo.setIncomingRequests(incomingRequestsList);
+		mo.rejectRequest(request);
+		assertTrue(mo.getIncomingRequests().getIncomingRequestsList().isEmpty());
+	}
+	
+	@Test
+	public void testUnfriending()
+	{
+		Person jonny = new Person("cooldude5", "Jonny", "jonnyspw", nextId());
+		Friend mo = new Friend("Mo", nextId());
+		jonny.getFriendList().addFriend(mo);
+		jonny.removeFriend(mo);
+		assertTrue(jonny.getFriendList().getListOfFriends().isEmpty());
 	}
 }
