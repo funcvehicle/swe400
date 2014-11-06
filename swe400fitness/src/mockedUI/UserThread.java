@@ -100,6 +100,8 @@ public class UserThread implements Runnable
 	 */
 	protected Command buildCommand(String commandDescription)
 	{
+		if (commandDescription.contains("*"))
+			return;
 		String[] instructionTokens = commandDescription.split(" ");
 		Class<? extends Command> commandClass = getCommandClass(instructionTokens[0]);
 		Constructor<?>[] constructors = commandClass.getConstructors();
