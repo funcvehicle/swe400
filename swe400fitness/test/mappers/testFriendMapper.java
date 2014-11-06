@@ -1,53 +1,55 @@
 package mappers;
-
 import static org.junit.Assert.assertEquals;
-import gateway.FriendGateway;
-import gateway.PersonGateway;
-
-import java.sql.ResultSet;
-
+import static org.junit.Assert.assertTrue;
 import mapper.FriendMapper;
-import mapper.PersonMapper;
-import mockClasses.MockFriendGateway;
-
+import mapper.MapperRegistry;
 import org.junit.Test;
-
-import domainModel.DomainObject;
 import domainModel.Friend;
 import domainModel.FriendList;
-import domainModel.Person;
 
 public class testFriendMapper 
 {
-
+	private long userId = 0;
+	private long friendId = 1;
+	private MapperRegistry registry = MapperRegistry.getCurrent();
+	private FriendMapper mapper = (FriendMapper) registry.getMapper(Friend.class);
+	private Friend friend = mapper.create("bobbyj7", friendId, userId);
+	
 	@Test
-	public void testCreate()
+	public void testCreatingAFriend()
 	{
-		PersonGateway pgate = new PersonGateway();
-		MockFriendGateway fgate = new MockFriendGateway();
-		FriendMapper mapper = new FriendMapper(fgate, pgate);
-		String username = "user";
-		long friendId = 123;
-		long currentID = 456;
-		Friend mapfriend = mapper.create(username, friendId, currentID);
-		assertEquals(123, mapfriend.getId());
-		assertEquals(456, mapfriend.getCurrentUserId());	
+		assertEquals(userId, friend.getCurrentUserId());
+		assertEquals(friendId, friend.getId());
+		assertEquals("bobbyj7", friend.getDisplayName());
 	}
 	
 	@Test
-	public void testDelete()
+	public void testFindingFriends()
 	{
-		PersonGateway pgate = new PersonGateway();
-		MockFriendGateway fgate = new MockFriendGateway();
-		FriendMapper mapper = new FriendMapper(fgate, pgate);
-		String username = "Guy";
-		long friendId = 123;
-		long currentID = 456;
-		Friend friend = new Friend(username, friendId, currentID);
-		fgate.create(5, friendId, currentID);
+		FriendList friendList = mapper.findFriends(userId);
+		boolean found = false;
+		for (Friend f : friendList.getListOfFriends())
+		{
+			if (friend.getRelationshipId() == f.getRelationshipId())
+			{
+				found = true;	
+			}
+		}
+	}
+	
+	@Test
+	public void testDeletingAFriend()
+	{
 		mapper.delete(friend);
-		FriendList list = mapper.findFriends(currentID);
-		assertEquals("", list.toString());
+		FriendList friendList = mapper.findFriends(userId);
+		boolean deleted = true;
+		for (Friend f : friendList.getListOfFriends())
+		{
+			if (friend.getRelationshipId() == f.getRelationshipId())
+			{
+				deleted = false;	
+			}
+		}
+		assertTrue(deleted);
 	}
-	
 }
