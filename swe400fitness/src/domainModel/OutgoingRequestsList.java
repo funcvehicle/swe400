@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * @author Emily Maust, Olivia Pompa
  */
 
-public class OutgoingRequestsList
+public class OutgoingRequestsList extends DomainObject
 {
 	private ArrayList<Friend> outgoingRequestsList;
 

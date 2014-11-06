@@ -128,8 +128,7 @@ public class Person extends DomainObject
 	{
 		if (requestedFriend.getId() != this.id)
 		{
-			requestedFriend.addIncomingRequest(this.asFriend(requestedFriend.getId()));
-			this.addOutgoingRequest(requestedFriend.asFriend(this.getId()));
+			this.addOutgoingRequest(requestedFriend.asFriend(this.getId(), true));
 		}
 		else
 		{
@@ -217,8 +216,8 @@ public class Person extends DomainObject
 	 * Create an instance of myself as a friend.
 	 * @return a Friend created from the fields of this person.
 	 */
-	public Friend asFriend(long idOfMyFriend)
+	public Friend asFriend(long idOfMyFriend, boolean pending)
 	{
-		return new Friend(displayName, this.id, idOfMyFriend);
+		return new Friend(displayName, this.id, idOfMyFriend, pending);
 	}
 }

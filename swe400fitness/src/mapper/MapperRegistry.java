@@ -58,11 +58,8 @@ public class MapperRegistry
 		if (c == Person.class)
 			m = pm;
 		
-		else if (c == FriendList.class)
+		else if (c == Friend.class)
 			m = fm;
-		
-		else if (c == IncomingRequestsList.class || c == OutgoingRequestsList.class) //TODO figure out how to differentiate friends with pending friends.
-			m = pfm;
 		
 		return m;
 	}

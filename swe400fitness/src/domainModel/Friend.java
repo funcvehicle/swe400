@@ -9,18 +9,20 @@ public class Friend extends DomainObject
 	private String displayName;
 	private long relationId;
 	private long ownerId;
+	private boolean pending;
 	
-	public Friend(String nameDisplay, long relationId, long currentUserId, long friendId)
-	{
-		this(nameDisplay, friendId, currentUserId);
-		this.relationId = relationId;
-	}
-	
-	public Friend(String nameDisplay, long friendId, long currentUserId)
+	public Friend(String nameDisplay, long friendId, long currentUserId, boolean pending)
 	{
 		this.id = friendId;
 		this.displayName = nameDisplay;
 		this.ownerId = currentUserId;
+		this.pending = pending;
+	}
+	
+	public Friend(String nameDisplay, long relationId, long currentUserId, long friendId, boolean pending)
+	{
+		this(nameDisplay, friendId, currentUserId, pending);
+		this.relationId = relationId;
 	}
 	
 	/**
@@ -44,6 +46,19 @@ public class Friend extends DomainObject
 	public String getDisplayName()
 	{
 		return displayName;
+	}
+	
+	public boolean getPending()
+	{
+		return pending;
+	}
+	
+	/**
+	 * Sets pending to false. Represents a confirmed friendship.
+	 */
+	public void confirm()
+	{
+		pending = false;
 	}
 	
 	public long getOwnerId()

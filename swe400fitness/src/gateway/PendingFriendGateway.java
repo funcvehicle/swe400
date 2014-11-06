@@ -118,7 +118,7 @@ public class PendingFriendGateway extends Gateway
 	 * @param id
 	 * @return
 	 */
-	public SQLEnum delete(long id)
+	public SQLEnum delete(long relationID)
 	{
 		establishConnection();
 		connection = getConnection();
@@ -127,7 +127,7 @@ public class PendingFriendGateway extends Gateway
 		try
 		{
 			Statement delete = (Statement) connection.createStatement();
-			if (!delete.execute(deleteStatement + id))
+			if (!delete.execute(deleteStatement + relationID))
 			{
 				result = SQLEnum.DOES_NOT_EXIST;
 			}

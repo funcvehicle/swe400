@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * @author Emily Maust, Olivia Pompa
  */
-public class IncomingRequestsList
+public class IncomingRequestsList extends DomainObject
 {
 	private ArrayList<Friend> incomingRequestsList;
 
