@@ -190,6 +190,7 @@ public class UserThread implements Runnable
 	{
 		String[] parts = splitInstruction(instruction);
 		Command cmd = buildCommand(parts[0]);
+		System.out.println("Executing: " + instruction);
 		cmd.execute();
 		if (cmd instanceof CommandToSelectUser)
 		{
