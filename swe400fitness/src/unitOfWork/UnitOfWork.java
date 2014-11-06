@@ -130,19 +130,20 @@ public class UnitOfWork
 	{
 		boolean success = true;
 		Mapper mpr;
-		ArrayList<DomainObject> toDelete = new ArrayList<DomainObject>();
+		//ArrayList<DomainObject> toDelete = new ArrayList<DomainObject>();
 
 		// insert people first
-		for (DomainObject o : newObjects)
+		for (int i = 0; i < newObjects.size(); i++)
 		{
+			DomainObject o = newObjects.get(i);
 			if (o.getClass() == Person.class)
 			{
 				mpr = registryOfMappers.getMapper(o.getClass());
 				mpr.insert(o);
-				toDelete.add(o);
+				newObjects.remove(o);
 			}
 		}
-		removeFrom(toDelete, newObjects);
+		//removeFrom(toDelete, newObjects);
 
 		for (DomainObject o : newObjects)
 		{
@@ -179,19 +180,20 @@ public class UnitOfWork
 	{
 		boolean success = true;
 		Mapper mpr;
-		ArrayList<DomainObject> toDelete = new ArrayList<DomainObject>();
+		//ArrayList<DomainObject> toDelete = new ArrayList<DomainObject>();
 
 		// delete records that aren't a person first (foreign key on person)
-		for (DomainObject o : deletedObjects)
+		for (int i = 0; i < deletedObjects.size(); i++)
 		{
+			DomainObject o = deletedObjects.get(i);
 			if (o.getClass() != Person.class)
 			{
 				mpr = registryOfMappers.getMapper(o.getClass());
 				mpr.delete(o);
-				toDelete.add(o);
+				deletedObjects.remove(o);
 			}
 		}
-		removeFrom(toDelete, deletedObjects);
+		//removeFrom(toDelete, deletedObjects);
 
 		for (DomainObject o : deletedObjects)
 		{
@@ -202,19 +204,19 @@ public class UnitOfWork
 		return success;
 	}
 	
-	/**
-	 * Remove specific objects from the target arraylist.
-	 * @param source the objects you want to remove
-	 * @param target the list to remove from
-	 */
-	private void removeFrom(ArrayList<DomainObject> source, ArrayList<DomainObject> target)
-	{
-		for (DomainObject o : source)
-		{
-			target.remove(o);
-		}
-		source.clear();
-	}
+//	/**
+//	 * Remove specific objects from the target arraylist.
+//	 * @param source the objects you want to remove
+//	 * @param target the list to remove from
+//	 */
+//	private void removeFrom(ArrayList<DomainObject> source, ArrayList<DomainObject> target)
+//	{
+//		for (DomainObject o : source)
+//		{
+//			target.remove(o);
+//		}
+//		source.clear();
+//	}
 
 	/**
 	 * Clear all arrays; effectively cancels any in-memory changes from being

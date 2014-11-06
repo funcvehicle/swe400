@@ -58,7 +58,6 @@ public class IncomingRequestsList extends DomainObject
 	
 	public boolean removeIncomingRequest(Friend request)
 	{
-		request.markDeleted();
 		for (int i = 0; i < incomingRequestsList.size(); i++)
 		{
 			if (incomingRequestsList.get(i).getRelationId() == (request.getRelationId()))

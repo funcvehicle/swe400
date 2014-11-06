@@ -37,7 +37,7 @@ public class CommandToUnFriend implements Command
 		Person me = pFinder.find(userIDOfRequester);
 		Person myFriend = pFinder.find(userNameOfRequestee);
 
-		if (!me.removeFriend(myFriend.asFriend(userIDOfRequester, false)))
+		if (!me.removeFriend(myFriend.asFriend(userIDOfRequester)))
 		{
 			System.err.println("Could not unfriend " + userNameOfRequestee + ", user is not a friend of "
 					+ me.getDisplayName());

@@ -100,8 +100,8 @@ public class PersonMapper implements PersonFinder, Mapper
 			
 			//load the various friend lists
 			FriendList myFriends = FinderRegistry.friendFinder().findFriends(id);
-			IncomingRequestsList myIncoming = FinderRegistry.incomingFriendFinder().findRequests(id);
-			OutgoingRequestsList myOutgoing = FinderRegistry.outgoingFriendFinder().findRequests(id);
+			IncomingRequestsList myIncoming = FinderRegistry.incomingFriendFinder().findIncomingRequests(id);
+			OutgoingRequestsList myOutgoing = FinderRegistry.outgoingFriendFinder().findOutgoingRequests(id);
 			
 			result.setFriendList(myFriends);
 			result.setIncomingRequests(myIncoming);

@@ -86,10 +86,10 @@ public class PendingFriendGateway extends Gateway
 	 * Insert a new pending friend request
 	 * @param inquirerId
 	 * @param recipientId
-	 * @param id
+	 * @param relationID
 	 * @return
 	 */
-	public SQLEnum insert(long inquirerId, long recipientId, long id)
+	public SQLEnum insert(long inquirerId, long recipientId, long relationID)
 	{
 		establishConnection();
 		connection = getConnection();
@@ -98,7 +98,7 @@ public class PendingFriendGateway extends Gateway
 		try
 		{
 			Statement insert = (Statement) connection.createStatement();
-			if (!insert.execute(insertStatement + inquirerId + "," + recipientId + "," + id + ")"))
+			if (!insert.execute(insertStatement + inquirerId + "," + recipientId + "," + relationID + ")"))
 			{
 				result = SQLEnum.FAILED_BAD_PARAMS;
 			}

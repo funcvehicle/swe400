@@ -4,7 +4,6 @@ import mapper.FriendFinder;
 import mapper.FriendMapper;
 import mapper.IncomingFriendFinder;
 import mapper.OutgoingFriendFinder;
-import mapper.PendingFriendMapper;
 import mapper.PersonFinder;
 import mapper.PersonMapper;
 
@@ -18,8 +17,8 @@ public class FinderRegistry
 {	
 	protected PersonFinder personFinder = new PersonMapper();
 	protected FriendFinder friendFinder = new FriendMapper();
-	protected IncomingFriendFinder incomingFriendFinder = new PendingFriendMapper();
-	protected OutgoingFriendFinder outgoingFriendFinder = new PendingFriendMapper();
+	protected IncomingFriendFinder incomingFriendFinder = new FriendMapper();
+	protected OutgoingFriendFinder outgoingFriendFinder = new FriendMapper();
 	
 	private static FinderRegistry soleInstance = new FinderRegistry();
 	

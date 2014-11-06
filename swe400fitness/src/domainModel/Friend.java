@@ -9,7 +9,7 @@ public class Friend extends DomainObject
 	private String displayName;
 	private long relationId;
 	private long ownerId;
-	private boolean pending;
+	private final boolean pending;
 	
 	public Friend(String nameDisplay, long friendId, long currentUserId, boolean pending)
 	{
@@ -53,13 +53,13 @@ public class Friend extends DomainObject
 		return pending;
 	}
 	
-	/**
-	 * Sets pending to false. Represents a confirmed friendship.
-	 */
-	public void confirm()
-	{
-		pending = false;
-	}
+//	/**
+//	 * Sets pending to false. Represents a confirmed friendship.
+//	 */
+//	public void confirm()
+//	{
+//		pending = false;
+//	}
 	
 	public long getOwnerId()
 	{

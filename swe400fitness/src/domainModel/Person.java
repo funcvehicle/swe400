@@ -123,9 +123,11 @@ public class Person extends DomainObject
 	 */
 	public void requestFriend(Person requestedFriend)
 	{
+		Friend request = requestedFriend.asRequest(this.id);
 		if (requestedFriend.getId() != this.id)
 		{
-			this.addOutgoingRequest(requestedFriend.asFriend(this.getId(), true));
+			request.markNew();
+			this.addOutgoingRequest(request);
 		}
 		else
 		{
@@ -137,7 +139,7 @@ public class Person extends DomainObject
 	 * Adds a person to my incoming requests.
 	 * @param friend
 	 */
-	public void addIncomingRequest(Friend friend)
+	private void addIncomingRequest(Friend friend)
 	{
 		incomingRequests.addIncomingRequest(friend);
 	}
@@ -146,7 +148,7 @@ public class Person extends DomainObject
 	 * Adds a person to my incoming requests.
 	 * @param friend
 	 */
-	public void addOutgoingRequest(Friend friend)
+	private void addOutgoingRequest(Friend friend)
 	{
 		outgoingRequests.addOutgoingRequest(friend);
 	}
@@ -156,7 +158,7 @@ public class Person extends DomainObject
 	 * @param request
 	 * @return true if the incoming request was removed.
 	 */
-	public boolean removeIncomingRequest(Friend request)
+	private boolean removeIncomingRequest(Friend request)
 	{
 		boolean mySuccess = incomingRequests.removeIncomingRequest(request);
 		return mySuccess;
@@ -170,9 +172,12 @@ public class Person extends DomainObject
 	 */
 	public boolean acceptRequest(Person requester)
 	{
-		Friend request = requester.asFriend(id, true);
+		Friend request = requester.asRequest(id);
+		request.markDeleted();
+		Friend friend = requester.asFriend(id);
+		friend.markNew();
 		boolean success1 = removeIncomingRequest(request);
-		boolean success2 = addFriend(request);
+		boolean success2 = addFriend(friend);
 		return success1 && success2;
 	}
 
@@ -184,6 +189,7 @@ public class Person extends DomainObject
 	 */
 	public boolean rejectRequest(Friend request)
 	{
+		request.markDeleted();
 		boolean mySuccess = incomingRequests.removeIncomingRequest(request);
 		return mySuccess;
 	}
@@ -207,7 +213,6 @@ public class Person extends DomainObject
 	public boolean addFriend(Friend friend)
 	{
 		boolean mySuccess = myFriends.addFriend(friend);
-		friend.confirm();
 		return mySuccess;
 	}
 
@@ -215,8 +220,19 @@ public class Person extends DomainObject
 	 * Create an instance of myself as a friend.
 	 * @return a Friend created from the fields of this person.
 	 */
-	public Friend asFriend(long idOfMyFriend, boolean pending)
+	public Friend asFriend(long myOwnerID)
 	{
-		return new Friend(displayName, this.id, idOfMyFriend, pending);
+		return new Friend(displayName, this.id, myOwnerID, false);
+	}
+	
+	/**
+	 * Create an instance of myself as a friend request.
+	 * @param idOfMyFriend
+	 * @param pending
+	 * @return a pending friend created from the fields of this person
+	 */
+	public Friend asRequest(long myOwnerID)
+	{
+		return new Friend(displayName, this.id, myOwnerID, true);
 	}
 }
