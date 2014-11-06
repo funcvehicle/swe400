@@ -21,7 +21,7 @@ public class FriendList extends DomainObject
 		String list = "";
 		for (Friend f : listOfFriends)
 		{
-			list += f.toString() + " ";
+			list += f.toString() + ",";
 		}
 		
 		return list;

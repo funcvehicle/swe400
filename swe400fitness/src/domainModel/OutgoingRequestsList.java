@@ -23,7 +23,7 @@ public class OutgoingRequestsList extends DomainObject
 		String list = "";
 		for (PendingRequest f : outgoingRequestsList)
 		{
-			list += f.toString() + " ";
+			list += f.toString() + ",";
 		}
 		
 		return list;
