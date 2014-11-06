@@ -2,6 +2,8 @@ package mapper;
 
 import org.junit.Test;
 
+import Registry.MapperRegistry;
+
 import domainModel.Person;
 
 /**

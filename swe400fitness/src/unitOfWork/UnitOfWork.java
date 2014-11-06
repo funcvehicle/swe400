@@ -2,8 +2,9 @@ package unitOfWork;
 
 import java.util.ArrayList;
 
+import Registry.MapperRegistry;
+
 import mapper.Mapper;
-import mapper.MapperRegistry;
 
 import domainModel.DomainObject;
 import domainModel.Person;

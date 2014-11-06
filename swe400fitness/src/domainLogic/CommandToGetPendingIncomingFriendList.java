@@ -2,7 +2,8 @@ package domainLogic;
 
 import java.util.ArrayList;
 
-import mapper.FinderRegistry;
+import Registry.FinderRegistry;
+
 import mapper.IncomingFriendFinder;
 import domainModel.Friend;
 import domainModel.IncomingRequestsList;

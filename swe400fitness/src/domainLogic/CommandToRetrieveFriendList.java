@@ -2,8 +2,9 @@ package domainLogic;
 
 import java.util.ArrayList;
 
+import Registry.MapperRegistry;
+
 import mapper.FriendMapper;
-import mapper.MapperRegistry;
 import mapper.PersonMapper;
 import domainModel.Friend;
 import domainModel.Person;

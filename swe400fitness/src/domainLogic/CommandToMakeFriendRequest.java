@@ -1,14 +1,7 @@
 package domainLogic;
 
-import gateway.PersonGateway;
-import mapper.FinderRegistry;
-import mapper.MapperRegistry;
-import mapper.PendingFriendMapper;
+import Registry.FinderRegistry;
 import mapper.PersonFinder;
-import mapper.PersonMapper;
-import domainModel.Friend;
-import domainModel.OutgoingRequestsList;
-import domainModel.PendingRequest;
 import domainModel.Person;
 
 /**
@@ -42,11 +35,10 @@ public class CommandToMakeFriendRequest implements Command
 	public void execute()
 	{		
 		PersonFinder pfinder = FinderRegistry.personFinder();
-		
 		Person recipient = pfinder.find(userNameOfRequestee);
 		Person inquirer = pfinder.find(userIDOfRequester);
 		
-		inquirer.requestFriend(requestedFriend)
+		inquirer.requestFriend(recipient);
 	}
 
 	/**

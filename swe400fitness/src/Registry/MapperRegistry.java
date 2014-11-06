@@ -1,14 +1,10 @@
-package mapper;
+package Registry;
 
-import gateway.FriendGateway;
-import gateway.PendingFriendGateway;
-import gateway.PersonGateway;
+import mapper.FriendMapper;
+import mapper.Mapper;
+import mapper.PersonMapper;
 import domainModel.DomainObject;
 import domainModel.Friend;
-import domainModel.FriendList;
-import domainModel.IncomingRequestsList;
-import domainModel.OutgoingRequestsList;
-import domainModel.PendingRequest;
 import domainModel.Person;
 
 /**
@@ -25,13 +21,11 @@ public class MapperRegistry
 	
 	protected PersonMapper pm;
 	protected FriendMapper fm;
-	protected PendingFriendMapper pfm;
 	
 	public MapperRegistry()
 	{
 		pm = new PersonMapper();
 		fm = new FriendMapper();
-		pfm = new PendingFriendMapper();
 	}
 	
 	public static MapperRegistry getCurrent()

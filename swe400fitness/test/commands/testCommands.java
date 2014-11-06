@@ -2,12 +2,13 @@ package commands;
 
 import static org.junit.Assert.*;
 
-import mapper.MapperRegistry;
 import mockClasses.MockMapperRegistry;
 import mockClasses.MockUnitOfWork;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import Registry.MapperRegistry;
 
 
 import domainLogic.Command;

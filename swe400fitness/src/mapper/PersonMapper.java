@@ -3,6 +3,8 @@ package mapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import Registry.FinderRegistry;
+
 import gateway.FriendGateway;
 import gateway.KeyGateway;
 import gateway.PendingFriendGateway;

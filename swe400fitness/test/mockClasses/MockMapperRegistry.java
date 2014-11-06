@@ -1,7 +1,7 @@
 package mockClasses;
 
+import Registry.MapperRegistry;
 import mapper.FriendMapper;
-import mapper.MapperRegistry;
 import mapper.PersonMapper;
 
 public class MockMapperRegistry extends MapperRegistry 

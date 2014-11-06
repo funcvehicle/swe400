@@ -1,8 +1,5 @@
 package domainModel;
 
-import mapper.FinderRegistry;
-import mapper.PersonFinder;
-
 /**
  * 
  * @author Emily Maust, Olivia Pompa
@@ -171,8 +168,9 @@ public class Person extends DomainObject
 	 * @param friendAccepted
 	 * @return true if the request was successfully accepted.
 	 */
-	public boolean acceptRequest(Friend request)
+	public boolean acceptRequest(Person requester)
 	{
+		Friend request = requester.asFriend(id, true);
 		boolean success1 = removeIncomingRequest(request);
 		boolean success2 = addFriend(request);
 		return success1 && success2;
@@ -209,6 +207,7 @@ public class Person extends DomainObject
 	public boolean addFriend(Friend friend)
 	{
 		boolean mySuccess = myFriends.addFriend(friend);
+		friend.confirm();
 		return mySuccess;
 	}
 

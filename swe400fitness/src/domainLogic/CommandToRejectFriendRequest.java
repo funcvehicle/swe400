@@ -1,18 +1,10 @@
 package domainLogic;
 
-import java.util.ArrayList;
-
+import Registry.FinderRegistry;
 import domainModel.Friend;
 import domainModel.IncomingRequestsList;
-import domainModel.PendingRequest;
 import domainModel.Person;
-import mapper.FinderRegistry;
-import mapper.FriendMapper;
-import mapper.IncomingFriendFinder;
-import mapper.MapperRegistry;
-import mapper.PendingFriendMapper;
 import mapper.PersonFinder;
-import mapper.PersonMapper;
 
 /**
  * Reject a friend request from one user to another

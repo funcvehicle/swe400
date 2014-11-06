@@ -1,14 +1,9 @@
 package domainLogic;
 
-import domainModel.Friend;
-import domainModel.PendingRequest;
+import Registry.FinderRegistry;
 import domainModel.Person;
-import mapper.FinderRegistry;
-import mapper.FriendMapper;
-import mapper.MapperRegistry;
-import mapper.PendingFriendMapper;
 import mapper.PersonFinder;
-import mapper.PersonMapper;
+
 
 /**
  * Accept a friend request from one user to another
@@ -33,38 +28,6 @@ public class CommandToAcceptFriendRequest implements Command
 		this.userNameOfRequester = userNameOfRequester;
 	}
 	
-//	/**
-//	 * 
-//	 * @see Command#execute()
-//	 */
-//	@Override
-//	public void execute()
-//	{
-//		MapperRegistry mapperRegistry = MapperRegistry.getCurrent();
-//		PersonMapper pMapper = (PersonMapper) mapperRegistry.getMapper(Person.class);
-//		PendingFriendMapper pfMapper = (PendingFriendMapper) mapperRegistry.getMapper(PendingRequest.class);
-//		FriendMapper fm = (FriendMapper) mapperRegistry.getMapper(Friend.class);
-//		
-//		Person requestee = pMapper.find(userIDOfRequestee);
-//		requestee.setIncomingRequests(pfMapper.findIncomingRequests(userIDOfRequestee));
-//		Person requester = pMapper.find(userNameOfRequester);
-//		
-//		fm.create(requester.getDisplayName(), requester.getId(), userIDOfRequestee);
-//		
-//		PendingRequest pendingRequest = pfMapper.findIncomingRelationshipId(requester.getId(), requestee.getId());
-//		
-//		if (pendingRequest != null)
-//		{
-//			requestee.acceptRequest(pendingRequest);
-//			pendingRequest.deleteRequest();
-//		}
-//		
-//		else
-//		{
-//			System.err.println("ERROR: request from " + userNameOfRequester + " does not exist, cannot accept");
-//		}
-//	}
-	
 	/**
 	 * 
 	 * @see Command#execute()
@@ -73,15 +36,10 @@ public class CommandToAcceptFriendRequest implements Command
 	public void execute()
 	{
 		PersonFinder pfinder = FinderRegistry.personFinder();
-		
 		Person requestee = pfinder.find(userIDOfRequestee);
 		Person requester = pfinder.find(userNameOfRequester);
 		
 		requestee.acceptRequest(requester);
-		
-		FinderRegistry.personFinder().find(userNameOfRequester);
-		
-		
 	}
 
 	/**

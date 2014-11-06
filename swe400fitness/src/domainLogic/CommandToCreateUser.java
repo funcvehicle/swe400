@@ -1,6 +1,6 @@
 package domainLogic;
 
-import mapper.FinderRegistry;
+import Registry.FinderRegistry;
 import unitOfWork.UnitOfWork;
 import domainModel.Person;
 

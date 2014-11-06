@@ -1,8 +1,7 @@
 package domainLogic;
 
-import mapper.MapperRegistry;
-import mapper.PersonMapper;
-import unitOfWork.UnitOfWork;
+import mapper.PersonFinder;
+import Registry.FinderRegistry;
 import domainModel.Person;
 
 /**
@@ -35,9 +34,9 @@ public class CommandToSelectUser implements Command
 	@Override
 	public void execute()
 	{
-		MapperRegistry mr = MapperRegistry.getCurrent();
-		PersonMapper pm = (PersonMapper) mr.getMapper(Person.class);
-		person = pm.find(userName);
+		PersonFinder pf = FinderRegistry.personFinder();
+		person = pf.find(userName);
+		
 		if (!person.getPassword().equals(password))
 		{
 			person = null;

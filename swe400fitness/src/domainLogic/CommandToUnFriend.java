@@ -1,24 +1,19 @@
 package domainLogic;
 
-import mapper.FriendMapper;
-import mapper.MapperRegistry;
-import mapper.PendingFriendMapper;
-import mapper.PersonMapper;
-import domainModel.Friend;
-import domainModel.PendingRequest;
+import Registry.FinderRegistry;
+import mapper.PersonFinder;
 import domainModel.Person;
 
 /**
  * Cancels a friend request between two users
+ * 
  * @author merlin
- *
+ * 
  */
 public class CommandToUnFriend implements Command
 {
-
-	private long userIDOfRequester;
-	private String userNameOfRequestee;
-
+	private long	userIDOfRequester;
+	private String	userNameOfRequestee;
 
 	/**
 	 * 
@@ -30,7 +25,7 @@ public class CommandToUnFriend implements Command
 		this.userIDOfRequester = userIDOfRequester;
 		this.userNameOfRequestee = userNameOfRequestee;
 	}
-	
+
 	/**
 	 * 
 	 * @see Command#execute()
@@ -38,36 +33,20 @@ public class CommandToUnFriend implements Command
 	@Override
 	public void execute()
 	{
-		MapperRegistry mapperRegistry = MapperRegistry.getCurrent();
-		PersonMapper mapper = (PersonMapper) mapperRegistry.getMapper(Person.class);
-		FriendMapper fm = (FriendMapper) mapperRegistry.getMapper(Friend.class);
-		
-		Person me = mapper.find(userIDOfRequester);
-		Person myFriend = mapper.find(userNameOfRequestee);
-		
-		Friend friendship = null;
-		
-		for (Friend friend : fm.findFriends(userIDOfRequester).getListOfFriends())
+		PersonFinder pFinder = FinderRegistry.personFinder();
+		Person me = pFinder.find(userIDOfRequester);
+		Person myFriend = pFinder.find(userNameOfRequestee);
+
+		if (!me.removeFriend(myFriend.asFriend(userIDOfRequester, false)))
 		{
-			if (friend.getId() == myFriend.getId())
-			{
-				friendship = friend;
-			}
-		}
-		
-		if (friendship != null)
-		{
-			fm.delete(friendship);
-		}
-		
-		else
-		{
-			System.err.println("Could not unfriend " + userNameOfRequestee + ", user is not a friend of " + me.getDisplayName());
+			System.err.println("Could not unfriend " + userNameOfRequestee + ", user is not a friend of "
+					+ me.getDisplayName());
 		}
 	}
 
 	/**
 	 * Nothing needs to be retrieved from this command
+	 * 
 	 * @see Command#getResult()
 	 */
 	@Override

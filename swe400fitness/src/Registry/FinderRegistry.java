@@ -1,4 +1,12 @@
-package mapper;
+package Registry;
+
+import mapper.FriendFinder;
+import mapper.FriendMapper;
+import mapper.IncomingFriendFinder;
+import mapper.OutgoingFriendFinder;
+import mapper.PendingFriendMapper;
+import mapper.PersonFinder;
+import mapper.PersonMapper;
 
 /**
  * 

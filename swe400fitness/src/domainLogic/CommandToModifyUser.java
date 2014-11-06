@@ -1,9 +1,8 @@
 package domainLogic;
 
+import Registry.FinderRegistry;
 import domainModel.Person;
-import mapper.MapperRegistry;
-import mapper.PersonMapper;
-import unitOfWork.UnitOfWork;
+import mapper.PersonFinder;
 
 /**
  * Used to change information associated with a person (at this point, only the display name)
@@ -34,20 +33,13 @@ public class CommandToModifyUser implements Command
 	@Override
 	public void execute()
 	{
-		MapperRegistry mr = MapperRegistry.getCurrent();
-		PersonMapper pm = (PersonMapper) mr.getMapper(Person.class);
-		
-		Person p = pm.find(userID);
+		PersonFinder pf = FinderRegistry.personFinder();
+		Person p = pf.find(userID);
 		
 		if (p != null)
-		{
 			p.setDisplayName(newDisplayName);
-		}
 		else
-		{
-			System.err.println("ERROR: Cannot modify user " + userID + " because the ID does not exist!");
-			System.err.println("Command to modify user " + userID + " failed!");
-		}	
+			System.err.println("Command to modify user " + userID + " failed because the userID does not exist!");	
 	}
 
 	/**
