@@ -5,6 +5,9 @@ import gateway.PendingFriendGateway;
 import gateway.PersonGateway;
 import domainModel.DomainObject;
 import domainModel.Friend;
+import domainModel.FriendList;
+import domainModel.IncomingRequestsList;
+import domainModel.OutgoingRequestsList;
 import domainModel.PendingRequest;
 import domainModel.Person;
 
@@ -34,10 +37,7 @@ public class MapperRegistry
 	public static MapperRegistry getCurrent()
 	{
 		if (current.get() == null)
-		{
 			newCurrent();
-		}
-		
 		return current.get();
 	}
 	
@@ -56,19 +56,13 @@ public class MapperRegistry
 		Mapper m = null;
 		
 		if (c == Person.class)
-		{
 			m = pm;
-		}
 		
-		else if (c == Friend.class)
-		{
+		else if (c == FriendList.class)
 			m = fm;
-		}
 		
-		else if (c == PendingRequest.class)
-		{
+		else if (c == IncomingRequestsList.class || c == OutgoingRequestsList.class) //TODO figure out how to differentiate friends with pending friends.
 			m = pfm;
-		}
 		
 		return m;
 	}

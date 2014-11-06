@@ -63,6 +63,7 @@ public class Person extends DomainObject
 	}
 
 	/**
+	 * @deprecated
 	 * Marks this person as deleted with the unit of work
 	 */
 	public void deleteMe()
@@ -121,7 +122,6 @@ public class Person extends DomainObject
 	/**
 	 * I will request to be another person's friend The requested friend will
 	 * add me to their pending invites list.
-	 * 
 	 * @param requestedFriend
 	 */
 	public void requestFriend(Person requestedFriend)
@@ -139,7 +139,6 @@ public class Person extends DomainObject
 
 	/**
 	 * Adds a person to my incoming requests.
-	 * 
 	 * @param friend
 	 */
 	public void addIncomingRequest(Friend friend)
@@ -149,79 +148,73 @@ public class Person extends DomainObject
 
 	/**
 	 * Adds a person to my incoming requests.
-	 * 
 	 * @param friend
 	 */
 	public void addOutgoingRequest(Friend friend)
 	{
 		outgoingRequests.addOutgoingRequest(friend);
 	}
-
+	
 	/**
-	 * Accept an incoming friend request.
-	 * 
-	 * @param friendAccepted
+	 * Remove an incoming friend request from the incoming list.
+	 * @param request
+	 * @return true if the incoming request was removed.
 	 */
-	public boolean acceptRequest(Friend request) //TODO
+	public boolean removeIncomingRequest(Friend request)
 	{
-		// find the other person so we can modify their lists also.
-		PersonFinder finder = FinderRegistry.personFinder();
-		Person otherPerson = finder.find(request.getOwnerId());
-
-		// delete the request from both users correct lists.
 		boolean mySuccess = incomingRequests.removeIncomingRequest(request);
-		boolean theirSuccess = otherPerson.getOutgoingRequests().removeOutgoingRequest(request);
-		
-		//Add the friendRequest
-		boolean friendSuccess = 
-
-		return mySuccess && theirSuccess;
+		return mySuccess;
 	}
 
 	/**
-	 * Reject an incoming friend request
-	 * 
-	 * @param pendingRequest
-	 * @return
+	 * Accept an incoming friend request. Delete the request from the incoming
+	 * requests list and add it to the list of my friends.
+	 * @param friendAccepted
+	 * @return true if the request was successfully accepted.
 	 */
-	public boolean rejectRequest(Friend request) //TODO
+	public boolean acceptRequest(Friend request)
 	{
-		// find the other person so we can modify their lists also.
-		PersonFinder finder = FinderRegistry.personFinder();
-		Person otherPerson = finder.find(request.getOwnerId());
+		boolean success1 = removeIncomingRequest(request);
+		boolean success2 = addFriend(request);
+		return success1 && success2;
+	}
 
-		// delete the request from both users correct lists.
+	/**
+	 * Reject an incoming friend request. Delete the request from the
+	 * incoming requests list.
+	 * @param pendingRequest
+	 * @return true if the request was successfully rejected.
+	 */
+	public boolean rejectRequest(Friend request)
+	{
 		boolean mySuccess = incomingRequests.removeIncomingRequest(request);
-		boolean theirSuccess = otherPerson.getOutgoingRequests().removeOutgoingRequest(request);
-
-		return mySuccess && theirSuccess;
+		return mySuccess;
 	}
 
 	/**
 	 * Unfriend someone
-	 * 
 	 * @param friend
-	 * @return
+	 * @return true if the friend was successfully removed. 
 	 */
 	public boolean removeFriend(Friend friend)
 	{
 		boolean mySuccess = myFriends.unFriend(friend);
-
-		if (mySuccess /* && theirSuccess */== true)
-		{
-			return true;
-		}
-		return false;
+		return mySuccess;
 	}
 
+	/**
+	 * Add a new friend
+	 * @param friend
+	 * @return true if the friend was successfully added.
+	 */
 	public boolean addFriend(Friend friend)
 	{
-
+		boolean mySuccess = myFriends.addFriend(friend);
+		return mySuccess;
 	}
 
 	/**
 	 * Create an instance of myself as a friend.
-	 * 
 	 * @return a Friend created from the fields of this person.
 	 */
 	public Friend asFriend(long idOfMyFriend)

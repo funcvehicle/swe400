@@ -1,8 +1,10 @@
 package domainLogic;
 
 import gateway.PersonGateway;
+import mapper.FinderRegistry;
 import mapper.MapperRegistry;
 import mapper.PendingFriendMapper;
+import mapper.PersonFinder;
 import mapper.PersonMapper;
 import domainModel.Friend;
 import domainModel.OutgoingRequestsList;
@@ -38,29 +40,13 @@ public class CommandToMakeFriendRequest implements Command
 	 */
 	@Override
 	public void execute()
-	{
-		MapperRegistry mapperRegistry = MapperRegistry.getCurrent();
-		PersonMapper mapper = (PersonMapper) mapperRegistry.getMapper(Person.class);
-		PendingFriendMapper pfm = (PendingFriendMapper) mapperRegistry.getMapper(PendingRequest.class);
+	{		
+		PersonFinder pfinder = FinderRegistry.personFinder();
 		
-		Person recipient = mapper.find(userNameOfRequestee);
-		System.out.println(userNameOfRequestee + " " + recipient);
-		Person inquirer = mapper.find(userIDOfRequester);
-		System.out.println(userIDOfRequester + " " + inquirer);
+		Person recipient = pfinder.find(userNameOfRequestee);
+		Person inquirer = pfinder.find(userIDOfRequester);
 		
-		PendingRequest request = pfm.create(inquirer.getId(), recipient.getId(), recipient.getDisplayName());
-		
-		OutgoingRequestsList ogList = pfm.findOutgoingRequests(userIDOfRequester);
-		boolean valid = true;
-		for (PendingRequest pr : ogList.getOutgoingRequestsList())
-		{
-			if (recipient.getId() == pr.getId())
-				valid = false;
-		}
-		if (recipient.getId() == inquirer.getId())
-			valid = false;
-		if (valid)
-			inquirer.requestFriend(request);
+		inquirer.requestFriend(requestedFriend)
 	}
 
 	/**

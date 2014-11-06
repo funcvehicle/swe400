@@ -7,6 +7,7 @@ import mapper.FinderRegistry;
 import mapper.FriendMapper;
 import mapper.MapperRegistry;
 import mapper.PendingFriendMapper;
+import mapper.PersonFinder;
 import mapper.PersonMapper;
 
 /**
@@ -71,8 +72,12 @@ public class CommandToAcceptFriendRequest implements Command
 	@Override
 	public void execute()
 	{
-		Person me = FinderRegistry.personFinder().find(userIDOfRequestee);
-		me.acceptRequest(request);
+		PersonFinder pfinder = FinderRegistry.personFinder();
+		
+		Person requestee = pfinder.find(userIDOfRequestee);
+		Person requester = pfinder.find(userNameOfRequester);
+		
+		requestee.acceptRequest(requester);
 		
 		FinderRegistry.personFinder().find(userNameOfRequester);
 		
