@@ -1,6 +1,5 @@
 package mapper;
 
-import domainModel.Friend;
 import domainModel.FriendList;
 
 public interface FriendFinder

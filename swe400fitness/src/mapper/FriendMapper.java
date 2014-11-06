@@ -77,6 +77,7 @@ public class FriendMapper implements FriendFinder, IncomingFriendFinder, Outgoin
 			personResultSet.next();
 			String displayName = personResultSet.getString("displayName");
 			Friend friend = new Friend(displayName, id, resultSet.getLong("id"), false);
+			
 			return friend;
 		} catch (SQLException e) 
 		{
@@ -132,10 +133,11 @@ public class FriendMapper implements FriendFinder, IncomingFriendFinder, Outgoin
 	{
 		Friend friend = (Friend) object;
 		
+		long key = keyGate.generateKey();
 		if (friend.getPending())
-			pendingGate.insert(friend.getId(), friend.getOwnerId(), friend.getId());
+			pendingGate.insert(friend.getOwnerId(), friend.getId(), key);
 		else
-			friendGate.insert(friend.getId(), friend.getOwnerId(), friend.getId());
+			friendGate.insert(key, friend.getOwnerId(), friend.getId());
 	}
 	
 	/**
@@ -144,30 +146,29 @@ public class FriendMapper implements FriendFinder, IncomingFriendFinder, Outgoin
 	 * @param myId
 	 * @return
 	 */
-	public IncomingRequestsList findIncomingRequests(Long myId)
+	@Override
+	public IncomingRequestsList findIncomingRequests(long id)
 	{
 		IncomingRequestsList list = new IncomingRequestsList();
 		
 		try
 		{
-			ResultSet myList = pendingGate.findIncoming(myId);
+			ResultSet myList = pendingGate.findIncoming(id);
 			
 			while (myList.next() == true)
 			{
-				//TODO
 				long inquirerId = myList.getLong("inquirerId");
 				long relationId = myList.getLong("id");
 				ResultSet inquirer = personGate.find(inquirerId);
 				inquirer.next();
 				String inquirerName = inquirer.getString("displayName");
-				Friend request = new Friend(inquirerName, myId, relationId, inquirerId, true);
+				Friend request = new Friend(inquirerName, id, relationId, inquirerId, true);
 				list.addIncomingRequest(request);
 			}
 		}
 		catch (SQLException e)
 		{
-			// TODO
-			e.printStackTrace();
+			System.err.println("An error occured in findIncomingRequests while processing userID " + id + ".");
 			list = null;
 		}
 		
@@ -201,12 +202,13 @@ public class FriendMapper implements FriendFinder, IncomingFriendFinder, Outgoin
 	 * @param myId
 	 * @return
 	 */
-	public OutgoingRequestsList findOutgoingRequests(Long myId)
-	{
+	@Override
+	public OutgoingRequestsList findOutgoingRequests(long id)
+	{	
 		OutgoingRequestsList list = new OutgoingRequestsList();
 		try
 		{
-			ResultSet myList = pendingGate.findOutgoing(myId);
+			ResultSet myList = pendingGate.findOutgoing(id);
 			
 			while (myList.next() == true)
 			{
@@ -216,15 +218,15 @@ public class FriendMapper implements FriendFinder, IncomingFriendFinder, Outgoin
 				if(recipient.next())
 				{
 					String recipientName = recipient.getString("displayName");
-					Friend pendingFriend = new Friend(myId, recipientId, pendingRelationshipId, recipientName);
-					list.addPerson(pendingFriend);
+					Friend pendingFriend = new Friend(recipientName, pendingRelationshipId, recipientId, id, true);
+					list.addOutgoingRequest(pendingFriend);
 				}
 			}
 			
 		}
 		catch (SQLException e)
 		{
-			list = new OutgoingRequestsList();
+			System.err.println("An error occured in findOutgoingRequests while processing userID " + id + ".");
 		}
 		
 		return list;
@@ -235,7 +237,7 @@ public class FriendMapper implements FriendFinder, IncomingFriendFinder, Outgoin
 		long id = 0;
 		try
 		{
-			ResultSet myList = pendingFriendGate.findOutgoing(requesterId);
+			ResultSet myList = pendingGate.findOutgoing(requesterId);
 			while (myList.next() == true)
 			{
 				if (requesteeId == myList.getLong("recipientId"))
@@ -248,20 +250,6 @@ public class FriendMapper implements FriendFinder, IncomingFriendFinder, Outgoin
 			e.printStackTrace();
 		}
 		return id;
-	}
-
-	@Override
-	public OutgoingRequestsList findOutgoingRequests(long id)
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public IncomingRequestsList findIncomingRequests(long id)
-	{
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 //	@Override

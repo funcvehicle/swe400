@@ -150,6 +150,7 @@ public class Person extends DomainObject
 	 */
 	private void addOutgoingRequest(Friend friend)
 	{
+		if (outgoingRequests == null) System.out.println("oh dear");
 		outgoingRequests.addOutgoingRequest(friend);
 	}
 	

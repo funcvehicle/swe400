@@ -111,7 +111,7 @@ public class PersonMapper implements PersonFinder, Mapper
 		}
 		catch (SQLException e)
 		{
-			e.printStackTrace();
+			System.out.println("Failed to load person.");
 			return null;
 		}
 	}
