@@ -6,7 +6,7 @@ import java.lang.reflect.Constructor;
 import java.util.Scanner;
 
 import commands.Command;
-import domainModel.DomainObject;
+import commands.CommandToSelectUser;
 import domainModel.Person;
 
 /**
@@ -38,6 +38,8 @@ import domainModel.Person;
  * 
  * PendingIncomingFriendList; fred
  * 
+ * Lines that start with two asterisks will be ignored
+ * 
  * @author Merlin
  * 
  */
@@ -51,6 +53,7 @@ public class UserThread implements Runnable
 
 	/**
 	 * Checks to see if this thread is currently running
+	 * 
 	 * @return true if we are still working
 	 */
 	public boolean isRunning()
@@ -82,7 +85,7 @@ public class UserThread implements Runnable
 		try
 		{
 			return (Class<? extends Command>) Class.forName(
-					"commands." + command).asSubclass(Command.class);
+					"domainLogic." + command).asSubclass(Command.class);
 		} catch (ClassNotFoundException e)
 		{
 			System.out.println("Unrecognized command: " + command);
@@ -148,8 +151,8 @@ public class UserThread implements Runnable
 			}
 		} catch (Exception e)
 		{
-			System.out.println(Thread.currentThread().getName() + " couldn't create a command for "
-					+ commandDescription);
+			System.out.println(Thread.currentThread().getName()
+					+ " couldn't create a command for " + commandDescription);
 			e.printStackTrace();
 		}
 		return result;
@@ -188,14 +191,15 @@ public class UserThread implements Runnable
 		String[] parts = splitInstruction(instruction);
 		Command cmd = buildCommand(parts[0]);
 		cmd.execute();
+		if (cmd instanceof CommandToSelectUser)
+		{
+			Person selectedUser = (Person)cmd.getResult();
+			currentUserID = selectedUser.getId();
+		}
 		if (parts.length == 2)
 		{
-			String result = "" + cmd.getResult();
-			if (cmd.getResult() == Person.class)
-			{
-				this.currentUserID = ((DomainObject) cmd.getResult()).getId();
-			}
-			if (result == "")
+			String result = (String) cmd.getResult();
+			if (result == null)
 			{
 				return false;
 			}
@@ -212,29 +216,46 @@ public class UserThread implements Runnable
 	@Override
 	public void run()
 	{
-		this.running = true;  
-		String input = commandReader.nextLine();
+		this.running = true;
+		String input = getNextCommandLine();
 		boolean allIsWell = true;
 		while (allIsWell && input != null)
 		{
 			if (!executeInstruction(input))
 			{
 				allIsWell = false;
-				System.out.println(Thread.currentThread().getName() + " failed when executing this instruction: "
-						+ input);
+				System.out.println(Thread.currentThread().getName()
+						+ " failed when executing this instruction: " + input);
+				input = getNextCommandLine();
 			} else
 			{
-				if (commandReader.hasNextLine())
-				{
-					input = commandReader.nextLine();
-				} else
-				{
-					input = null;
-				}
+
+				input = getNextCommandLine();
+
 			}
 		}
 		this.running = false;
 
+	}
+
+	private String getNextCommandLine()
+	{
+		String input = null;
+		if (commandReader.hasNextLine())
+		{
+			input = commandReader.nextLine();
+		}
+		while ((input != null) && input.startsWith("**"))
+		{
+			if (commandReader.hasNextLine())
+			{
+				input = commandReader.nextLine();
+			} else
+			{
+				input = null;
+			}
+		}
+		return input;
 	}
 
 	/**
