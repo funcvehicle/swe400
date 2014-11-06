@@ -1,7 +1,6 @@
 package commands;
 
 import static org.junit.Assert.*;
-
 import mapper.MapperRegistry;
 import mockClasses.MockMapperRegistry;
 import mockClasses.MockUnitOfWork;
@@ -9,10 +8,9 @@ import mockClasses.MockUnitOfWork;
 import org.junit.Before;
 import org.junit.Test;
 
-import commands.Command;
-import commands.CommandToCreateUser;
-import commands.CommandToSelectUser;
-
+import domainLogic.Command;
+import domainLogic.CommandToCreateUser;
+import domainLogic.CommandToSelectUser;
 import domainModel.Person;
 
 public class testCommands 

@@ -1,4 +1,4 @@
-import commands.*;
+import domainLogic.*;
 import domainModel.Person;
 
 

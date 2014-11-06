@@ -1,4 +1,4 @@
-package commands;
+package domainLogic;
 
 import gateway.PersonGateway;
 import mapper.MapperRegistry;

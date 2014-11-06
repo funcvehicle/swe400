@@ -1,4 +1,4 @@
-package commands;
+package domainLogic;
 
 import domainModel.Friend;
 import domainModel.PendingRequest;
@@ -9,26 +9,25 @@ import mapper.PendingFriendMapper;
 import mapper.PersonMapper;
 
 /**
- * Accept a friend request from one user to another
+ * Reject a friend request from one user to another
  * @author merlin
  *
  */
-public class CommandToAcceptFriendRequest implements Command
+public class CommandToRejectFriendRequest implements Command
 {
-
 	private long userIDOfRequestee;
 	private String userNameOfRequester;
-
 
 	/**
 	 * 
 	 * @param userIDOfRequestee the User ID of the user accepting the request
 	 * @param userNameOfRequester the User Name of the user who initiated the friend request
 	 */
-	public CommandToAcceptFriendRequest(long userIDOfRequestee, String userNameOfRequester)
+	public CommandToRejectFriendRequest(long userIDOfRequestee, String userNameOfRequester)
 	{
 		this.userIDOfRequestee = userIDOfRequestee;
 		this.userNameOfRequester = userNameOfRequester;
+		
 	}
 	
 	/**
@@ -53,13 +52,13 @@ public class CommandToAcceptFriendRequest implements Command
 		
 		if (pendingRequest != null)
 		{
-			requestee.acceptRequest(pendingRequest);
+			requestee.rejectRequest(pendingRequest);
 			pendingRequest.deleteRequest();
 		}
 		
 		else
 		{
-			System.err.println("ERROR: request from " + userNameOfRequester + " does not exist, cannot accept");
+			System.err.println("ERROR: request from " + userNameOfRequester + " does not exist, cannot reject");
 		}
 	}
 
@@ -73,13 +72,4 @@ public class CommandToAcceptFriendRequest implements Command
 		return null;
 	}
 
-	public String getUserNameOfRequester()
-	{
-		return userNameOfRequester;
-	}
-
-	public long getUserIDOfRequestee()
-	{
-		return userIDOfRequestee;
-	}
 }

@@ -1,6 +1,7 @@
 package commands;
 
-import commands.Command;
+import domainLogic.Command;
+import domainLogic.domainLogic;
 
 
 /**

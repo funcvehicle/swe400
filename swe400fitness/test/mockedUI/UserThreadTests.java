@@ -7,11 +7,11 @@ import mockedUI.UserThread;
 
 import org.junit.Test;
 
-import commands.CommandToAcceptFriendRequest;
-import commands.CommandToCreateUser;
-import commands.CommandToGetPendingIncomingFriendList;
-import commands.CommandToPersistChanges;
-import commands.CommandToSelectUser;
+import domainLogic.CommandToAcceptFriendRequest;
+import domainLogic.CommandToCreateUser;
+import domainLogic.CommandToGetPendingIncomingFriendList;
+import domainLogic.CommandToPersistChanges;
+import domainLogic.CommandToSelectUser;
 
 /**
  * Tests related to the processing of commands by the UserThread class.  Note that many of these tests use
