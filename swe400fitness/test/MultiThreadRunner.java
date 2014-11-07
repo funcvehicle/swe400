@@ -43,7 +43,7 @@ public class MultiThreadRunner
 		{
 			while (t.isRunning())
 			{
-				System.out.println("Still waiting...");
+				//System.out.println("Still waiting...");
 				Thread.sleep(100);  
 			}
 		}

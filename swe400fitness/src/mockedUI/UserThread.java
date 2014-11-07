@@ -204,6 +204,8 @@ public class UserThread implements Runnable
 			{
 				return false;
 			}
+			result = result.replace("[", "");
+			result = result.replace("]", "");
 			boolean success = result.equals(parts[1]);
 			if (!success)
 			{

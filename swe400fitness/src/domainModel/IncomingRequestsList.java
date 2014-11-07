@@ -22,9 +22,9 @@ public class IncomingRequestsList extends DomainObject
 		String list = "";
 		for (PendingRequest f : incomingRequestsList)
 		{
-			list += f.toString() + ",";
+			list += f.getDisplayName() + ",";
 		}
-		
+		list = list.substring(0, list.length() - 1);
 		return list;
 	}
 	

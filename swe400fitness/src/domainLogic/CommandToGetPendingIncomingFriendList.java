@@ -22,7 +22,7 @@ public class CommandToGetPendingIncomingFriendList implements Command
 {
 
 	private long userID;
-	private ArrayList<Friend> incomingFriendsList;
+	private IncomingRequestsList incomingFriendsList;
 
 	/**
 	 * The userID of the current user
@@ -46,15 +46,15 @@ public class CommandToGetPendingIncomingFriendList implements Command
 		PersonMapper mapper = (PersonMapper) mapperRegistry.getMapper(Person.class);
 		PendingFriendMapper pfMapper = (PendingFriendMapper) mapperRegistry.getMapper(PendingRequest.class);
 		
-		IncomingRequestsList incomingRequestsList = pfMapper.findIncomingRequests(userID);
-		ArrayList<PendingRequest> pendingRequests = incomingRequestsList.getIncomingRequestsList();
-		incomingFriendsList = new ArrayList<Friend>();
-		
-		for (PendingRequest pr : pendingRequests)
-		{
-			Friend friend = new Friend(pr.getDisplayName(), pr.getInquirerId());
-			incomingFriendsList.add(friend);
-		}
+		incomingFriendsList = pfMapper.findIncomingRequests(userID);
+//		ArrayList<PendingRequest> pendingRequests = incomingRequestsList.getIncomingRequestsList();
+//		incomingFriendsList = new ArrayList<Friend>();
+//		
+//		for (PendingRequest pr : pendingRequests)
+//		{
+//			Friend friend = new Friend(pr.getDisplayName(), pr.getInquirerId());
+//			incomingFriendsList.add(friend);
+//		}
 	}
 
 	/**
@@ -63,7 +63,7 @@ public class CommandToGetPendingIncomingFriendList implements Command
 	 * @see Command#getResult()
 	 */
 	@Override
-	public ArrayList<Friend> getResult()
+	public IncomingRequestsList getResult()
 	{
 		return incomingFriendsList;
 	}
