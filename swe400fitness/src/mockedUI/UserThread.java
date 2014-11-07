@@ -71,6 +71,7 @@ public class UserThread implements Runnable
 	public UserThread(String fileTitle) throws FileNotFoundException
 	{
 		commandReader = new Scanner(new File(fileTitle));
+		//commandReader = new Scanner(System.in);
 	}
 
 	/**
