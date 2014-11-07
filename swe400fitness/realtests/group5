@@ -71,7 +71,7 @@ CommandToGetPendingOutgoingFriendList <userID>; snapsmcgee
 CommandToSelectUser snapple snappass;
 CommandToAcceptFriendRequest <userID> bradpitt;
 CommandToPersistChanges;
-CommandToRetrieveFriendList <userID>; bradpitt
+CommandToRetrieveFriendList <userID>; timothy
 CommandToUnFriend <userID> bradpitt;
 CommandToPersistChanges;
 ** TestSelectingUserMultipleTimes
