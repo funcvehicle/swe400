@@ -18,7 +18,7 @@ public class FriendGateway extends Gateway
 {
 	private Connection	connection;
 	private String		selectStatement	= "SELECT * FROM friends WHERE personId=";
-	private String		insertStatement	= "INSERT INTO friends VALUES (";
+	private String		insertStatement	= "INSERT INTO friends (personId, friendId, id) VALUES (";
 	private String		deleteStatement	= "DELETE FROM friends WHERE id=";
 
 	/**
@@ -32,14 +32,14 @@ public class FriendGateway extends Gateway
 	{
 		establishConnection();
 		connection = getConnection();
-		String[] params = new String[3];
-		params[0] = "friends";
-		params[1] = (new Long(personID)).toString();
-		params[2] = (new Long(friendID)).toString();
+//		String[] params = new String[3];
+//		params[0] = "friends";
+//		params[1] = (new Long(personID)).toString();
+//		params[2] = (new Long(friendID)).toString();
 		SQLEnum result = SQLEnum.SUCCESS;
 
-		if (recordExists(params) == SQLEnum.DOES_NOT_EXIST)
-		{
+//		if (recordExists(params) == SQLEnum.DOES_NOT_EXIST)
+//		{
 			try
 			{
 				Statement insert = (Statement) connection.createStatement();
@@ -50,12 +50,12 @@ public class FriendGateway extends Gateway
 				System.err.println(FriendGateway.class.getName() + " SQL ERROR: " + e.getMessage());
 				result = SQLEnum.FAILED_SQL_ERROR;
 			}
-		}
-		else
-		{
-			System.err.println(FriendGateway.class.getName() + " - Record exists.");
-			result = SQLEnum.EXISTS;
-		}
+//		}
+//		else
+//		{
+//			System.err.println(FriendGateway.class.getName() + " - Record exists.");
+//			result = SQLEnum.EXISTS;
+//		}
 
 		closeConnection();
 		return result;

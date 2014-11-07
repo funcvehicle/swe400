@@ -1,20 +1,20 @@
 *****Cancel Changes*******1
-**CommandToSelectUser ferdinand pw1;
-**CommandToMakeFriendRequest <userID> augustus;
-**CommandToPersistChanges;
-**CommandToSelectUser augustus pw2;
-**CommandToGetPendingIncomingFriendList <userID>; ferdy123
-**CommandToAcceptFriendRequest <userID> ferdinand;
-**CommandToPersistChanges;
-**CommandToSelectUser ferdinand pw1;
-**CommandToRetrieveFriendList <userID>; auggie5678
-**CommandToUnFriend <userID> augustus;
-**CommandToRetrieveFriendList <userID>;
-**CommandToCancelChanges;
-**CommandToPersistChanges;
-**CommandToRetrieveFriendList <userID>; auggie5678
-**CommandToUnFriend <userID> augustus;
-**CommandToPersistChanges;
+CommandToSelectUser ferdinand pw1;
+CommandToMakeFriendRequest <userID> augustus;
+CommandToPersistChanges;
+CommandToSelectUser augustus pw2;
+CommandToGetPendingIncomingFriendList <userID>; ferdy123
+CommandToAcceptFriendRequest <userID> ferdinand;
+CommandToPersistChanges;
+CommandToSelectUser ferdinand pw1;
+CommandToRetrieveFriendList <userID>; auggie5678
+CommandToUnFriend <userID> augustus;
+CommandToRetrieveFriendList <userID>;
+CommandToCancelChanges;
+CommandToPersistChanges;
+CommandToRetrieveFriendList <userID>; auggie5678
+CommandToUnFriend <userID> augustus;
+CommandToPersistChanges;
 *******Create User Test*******2
 CommandToSelectUser fidelia pw1; 
 CommandToGetPendingOutgoingFriendList <userID>;
