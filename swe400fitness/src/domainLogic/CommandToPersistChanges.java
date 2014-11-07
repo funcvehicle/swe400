@@ -11,7 +11,7 @@ import unitOfWork.UnitOfWork;
 public class CommandToPersistChanges implements Command
 {
 	/**
-	 * 
+	 * Persists the changes stored in the unit of work to the database
 	 * @see Command#execute()
 	 */
 	@Override

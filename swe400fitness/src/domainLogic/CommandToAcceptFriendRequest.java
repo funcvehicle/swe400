@@ -19,7 +19,7 @@ public class CommandToAcceptFriendRequest implements Command
 
 
 	/**
-	 * 
+	 * Constructor of the Accept Friend Request
 	 * @param userIDOfRequestee the User ID of the user accepting the request
 	 * @param userNameOfRequester the User Name of the user who initiated the friend request
 	 */
@@ -30,7 +30,7 @@ public class CommandToAcceptFriendRequest implements Command
 	}
 	
 	/**
-	 * 
+	 * Executes the command
 	 * @see Command#execute()
 	 */
 	@Override
@@ -55,11 +55,19 @@ public class CommandToAcceptFriendRequest implements Command
 		return null;
 	}
 
+	/**
+	 * Getter for the username of person sending request
+	 * @return userNameOfRequester
+	 */
 	public String getUserNameOfRequester()
 	{
 		return userNameOfRequester;
 	}
 
+	/**
+	 * Gets the id of the person recieving friend request
+	 * @return userIDOfRequestee
+	 */
 	public long getUserIDOfRequestee()
 	{
 		return userIDOfRequestee;

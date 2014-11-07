@@ -27,7 +27,7 @@ public class CommandToUnFriend implements Command
 	}
 
 	/**
-	 * 
+	 * Executes the unfriend command
 	 * @see Command#execute()
 	 */
 	@Override

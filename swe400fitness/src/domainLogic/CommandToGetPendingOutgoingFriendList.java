@@ -19,8 +19,8 @@ import domainModel.OutgoingRequestsList;
 public class CommandToGetPendingOutgoingFriendList implements Command
 {
 
-	private long				userID;
-	private OutgoingRequestsList	outgoingFriendsList;
+	private long userID;
+	private OutgoingRequestsList outgoingFriendsList;
 
 	/**
 	 * The userID of the current user

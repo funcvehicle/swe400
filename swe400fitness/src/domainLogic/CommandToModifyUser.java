@@ -27,7 +27,7 @@ public class CommandToModifyUser implements Command
 	}
 
 	/**
-	 * 
+	 * Executes the modify user command
 	 * @see Command#execute()
 	 */
 	@Override

@@ -30,6 +30,7 @@ public class CommandToCreateUser implements Command
 	}
 	
 	/**
+	 * Execute the create user command
 	 * @see Command#execute()
 	 */
 	@Override
@@ -57,16 +58,28 @@ public class CommandToCreateUser implements Command
 		return FinderRegistry.personFinder().find(userName);
 	}
 
+	/**
+	 * Gets the username of the new user
+	 * @return userName
+	 */
 	public String getUserName()
 	{
 		return userName;
 	}
 
+	/**
+	 * Gets the password of the new user
+	 * @return password
+	 */
 	public String getPassword()
 	{
 		return password;
 	}
 
+	/**
+	 * Gets the display name of the new user
+	 * @return displayName
+	 */
 	public String getDisplayName()
 	{
 		return displayName;

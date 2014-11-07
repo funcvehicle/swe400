@@ -32,7 +32,7 @@ public class CommandToRetrieveFriendList implements Command
 	}
 
 	/**
-	 * 
+	 * Executes the command to retrieve a friend list of a user
 	 * @see Command#execute()
 	 */
 	@Override
