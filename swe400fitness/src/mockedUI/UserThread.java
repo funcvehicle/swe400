@@ -190,6 +190,7 @@ public class UserThread implements Runnable
 	{
 		String[] parts = splitInstruction(instruction);
 		Command cmd = buildCommand(parts[0]);
+		System.out.println("Executing: " + instruction);
 		cmd.execute();
 		if (cmd instanceof CommandToSelectUser)
 		{
@@ -198,12 +199,19 @@ public class UserThread implements Runnable
 		}
 		if (parts.length == 2)
 		{
-			String result = (String) cmd.getResult();
+			String result = cmd.getResult().toString();
 			if (result == null)
 			{
 				return false;
 			}
-			return (result.equals(parts[1]));
+			result = result.replace("[", "");
+			result = result.replace("]", "");
+			boolean success = result.equals(parts[1]);
+			if (!success)
+			{
+				System.out.println("Got this instead: " + result);
+			}
+			return (success);
 		}
 		return true;
 	}
