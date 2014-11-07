@@ -44,6 +44,22 @@ public class FriendList extends DomainObject
 		}
 		return false;
 	}
+	
+	public Friend findId(long userId)
+	{
+		Friend friend = null;
+		
+		for (Friend f : listOfFriends)
+		{
+			if (f.getId() == userId)
+			{
+				friend = f;
+				break;
+			}
+		}
+		
+		return friend;
+	}
 
 	public ArrayList<Friend> getListOfFriends()
 	{

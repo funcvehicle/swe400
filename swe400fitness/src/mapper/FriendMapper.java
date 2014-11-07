@@ -63,6 +63,7 @@ public class FriendMapper implements FriendFinder, IncomingFriendFinder, Outgoin
 		try 
 		{
 			long id = resultSet.getLong("friendId");
+			long relationId = resultSet.getLong("id");
 			ResultSet personResultSet;
 			if (id == myId)
 			{
@@ -76,7 +77,7 @@ public class FriendMapper implements FriendFinder, IncomingFriendFinder, Outgoin
 			
 			personResultSet.next();
 			String displayName = personResultSet.getString("displayName");
-			Friend friend = new Friend(displayName, id, resultSet.getLong("id"), false);
+			Friend friend = new Friend(displayName, relationId, myId, id, false);
 			
 			return friend;
 		} catch (SQLException e) 
@@ -162,7 +163,7 @@ public class FriendMapper implements FriendFinder, IncomingFriendFinder, Outgoin
 				ResultSet inquirer = personGate.find(inquirerId);
 				inquirer.next();
 				String inquirerName = inquirer.getString("displayName");
-				Friend request = new Friend(inquirerName, id, relationId, inquirerId, true);
+				Friend request = new Friend(inquirerName, relationId, id, inquirerId, true);
 				list.addIncomingRequest(request);
 			}
 		}

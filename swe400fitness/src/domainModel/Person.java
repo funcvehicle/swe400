@@ -60,8 +60,7 @@ public class Person extends DomainObject
 	}
 
 	/**
-	 * @deprecated
-	 * Marks this person as deleted with the unit of work
+	 * @deprecated Marks this person as deleted with the unit of work
 	 */
 	public void deleteMe()
 	{
@@ -119,6 +118,7 @@ public class Person extends DomainObject
 	/**
 	 * I will request to be another person's friend The requested friend will
 	 * add me to their pending invites list.
+	 * 
 	 * @param requestedFriend
 	 */
 	public void requestFriend(Person requestedFriend)
@@ -137,6 +137,7 @@ public class Person extends DomainObject
 
 	/**
 	 * Adds a person to my incoming requests.
+	 * 
 	 * @param friend
 	 */
 	private void addIncomingRequest(Friend friend)
@@ -146,16 +147,19 @@ public class Person extends DomainObject
 
 	/**
 	 * Adds a person to my incoming requests.
+	 * 
 	 * @param friend
 	 */
 	private void addOutgoingRequest(Friend friend)
 	{
-		if (outgoingRequests == null) System.out.println("oh dear");
+		if (outgoingRequests == null)
+			System.out.println("oh dear");
 		outgoingRequests.addOutgoingRequest(friend);
 	}
-	
+
 	/**
 	 * Remove an incoming friend request from the incoming list.
+	 * 
 	 * @param request
 	 * @return true if the incoming request was removed.
 	 */
@@ -168,23 +172,34 @@ public class Person extends DomainObject
 	/**
 	 * Accept an incoming friend request. Delete the request from the incoming
 	 * requests list and add it to the list of my friends.
+	 * 
 	 * @param friendAccepted
 	 * @return true if the request was successfully accepted.
 	 */
 	public boolean acceptRequest(Person requester)
 	{
-		Friend request = requester.asRequest(id);
-		request.markDeleted();
-		Friend friend = requester.asFriend(id);
-		friend.markNew();
-		boolean success1 = removeIncomingRequest(request);
-		boolean success2 = addFriend(friend);
-		return success1 && success2;
+		boolean success = false;
+		Friend request = incomingRequests.findId(requester.getId());
+		System.out.println("Relation ID: " + request.getRelationId());
+		if (request != null)
+		{
+			request.markDeleted();
+
+			Friend friend = requester.asFriend(id);
+			friend.markNew();
+
+			boolean success1 = removeIncomingRequest(request);
+			boolean success2 = addFriend(friend);
+			success = success1 && success2;
+		}
+		
+		return success;
 	}
 
 	/**
-	 * Reject an incoming friend request. Delete the request from the
-	 * incoming requests list.
+	 * Reject an incoming friend request. Delete the request from the incoming
+	 * requests list.
+	 * 
 	 * @param pendingRequest
 	 * @return true if the request was successfully rejected.
 	 */
@@ -197,17 +212,21 @@ public class Person extends DomainObject
 
 	/**
 	 * Unfriend someone
+	 * 
 	 * @param friend
-	 * @return true if the friend was successfully removed. 
+	 * @return true if the friend was successfully removed.
 	 */
-	public boolean removeFriend(Friend friend)
+	public boolean removeFriend(Person friend)
 	{
-		boolean mySuccess = myFriends.unFriend(friend);
+		Friend f = myFriends.findId(friend.getId());
+		f.markDeleted();
+		boolean mySuccess = myFriends.unFriend(f);
 		return mySuccess;
 	}
 
 	/**
 	 * Add a new friend
+	 * 
 	 * @param friend
 	 * @return true if the friend was successfully added.
 	 */
@@ -219,15 +238,17 @@ public class Person extends DomainObject
 
 	/**
 	 * Create an instance of myself as a friend.
+	 * 
 	 * @return a Friend created from the fields of this person.
 	 */
 	public Friend asFriend(long myOwnerID)
 	{
 		return new Friend(displayName, this.id, myOwnerID, false);
 	}
-	
+
 	/**
 	 * Create an instance of myself as a friend request.
+	 * 
 	 * @param idOfMyFriend
 	 * @param pending
 	 * @return a pending friend created from the fields of this person

@@ -2,6 +2,7 @@ package domainLogic;
 
 import Registry.FinderRegistry;
 import domainModel.Person;
+import mapper.IncomingFriendFinder;
 import mapper.PersonFinder;
 
 

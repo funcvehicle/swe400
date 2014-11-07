@@ -40,11 +40,11 @@ public class mainTester
 		tedsOutgoing.execute();
 		System.out.println("Ted's outgoing: " + tedsOutgoing.getResult().get(0).getDisplayName());
 		
-//		CommandToRejectFriendRequest rejectTed = new CommandToRejectFriendRequest(karl.getId(), "Ted");
-//		rejectTed.execute();
-//		persist.execute();
-//		
-//		persist.execute();
+		CommandToRejectFriendRequest rejectTed = new CommandToRejectFriendRequest(karl.getId(), "Ted");
+		rejectTed.execute();
+		persist.execute();
+		
+		persist.execute();
 		
 		CommandToAcceptFriendRequest acceptTed = new CommandToAcceptFriendRequest(karl.getId(), "Ted");
 		acceptTed.execute();
