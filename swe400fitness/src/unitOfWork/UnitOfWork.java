@@ -10,9 +10,8 @@ import domainModel.DomainObject;
 import domainModel.Person;
 
 /**
- * 
  * @author Connor Fox
- * 
+ * A unit of work for tracking and committing batches of changes.
  */
 public class UnitOfWork
 {
@@ -24,6 +23,9 @@ public class UnitOfWork
 	
 	protected MapperRegistry registryOfMappers;
 
+	/**
+	 * Instantiate object lists.
+	 */
 	public UnitOfWork()
 	{
 		newObjects = new ArrayList<DomainObject>();
@@ -34,6 +36,7 @@ public class UnitOfWork
 	}
 
 	/**
+	 * Retrieve the current unit of work for this thread.
 	 * @return The UnitOfWork object for the current thread.
 	 */
 	public static UnitOfWork getCurrent()
@@ -56,7 +59,6 @@ public class UnitOfWork
 
 	/**
 	 * Set the UnitOfWork object used by the current thread.
-	 * 
 	 * @param u The new UnitOfWork to be used.
 	 */
 	public static void setCurrent(UnitOfWork u)
@@ -66,7 +68,6 @@ public class UnitOfWork
 
 	/**
 	 * Add a new uncommitted in-memory object to the new objects array
-	 * 
 	 * @param object
 	 */
 	public void registerNew(DomainObject object)
@@ -130,7 +131,6 @@ public class UnitOfWork
 	{
 		boolean success = true;
 		Mapper mpr;
-		//ArrayList<DomainObject> toDelete = new ArrayList<DomainObject>();
 
 		// insert people first
 		for (int i = 0; i < newObjects.size(); i++)
@@ -143,7 +143,6 @@ public class UnitOfWork
 				newObjects.remove(o);
 			}
 		}
-		//removeFrom(toDelete, newObjects);
 
 		for (DomainObject o : newObjects)
 		{
@@ -174,13 +173,12 @@ public class UnitOfWork
 
 	/**
 	 * Calls the mapper's delete method for all objects in the deleted list.
-	 * @return
+	 * @return true if everything was deleted successfully
 	 */
 	public boolean removeDeleted()
 	{
 		boolean success = true;
 		Mapper mpr;
-		//ArrayList<DomainObject> toDelete = new ArrayList<DomainObject>();
 
 		// delete records that aren't a person first (foreign key on person)
 		for (int i = 0; i < deletedObjects.size(); i++)
@@ -193,7 +191,6 @@ public class UnitOfWork
 				deletedObjects.remove(o);
 			}
 		}
-		//removeFrom(toDelete, deletedObjects);
 
 		for (DomainObject o : deletedObjects)
 		{
@@ -203,20 +200,6 @@ public class UnitOfWork
 
 		return success;
 	}
-	
-//	/**
-//	 * Remove specific objects from the target arraylist.
-//	 * @param source the objects you want to remove
-//	 * @param target the list to remove from
-//	 */
-//	private void removeFrom(ArrayList<DomainObject> source, ArrayList<DomainObject> target)
-//	{
-//		for (DomainObject o : source)
-//		{
-//			target.remove(o);
-//		}
-//		source.clear();
-//	}
 
 	/**
 	 * Clear all arrays; effectively cancels any in-memory changes from being

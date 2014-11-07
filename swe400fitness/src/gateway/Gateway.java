@@ -9,7 +9,8 @@ import com.mysql.jdbc.Statement;
 
 /**
  * 
- * @author mb8542, cf0320
+ * @author mb8542
+ * @author Connor Fox
  *
  */
 public abstract class Gateway
@@ -53,7 +54,9 @@ public abstract class Gateway
 			System.err.println("Could not close connection: " + e.getMessage());
 		}
 	}
+	
 	/**
+	 * I am a Stegosaurus!!
 	 * Check to see if a record exists in the any table
 	 * @param params an array of strings, the first element params[0] is the table and params[1] is the primary key
 	 * @return SQLEnum denoting existence or non-existence
@@ -108,6 +111,7 @@ public abstract class Gateway
 		}
 		return SQLEnum.DOES_NOT_EXIST;
 	}
+	
 	/**
 	 * Check the people table for a record
 	 * @param set

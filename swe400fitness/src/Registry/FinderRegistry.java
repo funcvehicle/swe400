@@ -26,7 +26,7 @@ public class FinderRegistry
 	{
 		return soleInstance;
 	}
-	
+
 	public static PersonFinder personFinder()
 	{
 		return getInstance().personFinder;
