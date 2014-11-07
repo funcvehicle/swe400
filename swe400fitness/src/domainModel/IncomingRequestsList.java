@@ -3,17 +3,27 @@ package domainModel;
 import java.util.ArrayList;
 
 /**
+ * Stores a list of incoming friend requests
+ * from other people
  * @author Emily Maust, Olivia Pompa
  */
 public class IncomingRequestsList extends DomainObject
 {
 	private ArrayList<Friend> incomingRequestsList;
 
+	/**
+	 * Instantiate the incomingRequestsList as an
+	 * ArrayList of Friends
+	 */
 	public IncomingRequestsList()
 	{
 		incomingRequestsList = new ArrayList<Friend>();
 	}
 	
+	/**
+	 * Returns a toString list of
+	 * all Friend objects in the incomingRequestsList
+	 */
 	public String toString()
 	{
 		String list = "";
@@ -26,11 +36,19 @@ public class IncomingRequestsList extends DomainObject
 		return list;
 	}
 	
+	/**
+	 * Return the incoming requests list
+	 * @return ArrayList<Friend>
+	 */
 	public ArrayList<Friend> getIncomingRequestsList()
 	{
 		return incomingRequestsList;
 	}
 
+	/**
+	 * Add a Friend object to the incomingRequestList
+	 * @param request
+	 */
 	public void addIncomingRequest(Friend request)
 	{
 		incomingRequestsList.add(request);
@@ -57,6 +75,11 @@ public class IncomingRequestsList extends DomainObject
 		return friend;
 	}
 	
+	/**
+	 * Remove an incoming request Friend from the list
+	 * @param request
+	 * @return boolean based on success
+	 */
 	public boolean removeIncomingRequest(Friend request)
 	{
 		for (int i = 0; i < incomingRequestsList.size(); i++)

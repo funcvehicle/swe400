@@ -3,21 +3,26 @@ package domainModel;
 import java.util.ArrayList;
 
 /**
- * This will change - Be combined with Incoming list
- * 
- * You send them a request
+ * Holds a list of all outgoing friend requests
+ * to other people
  * @author Emily Maust, Olivia Pompa
  */
-
 public class OutgoingRequestsList extends DomainObject
 {
 	private ArrayList<Friend> outgoingRequestsList;
 
+	/**
+	 * Instantiate the new list as an ArrayList of Friend objects
+	 */
 	public OutgoingRequestsList()
 	{
 		outgoingRequestsList = new ArrayList<Friend>();
 	}
 	
+	/**
+	 * Creates a toString list of
+	 * all Friend objects in the OutgoingRequestsList
+	 */
 	public String toString()
 	{
 		String list = "";
@@ -30,16 +35,29 @@ public class OutgoingRequestsList extends DomainObject
 		return list;
 	}
 	
+	/**
+	 * Get the list
+	 * @return the outgoingRequestsList
+	 */
 	public ArrayList<Friend> getOutgoingRequestsList()
 	{
 		return outgoingRequestsList;
 	}
 
+	/**
+	 * Add a Friend object to the outgoing list
+	 * @param pendingFriend
+	 */
 	public void addOutgoingRequest(Friend pendingFriend)
 	{
 		outgoingRequestsList.add(pendingFriend);
 	}
 
+	/**
+	 * Remove the friend object from the outgoingRequestList
+	 * @param request
+	 * @return boolean based on success
+	 */
 	public boolean removeOutgoingRequest(Friend request)
 	{
 		for (int i = 0; i < outgoingRequestsList.size(); i++)
@@ -70,7 +88,6 @@ public class OutgoingRequestsList extends DomainObject
 				break;
 			}
 		}
-		
 		return friend;
 	}
 }

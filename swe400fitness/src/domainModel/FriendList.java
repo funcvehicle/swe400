@@ -3,7 +3,7 @@ package domainModel;
 import java.util.ArrayList;
 
 /**
- * 
+ * Hold a FriendList of current accepted friends
  * @author Emily Maust, Olivia Pompa
  *
  */
@@ -11,11 +11,17 @@ public class FriendList extends DomainObject
 {
 	private ArrayList<Friend> listOfFriends;
 	
+	/**
+	 * Instantiate the FriendList
+	 */
 	public FriendList()
 	{
 		listOfFriends = new ArrayList<Friend>();
 	}
 	
+	/**
+	 * Create a toString that lists all friends
+	 */
 	public String toString()
 	{
 		String list = "";
@@ -28,11 +34,21 @@ public class FriendList extends DomainObject
 		return list;
 	}
 	
+	/**
+	 * Add a friend to the list
+	 * @param friend
+	 * @return
+	 */
 	public boolean addFriend(Friend friend)
 	{
 		return listOfFriends.add(friend);
 	}
 	
+	/**
+	 * Remove a friend object from my FriendList
+	 * @param friend
+	 * @return
+	 */
 	public boolean unFriend(Friend friend)
 	{
 		for (int i = 0; i < listOfFriends.size(); i++)
@@ -46,6 +62,11 @@ public class FriendList extends DomainObject
 		return false;
 	}
 	
+	/**
+	 * Find a friend object with the friend's ID
+	 * @param userId
+	 * @return Friend object
+	 */
 	public Friend findId(long userId)
 	{
 		Friend friend = null;
@@ -57,11 +78,14 @@ public class FriendList extends DomainObject
 				friend = f;
 				break;
 			}
-		}
-		
+		}	
 		return friend;
 	}
 
+	/**
+	 * Returns the list of Friends
+	 * @return
+	 */
 	public ArrayList<Friend> getListOfFriends()
 	{
 		return listOfFriends;

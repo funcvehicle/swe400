@@ -1,6 +1,7 @@
 package domainModel;
 /**
- * 
+ * Friend object is used to be stored
+ * in lists and make requests
  * @author Emily Maust, Olivia Pompa
  *
  */
@@ -11,6 +12,13 @@ public class Friend extends DomainObject
 	private long ownerId;
 	private final boolean pending;
 	
+	/**
+	 * Create a friend object to be stored in lists
+	 * @param nameDisplay
+	 * @param friendId
+	 * @param currentUserId
+	 * @param pending
+	 */
 	public Friend(String nameDisplay, long friendId, long currentUserId, boolean pending)
 	{
 		this.id = friendId;
@@ -19,6 +27,15 @@ public class Friend extends DomainObject
 		this.pending = pending;
 	}
 	
+	/**
+	 * Create a friend object to be stored in lists
+	 * Add a relationship ID
+	 * @param nameDisplay
+	 * @param relationId
+	 * @param currentUserId
+	 * @param friendId
+	 * @param pending
+	 */
 	public Friend(String nameDisplay, long relationId, long currentUserId, long friendId, boolean pending)
 	{
 		this(nameDisplay, friendId, currentUserId, pending);
@@ -33,21 +50,36 @@ public class Friend extends DomainObject
 		this.markDeleted();
 	}
 
+	/**
+	 * Create a toString of the displayName
+	 */
 	public String toString()
 	{
 		return displayName;
 	}
 	
+	/**
+	 * Returns relation ID
+	 * @return
+	 */
 	public long getRelationId()
 	{
 		return relationId;
 	}
 	
+	/**
+	 * Returns current displayName
+	 * @return
+	 */
 	public String getDisplayName()
 	{
 		return displayName;
 	}
 	
+	/**
+	 * Return the pending status
+	 * @return
+	 */
 	public boolean getPending()
 	{
 		return pending;
@@ -61,11 +93,19 @@ public class Friend extends DomainObject
 //		pending = false;
 //	}
 	
+	/**
+	 * Returns the OwnerID
+	 * @return
+	 */
 	public long getOwnerId()
 	{
 		return ownerId;
 	}
 
+	/**
+	 * Set the relationship ID
+	 * @param relationId
+	 */
 	public void setRelationId(long relationId)
 	{
 		this.relationId = relationId;

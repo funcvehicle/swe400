@@ -41,10 +41,4 @@ public class testMapperRegistry
 	{
 		MapperRegistry.getCurrent().getMapper(Person.class);
 	}
-	
-	@Test
-	public void testPerson()
-	{
-		
-	}
 }
