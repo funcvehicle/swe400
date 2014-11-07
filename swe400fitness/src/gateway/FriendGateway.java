@@ -47,12 +47,13 @@ public class FriendGateway extends Gateway
 			}
 			catch (SQLException e)
 			{
-				e.printStackTrace();
+				System.err.println(FriendGateway.class.getName() + " SQL ERROR: " + e.getMessage());
 				result = SQLEnum.FAILED_SQL_ERROR;
 			}
 		}
 		else
 		{
+			System.err.println(FriendGateway.class.getName() + " - Record exists.");
 			result = SQLEnum.EXISTS;
 		}
 
@@ -83,8 +84,8 @@ public class FriendGateway extends Gateway
 		
 		catch (SQLException e)
 		{
+			System.err.println(FriendGateway.class.getName() + " SQL ERROR: " + e.getMessage());
 			results = null;
-			System.err.println("SQL ERROR: " + e.getMessage());
 		}
 		
 		closeConnection();
@@ -114,8 +115,8 @@ public class FriendGateway extends Gateway
 		
 		catch (SQLException e)
 		{
+			System.err.println(FriendGateway.class.getName() + " SQL ERROR: " + e.getMessage());
 			results = null;
-			System.err.println("SQL ERROR: " + e.getMessage());
 		}
 		
 		closeConnection();
@@ -140,6 +141,7 @@ public class FriendGateway extends Gateway
 		}
 		catch (SQLException e)
 		{
+			System.err.println(FriendGateway.class.getName() + " SQL ERROR: " + e.getMessage());
 			result = SQLEnum.FAILED_SQL_ERROR;
 		}
 
