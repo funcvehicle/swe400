@@ -23,7 +23,8 @@ public class FriendList extends DomainObject
 		{
 			list += f.toString() + ",";
 		}
-		list = list.substring(0, list.length() - 1);
+		if (!list.equals(""))
+			list = list.substring(0, list.length() - 1);
 		return list;
 	}
 	
