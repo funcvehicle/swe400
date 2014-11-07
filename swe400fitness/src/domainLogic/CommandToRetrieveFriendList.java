@@ -3,10 +3,10 @@ package domainLogic;
 import java.util.ArrayList;
 
 import Registry.MapperRegistry;
-
 import mapper.FriendMapper;
 import mapper.PersonMapper;
 import domainModel.Friend;
+import domainModel.FriendList;
 import domainModel.Person;
 
 /**
@@ -20,7 +20,7 @@ public class CommandToRetrieveFriendList implements Command
 {
 
 	private long userID;
-	private ArrayList<Friend> friends;
+	private FriendList friends;
 
 	/**
 	 * The userID of the current user
@@ -43,7 +43,7 @@ public class CommandToRetrieveFriendList implements Command
 		FriendMapper fm = (FriendMapper) mapperRegistry.getMapper(Friend.class);
 		Person person = mapper.find(userID);
 		person.setFriendList(fm.findFriends(userID));
-		friends = person.getFriendList().getListOfFriends();
+		friends = person.getFriendList();
 	}
 
 	/**
@@ -51,7 +51,7 @@ public class CommandToRetrieveFriendList implements Command
 	 * @see Command#getResult()
 	 */
 	@Override
-	public ArrayList<Friend> getResult()
+	public FriendList getResult()
 	{
 		return friends;
 	}

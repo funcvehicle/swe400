@@ -14,6 +14,7 @@ public class DomainObject
 	public void markNew()
 	{
 		UnitOfWork.getCurrent().registerNew(this);
+		System.out.println("I marked it new");
 	}
 	
 	public void markDirty()

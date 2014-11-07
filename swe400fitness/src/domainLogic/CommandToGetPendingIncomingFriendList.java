@@ -20,7 +20,7 @@ public class CommandToGetPendingIncomingFriendList implements Command
 {
 
 	private long				userID;
-	private ArrayList<Friend>	incomingFriendsList;
+	private IncomingRequestsList	incomingFriendsList;
 
 	/**
 	 * The userID of the current user
@@ -40,8 +40,7 @@ public class CommandToGetPendingIncomingFriendList implements Command
 	public void execute()
 	{
 		IncomingFriendFinder finder = FinderRegistry.incomingFriendFinder();
-		IncomingRequestsList incomingRequestsList = finder.findIncomingRequests(userID);
-		incomingFriendsList = incomingRequestsList.getIncomingRequestsList();
+		incomingFriendsList = finder.findIncomingRequests(userID);
 	}
 
 	/**
@@ -50,7 +49,7 @@ public class CommandToGetPendingIncomingFriendList implements Command
 	 * @see Command#getResult()
 	 */
 	@Override
-	public ArrayList<Friend> getResult()
+	public IncomingRequestsList getResult()
 	{
 		return incomingFriendsList;
 	}

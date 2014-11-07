@@ -19,9 +19,10 @@ public class IncomingRequestsList extends DomainObject
 		String list = "";
 		for (Friend f : incomingRequestsList)
 		{
-			list += f.toString() + " ";
+			list += f.toString() + ",";
 		}
-		
+		if (!list.equals(""))
+				list = list.substring(0, list.length() - 1);
 		return list;
 	}
 	

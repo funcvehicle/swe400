@@ -51,6 +51,7 @@ public class KeyGateway extends Gateway
 			closeConnection();
 			e.printStackTrace();
 		}
+		closeConnection();
 		return -1;
 	}
 

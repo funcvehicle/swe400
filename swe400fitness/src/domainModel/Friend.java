@@ -65,4 +65,9 @@ public class Friend extends DomainObject
 	{
 		return ownerId;
 	}
+
+	public void setRelationId(long relationId)
+	{
+		this.relationId = relationId;
+	}
 }

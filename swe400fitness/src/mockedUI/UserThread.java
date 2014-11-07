@@ -71,6 +71,7 @@ public class UserThread implements Runnable
 	public UserThread(String fileTitle) throws FileNotFoundException
 	{
 		commandReader = new Scanner(new File(fileTitle));
+		//commandReader = new Scanner(System.in);
 	}
 
 	/**
@@ -190,20 +191,27 @@ public class UserThread implements Runnable
 	{
 		String[] parts = splitInstruction(instruction);
 		Command cmd = buildCommand(parts[0]);
+		System.out.println("Executing: " + instruction);
 		cmd.execute();
 		if (cmd instanceof CommandToSelectUser)
 		{
 			Person selectedUser = (Person)cmd.getResult();
 			currentUserID = selectedUser.getId();
 		}
+		else
 		if (parts.length == 2)
 		{
-			String result = (String) cmd.getResult();
+			String result = cmd.getResult().toString();
 			if (result == null)
 			{
 				return false;
 			}
-			return (result.equals(parts[1]));
+			boolean success = result.equals(parts[1]);
+			if (!success)
+			{
+				System.out.println("Got this instead: " + result);
+			}
+			return (success);
 		}
 		return true;
 	}

@@ -20,7 +20,7 @@ public class CommandToGetPendingOutgoingFriendList implements Command
 {
 
 	private long				userID;
-	private ArrayList<Friend>	outgoingFriendsList;
+	private OutgoingRequestsList	outgoingFriendsList;
 
 	/**
 	 * The userID of the current user
@@ -30,7 +30,6 @@ public class CommandToGetPendingOutgoingFriendList implements Command
 	public CommandToGetPendingOutgoingFriendList(long userID)
 	{
 		this.userID = userID;
-		outgoingFriendsList = new ArrayList<Friend>();
 	}
 
 	/**
@@ -41,8 +40,7 @@ public class CommandToGetPendingOutgoingFriendList implements Command
 	public void execute()
 	{
 		OutgoingFriendFinder finder = FinderRegistry.outgoingFriendFinder();
-		OutgoingRequestsList outgoingRequestsList = finder.findOutgoingRequests(userID);
-		outgoingFriendsList = outgoingRequestsList.getOutgoingRequestsList();
+		outgoingFriendsList = finder.findOutgoingRequests(userID);
 	}
 
 	/**
@@ -51,7 +49,7 @@ public class CommandToGetPendingOutgoingFriendList implements Command
 	 * @see Command#getResult()
 	 */
 	@Override
-	public ArrayList<Friend> getResult()
+	public OutgoingRequestsList getResult()
 	{
 		return outgoingFriendsList;
 	}
