@@ -2,8 +2,11 @@ package domainLogic;
 
 import java.util.ArrayList;
 
+import Registry.FinderRegistry;
 import Registry.MapperRegistry;
+import mapper.FriendFinder;
 import mapper.FriendMapper;
+import mapper.PersonFinder;
 import mapper.PersonMapper;
 import domainModel.Friend;
 import domainModel.FriendList;
@@ -38,11 +41,9 @@ public class CommandToRetrieveFriendList implements Command
 	@Override
 	public void execute()
 	{
-		MapperRegistry mapperRegistry = MapperRegistry.getCurrent();
-		PersonMapper mapper = (PersonMapper) mapperRegistry.getMapper(Person.class);
-		FriendMapper fm = (FriendMapper) mapperRegistry.getMapper(Friend.class);
-		Person person = mapper.find(userID);
-		person.setFriendList(fm.findFriends(userID));
+		PersonFinder pfinder = FinderRegistry.personFinder();
+		Person person = pfinder.find(userID);
+		
 		friends = person.getFriendList();
 	}
 

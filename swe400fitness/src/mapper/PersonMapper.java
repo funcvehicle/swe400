@@ -36,6 +36,17 @@ public class PersonMapper implements PersonFinder, Mapper
 	}
 
 	/**
+	 * For testing purposes only.
+	 * @param pg, fg, pfg, kg
+	 */
+	public PersonMapper(PersonGateway pg, FriendGateway fg, PendingFriendGateway pfg, KeyGateway kg)
+	{
+		personGate = pg;
+		friendGate = fg;
+		pendingFriendGate = pfg;
+		keyGen = kg;
+	}
+	/**
 	 * Find a person with the given id.
 	 * 
 	 * @param id

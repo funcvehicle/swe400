@@ -10,9 +10,10 @@ import com.mysql.jdbc.*;
 import com.sun.rowset.CachedRowSetImpl;
 
 /**
- * 
  * @author mb8542
+ * @author Connor Fox
  * 
+ * Handles SQL CRUD operations for the friend table
  */
 public class FriendGateway extends Gateway
 {
@@ -23,39 +24,26 @@ public class FriendGateway extends Gateway
 
 	/**
 	 * Create a friendship in the DB
-	 * 
-	 * @param personID
-	 * @param friendID
-	 * @return SQLEnum
+	 * @param personID the person's user id
+	 * @param friendID the friend's user id
+	 * @return SQLEnum the outcome of the method call
 	 */
 	public SQLEnum insert(long relationID, long personID, long friendID)
 	{
 		establishConnection();
 		connection = getConnection();
-//		String[] params = new String[3];
-//		params[0] = "friends";
-//		params[1] = (new Long(personID)).toString();
-//		params[2] = (new Long(friendID)).toString();
 		SQLEnum result = SQLEnum.SUCCESS;
-
-//		if (recordExists(params) == SQLEnum.DOES_NOT_EXIST)
-//		{
-			try
-			{
-				Statement insert = (Statement) connection.createStatement();
-				insert.executeUpdate(insertStatement + personID + "," + friendID + "," + relationID + ");");
-			}
-			catch (SQLException e)
-			{
-				System.err.println(FriendGateway.class.getName() + " SQL ERROR: " + e.getMessage());
-				result = SQLEnum.FAILED_SQL_ERROR;
-			}
-//		}
-//		else
-//		{
-//			System.err.println(FriendGateway.class.getName() + " - Record exists.");
-//			result = SQLEnum.EXISTS;
-//		}
+		
+		try
+		{
+			Statement insert = (Statement) connection.createStatement();
+			insert.executeUpdate(insertStatement + personID + "," + friendID + "," + relationID + ");");
+		}
+		catch (SQLException e)
+		{
+			System.err.println(FriendGateway.class.getName() + " SQL ERROR: " + e.getMessage());
+			result = SQLEnum.FAILED_SQL_ERROR;
+		}
 
 		closeConnection();
 		return result;
@@ -63,8 +51,7 @@ public class FriendGateway extends Gateway
 
 	/**
 	 * Find all friendships for a userId
-	 * 
-	 * @param userId
+	 * @param userId the id of the user whose friends are being found.
 	 * @return RecordSet of all friendships for a a given userId
 	 */
 	public CachedRowSet findAllForUser(long userId)
@@ -81,21 +68,20 @@ public class FriendGateway extends Gateway
 			data = select.executeQuery(selectStatement + userId + " OR friendId=" + userId);
 			results.populate(data);
 		}
-		
+
 		catch (SQLException e)
 		{
 			System.err.println(FriendGateway.class.getName() + " SQL ERROR: " + e.getMessage());
 			results = null;
 		}
-		
+
 		closeConnection();
 		return results;
 	}
-	
+
 	/**
-	 * Find a single friend record
-	 * TODO change to relation id
-	 * @param userId
+	 * Find a single friend record TODO change to relation id
+	 * @param userId the id of the user whose friend we are trying to find
 	 * @return RecordSet of all friendships for a a given userId
 	 */
 	public CachedRowSet findFriend(long id)
@@ -112,21 +98,21 @@ public class FriendGateway extends Gateway
 			data = select.executeQuery(selectStatement + id);
 			results.populate(data);
 		}
-		
+
 		catch (SQLException e)
 		{
 			System.err.println(FriendGateway.class.getName() + " SQL ERROR: " + e.getMessage());
 			results = null;
 		}
-		
+
 		closeConnection();
 		return results;
 	}
-	
+
 	/**
 	 * Delete a single friendship relation based on its id.
-	 * @param relationId
-	 * @return
+	 * @param relationId the relation id of the friendship
+	 * @return the result of the operation
 	 */
 	public SQLEnum delete(long relationId)
 	{

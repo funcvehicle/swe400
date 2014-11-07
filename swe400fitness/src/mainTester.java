@@ -34,17 +34,17 @@ public class mainTester
 		
 		CommandToGetPendingIncomingFriendList karlsIncoming = new CommandToGetPendingIncomingFriendList(karl.getId());
 		karlsIncoming.execute();
-		System.out.println("Karl's incoming: " + karlsIncoming.getResult().get(0).getDisplayName());
+		System.out.println("Karl's incoming: " + karlsIncoming.getResult().getIncomingRequestsList().get(0).getDisplayName());
 		
 		CommandToGetPendingOutgoingFriendList tedsOutgoing = new CommandToGetPendingOutgoingFriendList(ted.getId());
 		tedsOutgoing.execute();
-		System.out.println("Ted's outgoing: " + tedsOutgoing.getResult().get(0).getDisplayName());
+		System.out.println("Ted's outgoing: " + tedsOutgoing.getResult().getOutgoingRequestsList().get(0).getDisplayName());
 		
-		CommandToRejectFriendRequest rejectTed = new CommandToRejectFriendRequest(karl.getId(), "Ted");
-		rejectTed.execute();
-		persist.execute();
-		
-		persist.execute();
+//		CommandToRejectFriendRequest rejectTed = new CommandToRejectFriendRequest(karl.getId(), "Ted");
+//		rejectTed.execute();
+//		persist.execute();
+//		
+//		persist.execute();
 		
 		CommandToAcceptFriendRequest acceptTed = new CommandToAcceptFriendRequest(karl.getId(), "Ted");
 		acceptTed.execute();
@@ -52,11 +52,11 @@ public class mainTester
 		
 		CommandToRetrieveFriendList tedsFriends = new CommandToRetrieveFriendList(ted.getId());
 		tedsFriends.execute();
-		System.out.println("Ted's friends: " + tedsFriends.getResult().get(0).getDisplayName());
+		System.out.println("Ted's friends: " + tedsFriends.getResult().getListOfFriends().get(0).getDisplayName());
 		
 		CommandToRetrieveFriendList karlsFriends = new CommandToRetrieveFriendList(karl.getId());
 		karlsFriends.execute();
-		System.out.println("Karl's friends: " + karlsFriends.getResult().get(0).getDisplayName());
+		System.out.println("Karl's friends: " + karlsFriends.getResult().getListOfFriends().get(0).getDisplayName());
 		
 		CommandToUnFriend unfriendTed = new CommandToUnFriend(karl.getId(), "Ted");
 		unfriendTed.execute();

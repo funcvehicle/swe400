@@ -147,7 +147,7 @@ public class Person extends DomainObject
 			isRelationship = true;
 		}
 		
-		else if (this.getOutgoingRequests().findId(requestedFriend.id) != null)
+		else if (outgoingRequests.findId(requestedFriend.id) != null)
 		{
 			isRelationship = true;
 		}
