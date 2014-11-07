@@ -1,14 +1,7 @@
 package domainLogic;
 
-import java.util.ArrayList;
-
 import Registry.FinderRegistry;
-import Registry.MapperRegistry;
-import mapper.FriendFinder;
-import mapper.FriendMapper;
 import mapper.PersonFinder;
-import mapper.PersonMapper;
-import domainModel.Friend;
 import domainModel.FriendList;
 import domainModel.Person;
 
