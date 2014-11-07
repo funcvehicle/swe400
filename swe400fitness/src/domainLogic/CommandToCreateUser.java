@@ -2,6 +2,7 @@ package domainLogic;
 
 import Registry.FinderRegistry;
 import unitOfWork.UnitOfWork;
+import domainModel.NullPerson;
 import domainModel.Person;
 
 
@@ -15,6 +16,7 @@ public class CommandToCreateUser implements Command
 	private String userName;
 	private String password;
 	private String displayName;
+	private boolean alreadyExists;
 	
 	/**
 	 * Create a command that will add a new user to the system
@@ -27,6 +29,7 @@ public class CommandToCreateUser implements Command
 		this.userName = userName;
 		this.password = password;
 		this.displayName = displayName;
+		this.alreadyExists = false;
 	}
 	
 	/**
@@ -43,6 +46,7 @@ public class CommandToCreateUser implements Command
 		}
 		else
 		{
+			alreadyExists = true;
 			System.err.println("Cannot create user " + userName + ": username unavailable!");
 		}
 	}
@@ -55,6 +59,8 @@ public class CommandToCreateUser implements Command
 	@Override
 	public Person getResult()
 	{
+		if (alreadyExists)
+			return new NullPerson("", "", "");
 		return FinderRegistry.personFinder().find(userName);
 	}
 
