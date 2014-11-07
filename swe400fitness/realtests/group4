@@ -38,18 +38,22 @@ CommandToSelectUser olivia pw2;
 CommandToGetPendingIncomingFriendList <userID>; toenails
 CommandToRejectFriendRequest <userID> kent;
 CommandToPersistChanges;
+CommandToSelectUser kent pw1;
+CommandToModifyUser <userID> kentith;
+CommandToPersistChanges;
 *******Multiple Friends Test*******4
 CommandToSelectUser puertorico password3;
 CommandToGetPendingIncomingFriendList <userID>;
 CommandToMakeFriendRequest <userID> russia;
 CommandToMakeFriendRequest <userID> murica;
-CommandToGetPendingOutgoingFriendList <userID>; destroyerofworlds,lolyolo
 CommandToPersistChanges;
+CommandToGetPendingOutgoingFriendList <userID>; destroyerofworlds,lolyolo
 CommandToSelectUser russia password;
 CommandToRetrieveFriendList <userID>;
 CommandToGetPendingOutgoingFriendList <userID>;
 CommandToGetPendingIncomingFriendList <userID>; ayiyi
 CommandToAcceptFriendRequest <userID> puertorico;
+CommandToPersistChanges;
 CommandToGetPendingIncomingFriendList <userID>;
 CommandToRetrieveFriendList <userID>; ayiyi
 CommandToPersistChanges;
@@ -62,6 +66,7 @@ CommandToRetrieveFriendList <userID>;
 CommandToGetPendingOutgoingFriendList <userID>;
 CommandToGetPendingIncomingFriendList <userID>; ayiyi
 CommandToAcceptFriendRequest <userID> puertorico;
+CommandToPersistChanges;
 CommandToRetrieveFriendList <userID>; ayiyi
 CommandToGetPendingIncomingFriendList <userID>;
 CommandToPersistChanges;
@@ -86,22 +91,25 @@ CommandToPersistChanges;
 *******Persist Changes Test*******6
 CommandToSelectUser artemis pw1;
 CommandToMakeFriendRequest <userID> holly;
+CommandToPersistChanges;
 CommandToGetPendingOutgoingFriendList <userID>; fairygurl123
 CommandToPersistChanges;
 CommandToSelectUser holly pw2;
 CommandToGetPendingIncomingFriendList <userID>; arty24
 CommandToAcceptFriendRequest <userID> artemis;
+CommandToPersistChanges;
 CommandToGetPendingIncomingFriendList <userID>;
 CommandToRetrieveFriendList <userID>; arty24
 CommandToPersistChanges;
 CommandToSelectUser mulch pw3;
 CommandToMakeFriendRequest <userID> artemis;
 CommandToPersistChanges;
-CommandToGetOutgoingFriendList <userID>; arty24
+CommandToGetPendingOutgoingFriendList <userID>; arty24
 CommandToSelectUser artemis pw1;
 CommandToGetPendingIncomingFriendList <userID>; klepto
 CommandToAcceptFriendRequest <userID> mulch;
-CommandToUnfriend <userID> holly;
+CommandToPersistChanges;
+CommandToUnFriend <userID> holly;
 CommandToPersistChanges;
 CommandToRetrieveFriendList <userID>; klepto
 CommandToSelectUser holly pw2;
@@ -119,7 +127,6 @@ CommandToRetrieveFriendList <userID>;
 CommandToSelectUser root pw4;
 CommandToGetPendingIncomingFriendList <userID>; ponyboy
 CommandToAcceptFriendRequest <userID> foaly;
-CommandToRetrieveFriendList <userID>; ponyboy
 CommandToCancelChanges;
 CommandToRetrieveFriendList <userID>;
 CommandToGetPendingIncomingFriendList <userID>; ponyboy
@@ -191,11 +198,13 @@ CommandToPersistChanges;
 CommandToPersistChanges;
 CommandToSelectUser fartblaster pw2;
 CommandToMakeFriendRequest <userID> Morbo;
+CommandToPersistChanges;
 CommandToGetPendingOutgoingFriendList <userID>; finerminer
 CommandToPersistChanges;
 CommandToSelectUser Morbo password;
 CommandToGetPendingIncomingFriendList <userID>; rweav
 CommandToRejectFriendRequest <userID> fartblaster;
+CommandToPersistChanges;
 CommandToGetPendingIncomingFriendList <userID>;
 CommandToRetrieveFriendList <userID>;
 CommandToPersistChanges;
