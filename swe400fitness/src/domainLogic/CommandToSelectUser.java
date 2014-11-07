@@ -56,11 +56,19 @@ public class CommandToSelectUser implements Command
 		return person;
 	}
 
+	/**
+	 * Gets the user name of the person logging in
+	 * @return userName
+	 */
 	public String getUserName()
 	{
 		return userName;
 	}
 
+	/**
+	 * Gets the password of the person logging in
+	 * @return password
+	 */
 	public String getPassword()
 	{
 		return password;

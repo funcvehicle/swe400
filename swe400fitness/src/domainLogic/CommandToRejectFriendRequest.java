@@ -31,7 +31,7 @@ public class CommandToRejectFriendRequest implements Command
 	}
 
 	/**
-	 * 
+	 * Executes the reject friend request command
 	 * @see Command#execute()
 	 */
 	@Override
@@ -57,7 +57,6 @@ public class CommandToRejectFriendRequest implements Command
 
 	/**
 	 * Nothing needs to be retrieved from this command
-	 * 
 	 * @see Command#getResult()
 	 */
 	@Override

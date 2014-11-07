@@ -12,9 +12,7 @@ import domainModel.IncomingRequestsList;
  * Cause the list of friend requests from other user to this user to be fetched
  * from the domain model (may or may not cause reading from the DB depending on
  * the state of the domain model)
- * 
  * @author merlin
- * 
  */
 public class CommandToGetPendingIncomingFriendList implements Command
 {
@@ -54,6 +52,10 @@ public class CommandToGetPendingIncomingFriendList implements Command
 		return incomingFriendsList;
 	}
 
+	/**
+	 * Gets the id of the person whose pending incoming friend list we are examining
+	 * @return userID
+	 */
 	public long getUserID()
 	{
 		return userID;
