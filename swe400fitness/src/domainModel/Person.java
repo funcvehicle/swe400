@@ -180,7 +180,7 @@ public class Person extends DomainObject
 	{
 		boolean success = false;
 		Friend request = incomingRequests.findId(requester.getId());
-		System.out.println("Relation ID: " + request.getRelationId());
+		System.out.println("Relation ID: " + request.getRelationId() + " user: " + request.getDisplayName());
 		if (request != null)
 		{
 			request.markDeleted();

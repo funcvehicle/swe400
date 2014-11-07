@@ -109,7 +109,8 @@ public class PersonGateway extends Gateway
 				result = SQLEnum.FAILED_SQL_ERROR;
 			}
 		}
-	
+		
+		closeConnection();
 		return result;
 	}
 
