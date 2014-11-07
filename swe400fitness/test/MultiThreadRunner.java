@@ -28,7 +28,7 @@ public class MultiThreadRunner
 		for(String title:fileTitles)
 		{
 			System.out.println("Creating Thread for " + title.trim());
-			UserThread target = new UserThread(title.trim());
+			UserThread target = new UserThread("realtests/" + title.trim());
 			uThreads.add(target);
 			Thread t = new Thread(target);
 			threads.add(t);
