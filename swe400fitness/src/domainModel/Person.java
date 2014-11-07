@@ -184,8 +184,9 @@ public class Person extends DomainObject
 		if (request != null)
 		{
 			request.markDeleted();
-
+			System.out.println("Trying to mark it new.");
 			Friend friend = requester.asFriend(id);
+			System.out.println("Requester as friend: " + friend + " Realation id:" + friend.getRelationId());
 			friend.markNew();
 
 			boolean success1 = removeIncomingRequest(request);

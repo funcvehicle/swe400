@@ -38,7 +38,9 @@ public class CommandToAcceptFriendRequest implements Command
 	{
 		PersonFinder pfinder = FinderRegistry.personFinder();
 		Person requestee = pfinder.find(userIDOfRequestee); //august
+		System.out.println("Requestee: " + requestee);
 		Person requester = pfinder.find(userNameOfRequester); //ferd
+		System.out.println("Requester: " + requester);
 		
 		requestee.acceptRequest(requester);
 	}

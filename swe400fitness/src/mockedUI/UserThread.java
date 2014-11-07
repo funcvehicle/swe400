@@ -198,6 +198,7 @@ public class UserThread implements Runnable
 			Person selectedUser = (Person)cmd.getResult();
 			currentUserID = selectedUser.getId();
 		}
+		else
 		if (parts.length == 2)
 		{
 			String result = cmd.getResult().toString();
@@ -205,8 +206,6 @@ public class UserThread implements Runnable
 			{
 				return false;
 			}
-			result = result.replace("[", "");
-			result = result.replace("]", "");
 			boolean success = result.equals(parts[1]);
 			if (!success)
 			{
