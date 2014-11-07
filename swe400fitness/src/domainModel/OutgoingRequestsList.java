@@ -51,4 +51,25 @@ public class OutgoingRequestsList extends DomainObject
 		}
 		return false;
 	}
+	
+	/**
+	 * find the friend that corresponds to the given user id.
+	 * @param userId 
+	 * @return the friend with the given 
+	 */
+	public Friend findId(long userId)
+	{
+		Friend friend = null;
+		
+		for (Friend f : outgoingRequestsList)
+		{
+			if (f.getId() == userId)
+			{
+				friend = f;
+				break;
+			}
+		}
+		
+		return friend;
+	}
 }

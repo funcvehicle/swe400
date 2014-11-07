@@ -73,12 +73,6 @@ public class Person extends DomainObject
 		return (userName + ":" + password + ":" + displayName);
 	}
 
-	public void setPassword(String password)
-	{
-		markDirty();
-		this.password = password;
-	}
-
 	public void setDisplayName(String displayName)
 	{
 		markDirty();
@@ -124,15 +118,51 @@ public class Person extends DomainObject
 	public void requestFriend(Person requestedFriend)
 	{
 		Friend request = requestedFriend.asRequest(this.id);
-		if (requestedFriend.getId() != this.id)
+		boolean isRelationship = relationshipExists(requestedFriend);
+
+		if (requestedFriend.getId() != this.id && isRelationship == false)
 		{
 			request.markNew();
 			this.addOutgoingRequest(request);
+			requestedFriend.addIncomingRequest(this.asFriend(id));
 		}
 		else
 		{
 			System.err.println("User " + requestedFriend.getUserName() + " cannot request self as friend!");
 		}
+	}
+	
+	/**
+	 * Check if a relationship exists.
+	 * If it does, friendship cannot be requested.
+	 * @param requestedFriend
+	 * @return
+	 */
+	private boolean relationshipExists(Person requestedFriend)
+	{
+		boolean isRelationship = false;
+		
+		if (requestedFriend.getIncomingRequests().findId(id) != null)
+		{
+			isRelationship = true;
+		}
+		
+		else if (this.getOutgoingRequests().findId(requestedFriend.id) != null)
+		{
+			isRelationship = true;
+		}
+		
+		else if (this.getFriendList().findId(requestedFriend.id) != null)
+		{
+			isRelationship = true;
+		}
+		
+		else if (this.getIncomingRequests().findId(requestedFriend.id) != null)
+		{
+			isRelationship = true;
+		}
+		
+		return isRelationship;
 	}
 
 	/**
@@ -190,7 +220,8 @@ public class Person extends DomainObject
 
 			boolean success1 = removeIncomingRequest(request);
 			boolean success2 = addFriend(friend);
-			success = success1 && success2;
+			boolean success3 = requester.addFriend(this.asFriend(id));
+			success = success1 && success2 && success3;
 		}
 		
 		return success;

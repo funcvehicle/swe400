@@ -1,7 +1,6 @@
 package commands;
 
 import domainLogic.Command;
-import domainLogic.domainLogic;
 
 /**
  * A command that is used in the tests of UserThread to make sure that it checks
