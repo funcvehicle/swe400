@@ -5,6 +5,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
 
+/**
+ * KeyGateway generates a new key for an object
+ * @author Miles Bock
+ *
+ */
 public class KeyGateway extends Gateway
 {
 	/**
