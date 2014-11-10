@@ -17,7 +17,7 @@ public class PendingFriendGateway extends Gateway
 	 * inquiererId REFERENCES people(id)
 	 * recipientId REFERENCES people(id)
 	 */
-	private Connection	connection;
+	private ConnectionUtil	conn = ConnectionUtil.getCurrent();
 	private String		findOutgoingStatement	= "SELECT * FROM pendingfriends WHERE inquirerId=";
 	private String		findIncomingStatement	= "SELECT * FROM pendingfriends WHERE recipientId=";
 	private String		deleteStatement	= "DELETE FROM pendingfriends WHERE id=";
@@ -30,8 +30,8 @@ public class PendingFriendGateway extends Gateway
 	 */
 	public CachedRowSet findOutgoing(long inquirerID)
 	{
-		establishConnection();
-		connection = getConnection();
+		conn.open();
+		Connection connection = conn.getConnection();
 		ResultSet data;
 		CachedRowSet results;
 		
@@ -49,7 +49,7 @@ public class PendingFriendGateway extends Gateway
 			results = null;
 		}
 		
-		closeConnection();
+		conn.close();
 		return results;
 	}
 	
@@ -60,8 +60,8 @@ public class PendingFriendGateway extends Gateway
 	 */
 	public CachedRowSet findIncoming(long recipientID)
 	{
-		establishConnection();
-		connection = getConnection();
+		conn.open();
+		Connection connection = conn.getConnection();
 		ResultSet data;
 		CachedRowSet results;
 		
@@ -78,7 +78,7 @@ public class PendingFriendGateway extends Gateway
 			results = null;
 		}
 		
-		closeConnection();
+		conn.close();
 		return results;
 	}
 	
@@ -91,8 +91,7 @@ public class PendingFriendGateway extends Gateway
 	 */
 	public SQLEnum insert(long inquirerId, long recipientId, long relationID)
 	{
-		establishConnection();
-		connection = getConnection();
+		Connection connection = conn.getConnection();
 		SQLEnum result = SQLEnum.SUCCESS;
 		
 		try
@@ -109,7 +108,6 @@ public class PendingFriendGateway extends Gateway
 			e.printStackTrace();
 		}
 		
-		closeConnection();
 		return result;
 	}
 
@@ -120,8 +118,7 @@ public class PendingFriendGateway extends Gateway
 	 */
 	public SQLEnum delete(long relationID)
 	{
-		establishConnection();
-		connection = getConnection();
+		Connection connection = conn.getConnection();
 		SQLEnum result = SQLEnum.SUCCESS;
 		
 		try
@@ -138,7 +135,6 @@ public class PendingFriendGateway extends Gateway
 			e.printStackTrace();
 		}
 		
-		closeConnection();
 		return result;
 	}
 }

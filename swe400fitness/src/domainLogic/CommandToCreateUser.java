@@ -60,7 +60,7 @@ public class CommandToCreateUser implements Command
 	public Person getResult()
 	{
 		if (alreadyExists)
-			return new NullPerson("", "", "");
+			return new NullPerson();
 		return FinderRegistry.personFinder().find(userName);
 	}
 

@@ -58,7 +58,7 @@ CommandToSelectUser bradpitt pittspass;
 CommandToModifyUser <userID> timothy;
 CommandToPersistChanges;
 ** TestCreateMultipleUsers
-CommandToCreateUser bradpitt pittspass pittyboi; null
+CommandToCreateUser bradpitt pittspass pittyboi; null:null:null
 CommandToPersistChanges;
 ** TestMultipleFriendRequests
 CommandToSelectUser bradpitt pittspass;

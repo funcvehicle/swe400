@@ -1,6 +1,5 @@
 package gateway;
 
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -15,45 +14,7 @@ import com.mysql.jdbc.Statement;
  */
 public abstract class Gateway
 {
-	private String driver = "com.mysql.jdbc.Driver";
-	private String url = "jdbc:mysql://lsagroup4.cbzhjl6tpflt.us-east-1.rds.amazonaws.com:3306/fitness4";
-	private String userName = "lsagroup4";
-	private String passWord = "lsagroup4";
-	private Connection connection;
-	
-	/**
-	 * Establish a connection to the DB
-	 */
-	protected void establishConnection(){
-		try
-		{
-			Class.forName(driver);
-		}
-		catch(ClassNotFoundException e)
-		{
-			System.err.println("Driver Not Found!");
-		}
-		
-		try 
-		{
-			this.connection = (Connection) DriverManager.getConnection(url,userName,passWord);
-		} 
-		catch (SQLException e) 
-		{
-			System.err.println("Failed to connect: " + e.getMessage());
-		}
-	}
-	/**
-	 * Close the current connection
-	 */
-	public void closeConnection()
-	{
-		try {
-			this.connection.close();
-		} catch (SQLException e) {
-			System.err.println("Could not close connection: " + e.getMessage());
-		}
-	}
+	private ConnectionUtil conn = ConnectionUtil.getCurrent();
 	
 	/**
 	 * I am a Stegosaurus!!
@@ -63,7 +24,7 @@ public abstract class Gateway
 	 */
 	protected SQLEnum recordExists(String[] params)
 	{
-		
+		Connection connection = conn.getConnection();
 		String query = getQueryString(params);
 		try 
 		{
@@ -157,13 +118,4 @@ public abstract class Gateway
 	{
 		return "SELECT * FROM " + params[0];
 	}
-	/**
-	 * Return the current connection
-	 * @return
-	 */
-	public Connection getConnection() {
-		return this.connection;
-	}
-
-
 }

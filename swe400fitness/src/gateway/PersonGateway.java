@@ -11,10 +11,9 @@ import com.sun.rowset.CachedRowSetImpl;
 
 public class PersonGateway extends Gateway
 {
-	private Connection	connection;
+	private ConnectionUtil	conn = ConnectionUtil.getCurrent();
 	private String		queryStringByID			= "SELECT * FROM people WHERE id=";
 	private String		queryStringByUserName	= "SELECT * FROM people WHERE userName=";
-
 	private String insertStatement = "INSERT INTO people (id,userName,displayName,password) VALUES (";
 	private String deleteStatement = "DELETE FROM people WHERE id=";
 
@@ -26,8 +25,8 @@ public class PersonGateway extends Gateway
 	 */
 	public CachedRowSet find(long id)
 	{
-		establishConnection();
-		connection = getConnection();
+		conn.open();
+		Connection connection = conn.getConnection();
 		Statement find;
 		CachedRowSet results;
 		
@@ -44,7 +43,7 @@ public class PersonGateway extends Gateway
 			results = null;
 		}
 
-		closeConnection();
+		conn.close();
 		return results;
 
 	}
@@ -57,8 +56,8 @@ public class PersonGateway extends Gateway
 	 */
 	public CachedRowSet find(String userName)
 	{
-		establishConnection();
-		connection = getConnection();
+		conn.open();
+		Connection connection = conn.getConnection();
 		Statement find;
 		CachedRowSet results;
 		
@@ -74,8 +73,8 @@ public class PersonGateway extends Gateway
 			results = null;
 			System.err.println(PersonGateway.class.getName() + " SQL ERROR: " + e.getMessage());
 		}
-
-		closeConnection();
+		
+		conn.close();
 		return results;
 	}
 
@@ -89,8 +88,7 @@ public class PersonGateway extends Gateway
 	 */
 	public SQLEnum insert(long id, String userName, String displayName, String password)
 	{
-		establishConnection();
-		connection = getConnection();
+		Connection connection = conn.getConnection();
 		String[] params = new String[3];
 		params[0] = "people";
 		params[1] = userName;
@@ -110,14 +108,12 @@ public class PersonGateway extends Gateway
 			}
 		}
 		
-		closeConnection();
 		return result;
 	}
 
 	public SQLEnum update(long id, String userName, String password, String displayName)
 	{
-		establishConnection();
-		connection = getConnection();
+		Connection connection = conn.getConnection();
 		SQLEnum result = SQLEnum.SUCCESS;
 		
 		try
@@ -132,7 +128,6 @@ public class PersonGateway extends Gateway
 			result = SQLEnum.FAILED_SQL_ERROR;
 		}
 
-		closeConnection();
 		return result;
 	}
 
@@ -143,8 +138,7 @@ public class PersonGateway extends Gateway
 	 */
 	public SQLEnum delete(long id)
 	{
-		establishConnection();
-		connection = getConnection();
+		Connection connection = conn.getConnection();
 		SQLEnum result = SQLEnum.SUCCESS;
 		
 		try
@@ -160,7 +154,6 @@ public class PersonGateway extends Gateway
 			result = SQLEnum.FAILED_SQL_ERROR;
 		}
 
-		closeConnection();
 		return result;
 	}
 }

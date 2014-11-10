@@ -185,7 +185,7 @@ public class Person extends DomainObject
 		}
 		else
 		{
-			System.err.println("User " + requestedFriend.getUserName() + " cannot request self as friend!");
+			System.err.println("User " + this.displayName + " cannot request " + requestedFriend.displayName + " as friend!");
 		}
 	}
 	

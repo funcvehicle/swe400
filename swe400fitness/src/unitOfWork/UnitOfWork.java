@@ -1,7 +1,7 @@
 package unitOfWork;
 
+import gateway.ConnectionUtil;
 import java.util.ArrayList;
-
 import Registry.MapperRegistry;
 
 import mapper.Mapper;
@@ -15,7 +15,10 @@ import domainModel.Person;
  */
 public class UnitOfWork
 {
-	public static ThreadLocal<UnitOfWork>	current	= new ThreadLocal<UnitOfWork>();
+	private static ThreadLocal<UnitOfWork>	current	= new ThreadLocal<UnitOfWork>();
+	private ConnectionUtil conn = ConnectionUtil.getCurrent();
+	
+	private Person currentUser;
 
 	protected ArrayList<DomainObject>		newObjects;
 	protected ArrayList<DomainObject>		dirtyObjects;
@@ -33,6 +36,16 @@ public class UnitOfWork
 		deletedObjects = new ArrayList<DomainObject>();
 		
 		registryOfMappers = MapperRegistry.getCurrent();
+	}
+	
+	public void setCurrentUser(Person p)
+	{
+		currentUser = p;
+	}
+	
+	public Person getCurrentUser()
+	{
+		return currentUser;
 	}
 
 	/**
@@ -113,10 +126,16 @@ public class UnitOfWork
 	public boolean commit()
 	{
 		boolean success;
+		
+		conn.open();
+		conn.setDoNotClose(true);
 
 		success = insertNew();
 		success = updateDirty();
 		success = removeDeleted();
+		
+		conn.setDoNotClose(false);
+		conn.close();
 
 		clearAll();
 

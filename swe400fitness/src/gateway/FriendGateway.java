@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.sql.rowset.CachedRowSet;
-
 import com.mysql.jdbc.*;
 import com.sun.rowset.CachedRowSetImpl;
 
@@ -17,7 +16,7 @@ import com.sun.rowset.CachedRowSetImpl;
  */
 public class FriendGateway extends Gateway
 {
-	private Connection	connection;
+	private ConnectionUtil conn = ConnectionUtil.getCurrent();
 	private String		selectStatement	= "SELECT * FROM friends WHERE personId=";
 	private String		insertStatement	= "INSERT INTO friends (personId, friendId, id) VALUES (";
 	private String		deleteStatement	= "DELETE FROM friends WHERE id=";
@@ -30,8 +29,7 @@ public class FriendGateway extends Gateway
 	 */
 	public SQLEnum insert(long relationID, long personID, long friendID)
 	{
-		establishConnection();
-		connection = getConnection();
+		Connection connection = conn.getConnection();
 		SQLEnum result = SQLEnum.SUCCESS;
 		
 		try
@@ -45,7 +43,6 @@ public class FriendGateway extends Gateway
 			result = SQLEnum.FAILED_SQL_ERROR;
 		}
 
-		closeConnection();
 		return result;
 	}
 
@@ -56,8 +53,8 @@ public class FriendGateway extends Gateway
 	 */
 	public CachedRowSet findAllForUser(long userId)
 	{
-		establishConnection();
-		connection = getConnection();
+		conn.open();
+		Connection connection = conn.getConnection();
 		ResultSet data;
 		CachedRowSet results;
 
@@ -67,6 +64,7 @@ public class FriendGateway extends Gateway
 			Statement select = (Statement) connection.createStatement();
 			data = select.executeQuery(selectStatement + userId + " OR friendId=" + userId);
 			results.populate(data);
+			data.close();
 		}
 
 		catch (SQLException e)
@@ -75,19 +73,19 @@ public class FriendGateway extends Gateway
 			results = null;
 		}
 
-		closeConnection();
+		conn.close();
 		return results;
 	}
 
 	/**
-	 * Find a single friend record TODO change to relation id
+	 * Find a single friend record
 	 * @param userId the id of the user whose friend we are trying to find
 	 * @return RecordSet of all friendships for a a given userId
 	 */
 	public CachedRowSet findFriend(long id)
 	{
-		establishConnection();
-		connection = getConnection();
+		conn.open();
+		Connection connection = conn.getConnection();
 		ResultSet data;
 		CachedRowSet results;
 
@@ -97,6 +95,7 @@ public class FriendGateway extends Gateway
 			Statement select = (Statement) connection.createStatement();
 			data = select.executeQuery(selectStatement + id);
 			results.populate(data);
+			data.close();
 		}
 
 		catch (SQLException e)
@@ -105,7 +104,7 @@ public class FriendGateway extends Gateway
 			results = null;
 		}
 
-		closeConnection();
+		conn.close();
 		return results;
 	}
 
@@ -116,8 +115,7 @@ public class FriendGateway extends Gateway
 	 */
 	public SQLEnum delete(long relationId)
 	{
-		establishConnection();
-		Connection connection = getConnection();
+		Connection connection = conn.getConnection();
 		SQLEnum result = SQLEnum.SUCCESS;
 
 		try
@@ -131,7 +129,6 @@ public class FriendGateway extends Gateway
 			result = SQLEnum.FAILED_SQL_ERROR;
 		}
 
-		closeConnection();
 		return result;
 	}
 }
