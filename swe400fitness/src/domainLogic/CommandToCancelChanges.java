@@ -18,6 +18,7 @@ public class CommandToCancelChanges implements Command
 	public void execute()
 	{
 		UnitOfWork.getCurrent().clearAll();
+		UnitOfWork.getCurrent().setCurrentUser(UnitOfWork.getCurrent().getRevert());
 	}
 
 	/**

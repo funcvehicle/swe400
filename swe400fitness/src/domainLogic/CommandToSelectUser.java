@@ -1,5 +1,6 @@
 package domainLogic;
 
+import unitOfWork.UnitOfWork;
 import mapper.PersonFinder;
 import Registry.FinderRegistry;
 import domainModel.Person;
@@ -42,6 +43,8 @@ public class CommandToSelectUser implements Command
 			person = null;
 			System.err.println("Username and password do not match.");
 		}
+		UnitOfWork.getCurrent().setCurrentUser(person);
+		UnitOfWork.getCurrent().setRevert(person.clone());
 	}
 
 	/**

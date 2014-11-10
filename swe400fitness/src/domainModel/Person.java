@@ -334,4 +334,10 @@ public class Person extends DomainObject
 	{
 		return new Friend(displayName, this.id, myOwnerID, true);
 	}
+	
+	@Override
+	public Person clone()
+	{
+		return new Person(userName, displayName, password, id);
+	}
 }

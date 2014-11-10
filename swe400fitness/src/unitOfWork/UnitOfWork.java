@@ -19,6 +19,7 @@ public class UnitOfWork
 	private ConnectionUtil conn = ConnectionUtil.getCurrent();
 	
 	private Person currentUser;
+	private Person revert;
 
 	protected ArrayList<DomainObject>		newObjects;
 	protected ArrayList<DomainObject>		dirtyObjects;
@@ -43,9 +44,19 @@ public class UnitOfWork
 		currentUser = p;
 	}
 	
+	public void setRevert(Person p)
+	{
+		revert = p;
+	}
+	
 	public Person getCurrentUser()
 	{
 		return currentUser;
+	}
+	
+	public Person getRevert()
+	{
+		return revert;
 	}
 
 	/**

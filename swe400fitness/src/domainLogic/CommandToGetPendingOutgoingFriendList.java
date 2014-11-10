@@ -1,5 +1,6 @@
 package domainLogic;
 
+import unitOfWork.UnitOfWork;
 import Registry.FinderRegistry;
 import mapper.OutgoingFriendFinder;
 import domainModel.OutgoingRequestsList;
@@ -36,7 +37,8 @@ public class CommandToGetPendingOutgoingFriendList implements Command
 	public void execute()
 	{
 		OutgoingFriendFinder finder = FinderRegistry.outgoingFriendFinder();
-		outgoingFriendsList = finder.findOutgoingRequests(userID);
+		//outgoingFriendsList = finder.findOutgoingRequests(userID);
+		outgoingFriendsList = UnitOfWork.getCurrent().getCurrentUser().getOutgoingRequests();
 	}
 
 	/**
