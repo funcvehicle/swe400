@@ -1,5 +1,6 @@
 package domainLogic;
 
+import unitOfWork.UnitOfWork;
 import Registry.FinderRegistry;
 import mapper.PersonFinder;
 import domainModel.Person;
@@ -36,8 +37,7 @@ public class CommandToMakeFriendRequest implements Command
 	{		
 		PersonFinder pfinder = FinderRegistry.personFinder();
 		Person recipient = pfinder.find(userNameOfRequestee);
-		Person inquirer = pfinder.find(userIDOfRequester);
-		
+		Person inquirer = UnitOfWork.getCurrent().getCurrentUser();//pfinder.find(userIDOfRequester);
 		inquirer.requestFriend(recipient);
 	}
 
