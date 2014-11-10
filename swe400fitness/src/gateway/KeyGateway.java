@@ -79,8 +79,8 @@ public class KeyGateway extends Gateway
 			conn.getConnection().setAutoCommit(false);
 			Statement statement1 = connection.createStatement();
 			Statement statement2 = connection.createStatement();
-			results = statement1.executeQuery("SELECT * FROM keytable");
 			statement2.execute("UPDATE keytable SET nextId=nextId + 1;");
+			results = statement1.executeQuery("SELECT * FROM keytable");
 			conn.getConnection().commit();
 			results.next();
 			key = results.getLong("nextId");
