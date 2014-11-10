@@ -37,8 +37,15 @@ public class CommandToMakeFriendRequest implements Command
 	{		
 		PersonFinder pfinder = FinderRegistry.personFinder();
 		Person recipient = pfinder.find(userNameOfRequestee);
-		Person inquirer = UnitOfWork.getCurrent().getCurrentUser();//pfinder.find(userIDOfRequester);
-		inquirer.requestFriend(recipient);
+		if (recipient != null)
+		{
+			Person inquirer = UnitOfWork.getCurrent().getCurrentUser();//pfinder.find(userIDOfRequester);
+			inquirer.requestFriend(recipient);
+		}
+		else
+		{
+			System.err.println("User " + userNameOfRequestee + " does not exist: could not make friend request!");
+		}
 	}
 
 	/**
