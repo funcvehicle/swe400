@@ -10,7 +10,6 @@ CommandToPersistChanges;
 CommandToSelectUser Newton pw1;
 CommandToRetrieveFriendList <userID>; euclid5678
 CommandToUnFriend <userID> Euclid;
-CommandToPersistChanges;
 CommandToRetrieveFriendList <userID>;
 CommandToCancelChanges;
 CommandToRetrieveFriendList <userID>; euclid5678
