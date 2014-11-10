@@ -140,7 +140,7 @@ CommandToSelectUser johnTedMovie pw1;
 CommandToGetPendingIncomingFriendList <userID>; bruinsFan12
 CommandToAcceptFriendRequest <userID> tedTedMovie;
 CommandToGetPendingIncomingFriendList <userID>;
-CommandToRetrieveFriendList <userID>; bruinsFan12,patriotsFan12
+CommandToRetrieveFriendList <userID>; bruinsFan12
 CommandToPersistChanges;
 CommandToSelectUser tedTedMovie pw2;
 CommandToRetrieveFriendList <userID>; redSoxFan12

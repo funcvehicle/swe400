@@ -1,5 +1,6 @@
 package domainLogic;
 
+import unitOfWork.UnitOfWork;
 import Registry.FinderRegistry;
 import mapper.PersonFinder;
 import domainModel.Person;
@@ -34,7 +35,7 @@ public class CommandToUnFriend implements Command
 	public void execute()
 	{
 		PersonFinder pFinder = FinderRegistry.personFinder();
-		Person me = pFinder.find(userIDOfRequester);
+		Person me = UnitOfWork.getCurrent().getCurrentUser();
 		Person myFriend = pFinder.find(userNameOfRequestee);
 
 		if (!me.removeFriend(myFriend))

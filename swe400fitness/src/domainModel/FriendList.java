@@ -19,6 +19,11 @@ public class FriendList extends DomainObject
 		listOfFriends = new ArrayList<Friend>();
 	}
 	
+	public FriendList(ArrayList<Friend> f)
+	{
+		listOfFriends = f;
+	}
+	
 	/**
 	 * Create a toString that lists all friends
 	 */
@@ -89,6 +94,12 @@ public class FriendList extends DomainObject
 	public ArrayList<Friend> getListOfFriends()
 	{
 		return listOfFriends;
+	}
+	
+	public FriendList clone()
+	{
+		ArrayList<Friend> clonedFriends = (ArrayList<Friend>) listOfFriends.clone();
+		return new FriendList(clonedFriends);
 	}
 	
 }

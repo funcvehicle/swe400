@@ -19,6 +19,11 @@ public class OutgoingRequestsList extends DomainObject
 		outgoingRequestsList = new ArrayList<Friend>();
 	}
 	
+	public OutgoingRequestsList(ArrayList<Friend> f)
+	{
+		outgoingRequestsList = f;
+	}
+	
 	/**
 	 * Creates a toString list of
 	 * all Friend objects in the OutgoingRequestsList
@@ -89,5 +94,11 @@ public class OutgoingRequestsList extends DomainObject
 			}
 		}
 		return friend;
+	}
+	
+	public OutgoingRequestsList clone()
+	{
+		ArrayList<Friend> clonedRequests = (ArrayList<Friend>) outgoingRequestsList.clone();
+		return new OutgoingRequestsList(clonedRequests);
 	}
 }

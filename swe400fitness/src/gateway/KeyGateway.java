@@ -87,14 +87,14 @@ public class KeyGateway extends Gateway
 		}
 		catch (SQLException e)
 		{
-			try
-			{
-				conn.getConnection().rollback();
-			}
-			catch (SQLException e1)
-			{
-				e1.printStackTrace();
-			}
+//			try
+//			{
+//				conn.getConnection().rollback();
+//			}
+//			catch (SQLException e1)
+//			{
+//				e1.printStackTrace();
+//			}
 		}
 		finally
 		{

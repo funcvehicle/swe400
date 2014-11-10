@@ -1,5 +1,7 @@
 package domainLogic;
 
+import mapper.PersonFinder;
+import Registry.FinderRegistry;
 import unitOfWork.UnitOfWork;
 
 /**
@@ -17,8 +19,15 @@ public class CommandToPersistChanges implements Command
 	@Override
 	public void execute()
 	{
+		PersonFinder p = FinderRegistry.personFinder();
 		UnitOfWork work = UnitOfWork.getCurrent();
 		work.commit();
+
+		if (work.getCurrentUser() != null)
+		{
+			work.setCurrentUser(p.find(work.getCurrentUser().getId()));
+			work.setRevert(p.find(work.getCurrentUser().getId()));
+		}
 	}
 
 	/**

@@ -237,8 +237,6 @@ public class Person extends DomainObject
 	 */
 	private void addOutgoingRequest(Friend friend)
 	{
-		if (outgoingRequests == null)
-			System.out.println("oh dear");
 		outgoingRequests.addOutgoingRequest(friend);
 	}
 
@@ -298,9 +296,27 @@ public class Person extends DomainObject
 	 */
 	public boolean removeFriend(Person friend)
 	{
-		Friend f = myFriends.findId(friend.getId());
-		f.markDeleted();
-		boolean mySuccess = myFriends.unFriend(f);
+		boolean mySuccess;
+		if (friend != null)
+		{
+			Friend f = myFriends.findId(friend.getId());
+			if (f != null)
+			{
+				f.markDeleted();
+				mySuccess = myFriends.unFriend(f);
+			}
+			else
+			{
+				System.err.println("Tried to unfriend non-existant friend!");
+				mySuccess = false;
+			}
+		}
+		else
+		{
+			System.err.println("Tried to unfriend non-existant friend!");
+			mySuccess = false;
+		}
+		
 		return mySuccess;
 	}
 
@@ -338,6 +354,11 @@ public class Person extends DomainObject
 	@Override
 	public Person clone()
 	{
-		return new Person(userName, displayName, password, id);
+		Person pClone = new Person(userName, displayName, password, id);
+		pClone.setFriendList(this.myFriends.clone());
+		pClone.setIncomingRequests(this.incomingRequests.clone());
+		pClone.setOutgoingRequests(this.outgoingRequests.clone());
+		
+		return pClone;
 	}
 }

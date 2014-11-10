@@ -137,7 +137,6 @@ public class UserThread implements Runnable
 					{
 						result = (Command) constructors[0].newInstance(
 								currentUserID, instructionTokens[2]);
-						System.out.println(currentUserID + " " + instructionTokens[2]);
 					} else
 					{
 						result = (Command) constructors[0].newInstance(

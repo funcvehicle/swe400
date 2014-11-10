@@ -20,6 +20,11 @@ public class IncomingRequestsList extends DomainObject
 		incomingRequestsList = new ArrayList<Friend>();
 	}
 	
+	public IncomingRequestsList(ArrayList<Friend> f)
+	{
+		incomingRequestsList = f;
+	}
+	
 	/**
 	 * Returns a toString list of
 	 * all Friend objects in the incomingRequestsList
@@ -91,5 +96,11 @@ public class IncomingRequestsList extends DomainObject
 			}
 		}
 		return false;
+	}
+	
+	public IncomingRequestsList clone()
+	{
+		ArrayList<Friend> clonedRequests = (ArrayList<Friend>) incomingRequestsList.clone();
+		return new IncomingRequestsList(clonedRequests);
 	}
 }

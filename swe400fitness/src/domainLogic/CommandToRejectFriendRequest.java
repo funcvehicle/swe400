@@ -1,5 +1,6 @@
 package domainLogic;
 
+import unitOfWork.UnitOfWork;
 import Registry.FinderRegistry;
 import domainModel.Friend;
 import domainModel.IncomingRequestsList;
@@ -39,7 +40,7 @@ public class CommandToRejectFriendRequest implements Command
 	{
 		PersonFinder pfinder = FinderRegistry.personFinder();
 
-		Person requestee = pfinder.find(userIDOfRequestee);
+		Person requestee = UnitOfWork.getCurrent().getCurrentUser();
 		Person requester = pfinder.find(userNameOfRequester);
 		IncomingRequestsList myList = requestee.getIncomingRequests();
 		

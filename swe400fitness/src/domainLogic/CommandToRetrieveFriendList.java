@@ -1,5 +1,6 @@
 package domainLogic;
 
+import unitOfWork.UnitOfWork;
 import Registry.FinderRegistry;
 import mapper.PersonFinder;
 import domainModel.FriendList;
@@ -34,8 +35,8 @@ public class CommandToRetrieveFriendList implements Command
 	@Override
 	public void execute()
 	{
-		PersonFinder pfinder = FinderRegistry.personFinder();
-		Person person = pfinder.find(userID);
+//		PersonFinder pfinder = FinderRegistry.personFinder();
+		Person person = UnitOfWork.getCurrent().getCurrentUser();
 		
 		friends = person.getFriendList();
 	}
